@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Burak</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -247,7 +251,8 @@ input.thr{width:80px;border:1px solid var(--line);border-radius:6px;padding:5px 
 .hs.ok .chain{font-size:13px;color:var(--muted)}
 .tabhint{font-size:12.5px;color:var(--muted);margin-top:-8px}
 </style>
-
+</head>
+<body>
 <div class="app">
   <aside class="side" id="side"></aside>
   <div class="main">
@@ -746,3 +751,5 @@ document.addEventListener('input',e=>{if(e.target.id==='pq'){state.plist=e.targe
   else if(e.target.id==='cq'){state.cq=e.target.value;render();const q=$('cq');q.focus();q.setSelectionRange(q.value.length,q.value.length);}});
 render();
 </script>
+</body>
+</html>
