@@ -1,0 +1,748 @@
+<title>Burak</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: mirrors the existing Burakomics product (light, cyan rail, teal active tabs, white cards). Oncology lives inside the same 7-stage pipeline. Single light theme by design, matching the product. */
+:root{
+  --side:#8fe3ea; --side-ink:#0c3a3f; --side-dim:#2b6a70; --side-hi:#b9eff3;
+  --bg:#f3fafb; --card:#ffffff; --line:#dbe9eb; --fg:#13282b; --muted:#647b7e;
+  --teal:#5ed3c5; --teal-ink:#0b5b54; --cyan:#22c3d6;
+  --bad:#e0383e; --bad-bg:#fdecee; --bad-line:#f2a6ab;
+  --warn:#b07d00; --warn-bg:#fff7d6; --warn-line:#efd36c; --amber:#f59e0b;
+  --ok:#1a9a52; --ok-bg:#e5f7ec; --ok-line:#8fdcae;
+  --blue:#1d64d8; --blue-bg:#e8f0fe; --green:#2e7d32;
+  --rep1:#0f9d8f; --rep2:#0b78c8;
+  --f-ui:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-ui);font-size:14px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,select,input{font-family:var(--f-ui)}
+.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh}
+.side{background:var(--side);color:var(--side-ink);padding-block:14px 16px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:12px;display:flex;flex-direction:column;gap:16px}
+.brand b{display:block;font-size:17px;font-weight:700}
+.brand span{font-size:12px;color:var(--side-dim)}
+.navgrp{display:flex;flex-direction:column;gap:1px}
+.navgrp h4{margin:0 0 4px;font-size:11.5px;letter-spacing:.14em;font-weight:500;color:var(--side-dim)}
+.nav{all:unset;cursor:pointer;padding:8px 6px;border-radius:8px;font-weight:600;font-size:13px;display:flex;gap:10px;align-items:center}
+.nav svg{width:16px;height:16px;flex:none}
+.nav:hover{background:var(--side-hi)}
+.nav[aria-current="page"]{background:var(--card)}
+.nav:focus-visible{outline:2px solid var(--side-ink)}
+.nav .cnt{margin-left:auto;font-size:10.5px;background:var(--bad);color:#fff;border-radius:999px;padding:0 6px;line-height:17px}
+.me{margin-top:auto;display:flex;gap:8px;align-items:center;border-top:1px solid rgba(12,58,63,.15);padding-top:12px;font-size:13px}
+.me i{width:28px;height:28px;border-radius:50%;background:#0f6f66;color:#fff;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700}
+.me small{display:block;color:var(--side-dim);font-size:11px}
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding-block:12px;padding-left:24px;padding-right:max(24px,env(safe-area-inset-right,0px));background:var(--card);border-bottom:1px solid var(--line)}
+.topbar h1{margin:0;font-size:20px;font-weight:600}
+.topbar p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.ubtn{border:0;background:var(--cyan);color:#06363b;font-weight:700;font-size:13px;padding:9px 16px;border-radius:8px;cursor:default}
+.content{padding-block:20px 48px;padding-left:24px;padding-right:max(24px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.eb{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.small{font-size:12px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--line);background:var(--card);white-space:nowrap}
+.chip.blue{background:var(--blue-bg);border-color:#c9dafb;color:var(--blue)}
+.chip.bad{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)}
+.chip.warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn)}
+.chip.ok{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok)}
+.chip.new{background:#efe9ff;border-color:#d4c6fb;color:#5b3fc4}
+.vp{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11.5px;letter-spacing:.05em;padding:3px 10px;border-radius:999px}
+.vp::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.vp.HOLD{background:var(--bad-bg);color:var(--bad)} .vp.REVIEW{background:var(--warn-bg);color:var(--warn)} .vp.GO{background:var(--ok-bg);color:var(--ok)}
+select.sel,input.sel{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--fg);min-width:0}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--fg);font-weight:600;font-size:13px;padding:8px 14px;border-radius:8px;cursor:pointer}
+.btn:focus-visible,.tab:focus-visible,.ctab:focus-visible,select:focus-visible,input:focus-visible,.rowlink:focus-visible,.subtabs button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:600;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.rowlink{cursor:pointer} tr.rowlink:hover td{background:#f4fbfc}
+.ahead{display:flex;gap:10px;flex-wrap:wrap}
+.ahead .grow{flex:1 1 320px}
+.tabbar{display:flex;gap:6px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px;overflow-x:auto}
+.tab{flex:1 0 auto;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;white-space:nowrap;color:var(--fg)}
+.tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);font-weight:600}
+.cards4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.seg{display:flex;gap:10px;align-items:flex-start}
+.seg .code{width:38px;height:38px;border-radius:8px;background:#f59e0b;color:#fff;font-weight:800;display:grid;place-items:center;flex:none}
+.big{font-size:17px;font-weight:700}
+.bigger{font-size:20px;font-weight:700}
+.risk{border-color:var(--bad-line)!important}
+.force{background:var(--bad-bg);border:1px solid var(--bad-line);color:var(--bad);font-size:11px;font-weight:600;border-radius:6px;padding:5px 9px;margin-bottom:8px}
+.blist{margin:4px 0 0;padding-left:14px;font-size:11.5px;color:var(--blue)}
+.onco{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;border-radius:10px;padding:12px 16px;border:1px solid}
+.onco.HOLD{background:var(--bad-bg);border-color:var(--bad-line)} .onco.REVIEW{background:var(--warn-bg);border-color:var(--warn-line)} .onco.GO{background:var(--ok-bg);border-color:var(--ok-line)}
+.onco .w{font-size:26px;font-weight:800;letter-spacing:.03em}
+.onco.HOLD .w{color:var(--bad)} .onco.REVIEW .w{color:var(--warn)} .onco.GO .w{color:var(--ok)}
+.onco b{font-size:14px}
+.alerts{background:#f6eef0;border:1px solid var(--bad-line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.alerts h3{margin:0;font-size:12.5px;letter-spacing:.04em;color:var(--bad)}
+.alerts .a{background:var(--card);border:1px solid #f3c7cb;border-radius:8px;padding:7px 12px;font-weight:500;font-size:13px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.alerts .a span.s{font-size:10.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.mp-top{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.mp-top b{font-size:13px;letter-spacing:.04em}
+.mrow td:first-child{border-left:4px solid transparent}
+.mrow.hi td:first-child{border-left-color:#f97316} .mrow.lo td:first-child{border-left-color:#3b82f6} .mrow.okr td:first-child{border-left-color:#22c55e}
+.mk{display:flex;align-items:center;gap:8px;font-weight:700}
+.mk i{width:7px;height:7px;border-radius:50%;background:#f97316}
+.mrow.lo .mk i{background:#3b82f6} .mrow.okr .mk i{background:#22c55e}
+.rng{font-size:12.5px}
+.rng .bar{position:relative;width:140px;height:4px;border-radius:2px;background:#eef3f4;margin-top:6px}
+.rng .bar b{position:absolute;top:0;bottom:0;background:#bfe9df;border-radius:2px}
+.rng .bar i{position:absolute;top:-2px;width:7px;height:7px;border-radius:50%;background:#f97316;transform:translateX(-50%)}
+.mrow.lo .rng .bar i{background:#3b82f6} .mrow.okr .rng .bar i{background:#22c55e}
+.scdi{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#fff7e6;border:1px solid #f6d48a;color:#9a6700}
+.cl{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+.cl.HIGH_BAD{background:var(--bad-bg);color:var(--bad);border:1px solid var(--bad-line)} .cl.LOW_BAD{background:var(--blue-bg);color:var(--blue);border:1px solid #c9dafb} .cl.OPTIMAL{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-line)}
+.dv{display:inline-flex;flex-direction:column;align-items:center;min-width:64px;padding:6px 10px;border-radius:8px;border:1px solid;font-weight:700;font-size:14px}
+.dv small{font-size:9px;letter-spacing:.06em;font-weight:600}
+.dv.hi{color:var(--bad);border-color:#f6c6a0;background:#fff8f2} .dv.lo{color:var(--blue);border-color:#c9dafb;background:#f5f8ff} .dv.ok{color:var(--ok);border-color:var(--ok-line);background:#f6fdf8}
+.ctabs{display:flex;gap:6px;padding:12px;border-top:1px solid var(--line);overflow-x:auto}
+.ctab{flex:1 0 96px;border:1px solid var(--line);background:var(--card);color:var(--blue);font-weight:700;font-size:11.5px;letter-spacing:.04em;padding:8px;border-radius:6px;cursor:pointer;text-align:center}
+.ctab[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.ctab small{display:block;font-size:9px;letter-spacing:.06em}
+.icards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 12px;padding-top:8px}
+.icard{border:1.5px solid;border-radius:10px;padding:18px 14px 12px;position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:8px;background:var(--card)}
+.icard.bad{border-color:var(--bad)} .icard.ok{border-color:var(--ok)}
+.icard .t{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:2px 10px;border-radius:6px;border:1px solid;white-space:nowrap}
+.icard.bad .t{color:var(--bad);border-color:var(--bad);background:var(--bad-bg)} .icard.ok .t{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.icard .v{font-size:28px;font-weight:600;font-variant-numeric:tabular-nums}
+.icard.bad .v{color:var(--bad)} .icard.ok .v{color:var(--ok)}
+.icard .v small{font-size:11px;color:var(--fg);margin-left:4px}
+.subtabs{display:flex;gap:4px;border:1px solid var(--line);border-radius:8px;padding:3px;max-width:100%;overflow-x:auto}
+.subtabs button{border:0;background:transparent;font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 10px;border-radius:6px;cursor:pointer;color:var(--fg);white-space:nowrap}
+.subtabs button[aria-pressed="true"]{background:#0b78c8;color:#fff}
+.vg{font-weight:700} .vg.ok{color:#16a34a} .vg.bad{color:var(--bad)}
+.score{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.ring{width:96px;height:96px;border-radius:50%;border:4px solid;display:grid;place-items:center;text-align:center}
+.ring b{font-size:24px;display:block;line-height:1}
+.ring.bad{border-color:var(--bad);color:var(--bad)} .ring.warn{border-color:var(--amber);color:var(--warn)} .ring.ok{border-color:var(--ok);color:var(--ok)}
+.composite{background:#eef4ff;border:1px solid #cfe0fb;border-radius:10px;padding:12px 16px;color:var(--blue)}
+.composite b{display:block;margin-bottom:4px}
+.cidx{border:1.5px solid;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;background:var(--card)}
+.cidx.ok{border-color:#22c55e} .cidx.warn{border-color:#eab308} .cidx.bad{border-color:var(--bad)}
+.cidx .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cidx .num{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.cidx.ok .num{color:#16a34a} .cidx.warn .num{color:#a16207} .cidx.bad .num{color:var(--bad)}
+.badge{font-size:10px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.badge.ok{background:#22c55e} .badge.warn{background:#ca8a04} .badge.bad{background:var(--bad)}
+.grad{position:relative;height:6px;border-radius:3px;background:linear-gradient(90deg,#22c55e,#eab308 50%,#ef4444)}
+.grad i{position:absolute;top:-3px;width:2px;height:12px;background:var(--fg);transform:translateX(-50%)}
+.formula{font-size:11.5px;color:var(--muted)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.sechead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.sechead h2{margin:0;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+.sent{border:1.5px solid var(--bad);border-radius:10px;padding:40px 16px 16px;position:relative;display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;background:var(--card)}
+.sent.ok{border-color:var(--ok)} .sent.warn{border-color:var(--amber)}
+.sent .lab{position:absolute;top:-1px;left:-1px;font-size:12px;font-weight:700;letter-spacing:.04em;padding:6px 14px;border:1.5px solid var(--bad);border-radius:10px 0 10px 0;background:var(--bad-bg);display:flex;gap:6px;align-items:center}
+.sent.ok .lab{border-color:var(--ok);background:var(--ok-bg)} .sent.warn .lab{border-color:var(--amber);background:var(--warn-bg)}
+.sbox{border:1.5px solid var(--bad);background:var(--bad-bg);border-radius:10px;padding:14px 8px;text-align:center;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;display:flex;flex-direction:column;gap:6px;justify-content:center;align-self:start}
+.sbox b{color:var(--bad);font-size:11px}
+.sent.ok .sbox{border-color:var(--ok);background:var(--ok-bg)} .sent.ok .sbox b{color:var(--ok)}
+.sent.warn .sbox{border-color:var(--amber);background:var(--warn-bg)} .sent.warn .sbox b{color:var(--warn)}
+.srows{display:flex;flex-direction:column;gap:10px;min-width:0}
+.srow{border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.srow .mname{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;margin-bottom:6px}
+.srow .d{font-size:12.5px;color:#3b5154}
+.svb{border:1.5px solid;border-radius:8px;padding:8px 14px;font-weight:700;font-size:15px;min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
+.svb small{font-size:11px;font-weight:500;margin-left:3px}
+.svb.bad{color:var(--bad);border-color:var(--bad);background:var(--bad-bg)} .svb.ok{color:#16a34a;border-color:#22c55e;background:var(--ok-bg)} .svb.na{color:var(--bad);border-color:var(--bad);background:var(--bad-bg)}
+.grouphead{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.coh{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1.5px solid;border-radius:10px;padding:14px 16px;flex-wrap:wrap}
+.coh.hi{background:#fde4e7;border-color:#f06b75} .coh.md{background:#fdf9cf;border-color:#f3e14a} .coh.lo{background:var(--card);border-color:var(--line)}
+.coh .nm{display:inline-block;font-weight:800;font-size:12.5px;letter-spacing:.03em;padding:5px 10px;border-radius:999px;color:#fff;background:var(--bad);margin-right:8px}
+.coh.md .nm{background:#f5e03b;color:#4a3d00} .coh.lo .nm{background:#e8eef0;color:var(--fg)}
+.coh .mk2{font-size:11px;color:var(--muted);background:rgba(255,255,255,.7);border-radius:999px;padding:3px 8px}
+.coh .pct{text-align:right;font-weight:700;font-size:12px}
+.coh.hi .pct{color:var(--bad)} .coh.md .pct{color:#8a6d00}
+.rb{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:999px;margin-top:3px}
+.rb.hi{background:var(--bad);color:#fff} .rb.md{background:#f5e03b;color:#4a3d00} .rb.lo{background:#e8eef0;color:var(--fg)}
+.hs{border:1.5px solid;border-radius:10px;padding:26px 14px 18px;position:relative;margin-top:14px;text-align:center;background:var(--card)}
+.hs.bad{border-color:#ef4444} .hs.warn{border-color:#facc15} .hs.ok{border-color:#22c55e}
+.hs .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:11.5px;font-weight:700;letter-spacing:.04em;padding:5px 16px;border-radius:999px;border:1.5px solid;white-space:nowrap;max-width:94%;overflow:hidden;text-overflow:ellipsis}
+.hs.bad .tag{background:#fca5a5;border-color:#ef4444;color:#7f1d1d} .hs.warn .tag{background:#fde68a;border-color:#facc15;color:#713f12} .hs.ok .tag{background:#4ade80;border-color:#22c55e;color:#064e3b}
+.chain{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;font-weight:500}
+.chain .ar{color:var(--blue);font-size:18px}
+.chain .n span.ok{color:#16a34a} .chain .n span.bad{color:var(--bad)} .chain .n span.na{color:var(--muted)}
+.hs p{margin:10px auto 0;color:var(--muted);font-size:12px;max-width:70ch}
+svg.ch{width:100%;height:auto;display:block}
+.ch .gl{stroke:#eaf1f2} .ch .cy{stroke:#dbe9eb;stroke-dasharray:3 4}
+.ch .ax{fill:var(--muted);font:500 10.5px var(--f-ui)}
+.ch .ln{fill:none;stroke:#0f9d8f;stroke-width:2.2;stroke-linejoin:round}
+.ch .ar{fill:rgba(15,157,143,.1)} .ch .pt{fill:#0f9d8f} .ch .nd{fill:#fff;stroke:#0f9d8f;stroke-width:2}
+.ch .th{stroke:var(--bad);stroke-width:1.3;stroke-dasharray:6 4} .ch .tht{fill:var(--bad);font:600 10px var(--f-ui)}
+.ch .band{fill:rgba(34,197,94,.08)}
+.ch .lv{fill:var(--fg);font:700 12px var(--f-ui)}
+.up{color:var(--bad);font-weight:700} .down{color:var(--blue);font-weight:700} .flat{color:var(--muted);font-weight:700}
+.rep{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--card);padding-bottom:4px}
+.rephd{background:linear-gradient(100deg,var(--rep1),var(--rep2));color:#fff;padding:20px 24px}
+.rephd h2{margin:0;font-size:19px;letter-spacing:.01em}
+.rephd .p{font-size:12.5px;opacity:.9;margin-top:4px}
+.rephd .chips .chip{background:rgba(255,255,255,.18);border-color:transparent;color:#fff}
+.rsec{margin:16px 20px;border:1.5px solid;border-radius:10px;overflow:hidden}
+.rsec h3{margin:0;padding:10px 14px;color:#fff;font-size:12.5px;letter-spacing:.06em}
+.rsec .b{padding:12px 14px;font-size:13px}
+.rsec.s1{border-color:#38bdf8} .rsec.s1 h3{background:#0ea5e9}
+.rsec.s2{border-color:#34d399} .rsec.s2 h3{background:#10b981}
+.rsec.s3{border-color:#fb923c} .rsec.s3 h3{background:#f97316}
+.rsec.s4{border-color:#f87171} .rsec.s4 h3{background:#ef4444}
+.rsec.s5{border-color:#a78bfa} .rsec.s5 h3{background:#8b5cf6}
+.rsec.s6{border-color:#2dd4bf} .rsec.s6 h3{background:#14b8a6}
+.rsec.s7{border-color:#0f766e} .rsec.s7 h3{background:#0f766e}
+.rsec table th{background:#0f9d8f;color:#fff}
+.hl{color:var(--blue);font-weight:600}
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi .n{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.vbox{border-radius:10px;padding:14px 16px;border:1px solid}
+.vbox.HOLD{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)} .vbox.REVIEW{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn)} .vbox.GO{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok)}
+.vbox .n{font-size:30px;font-weight:800}
+.vbox span{color:var(--fg);font-size:12px}
+.hbar{display:flex;align-items:center;gap:10px;font-size:12.5px}
+.hbar .t{width:90px;flex:none}
+.hbar .tr{flex:1;height:10px;background:#eef3f4;border-radius:5px;overflow:hidden}
+.hbar .tr b{display:block;height:100%}
+.cfg{display:flex;gap:16px;flex-wrap:wrap;background:var(--card);border:1px dashed var(--cyan);border-radius:10px;padding:12px 16px}
+.cfg label{display:flex;gap:6px;align-items:center;font-size:13px;cursor:pointer}
+input.thr{width:80px;border:1px solid var(--line);border-radius:6px;padding:5px 8px;font-weight:600;font-size:13px}
+.placeholder{padding:40px 20px;text-align:center;color:var(--muted)}
+@media (max-width:1100px){.cards4,.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}.icards,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:820px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));flex-direction:row;flex-wrap:wrap;gap:8px 16px}
+  .navgrp{flex-direction:row;flex-wrap:wrap}.navgrp h4,.me{display:none}
+  .topbar,.content{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .g2,.g3,.icards,.sent,.onco{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){.cards4,.kpi{grid-template-columns:minmax(0,1fr)}}
+/* ---- low-noise layer ---- */
+.mrow.okr td{color:var(--muted)}
+.mrow.okr td:first-child{border-left-color:transparent}
+.mrow.okr .mk{color:var(--fg);font-weight:600}
+.mrow.okr .mk i{background:#cbd5d7}
+.mrow.okr .rng .bar i{background:#9ab3b6}
+.mrow.okr .scdi{background:transparent;border-color:transparent;color:var(--muted);font-weight:500}
+.dv.ok{border-color:transparent;background:transparent;color:var(--fg);font-weight:600}
+.dv.ok small{color:var(--muted)}
+.mrow.hi td,.mrow.lo td{background:#fffdfb}
+.seg-ctl{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:2px;gap:2px}
+.seg-ctl button{border:0;background:transparent;font-size:12px;font-weight:600;padding:5px 10px;border-radius:6px;cursor:pointer;color:var(--muted)}
+.seg-ctl button[aria-pressed="true"]{background:var(--fg);color:#fff}
+.seg-ctl button:focus-visible,.linkbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.linkbtn{all:unset;cursor:pointer;color:var(--blue);font-weight:600;font-size:12.5px}
+.clearlist{display:flex;flex-wrap:wrap;gap:8px}
+.clearlist .chip{padding:4px 10px;font-size:11.5px}
+.onco .passed{font-size:12px;color:var(--muted);text-align:right}
+.srow .st{font-size:10.5px;font-weight:700;letter-spacing:.05em;margin-left:8px}
+.srow .st.met{color:var(--bad)} .srow .st.ok{color:var(--ok)}
+.hs.ok{padding:20px 14px 12px}
+.hs.ok .chain{font-size:13px;color:var(--muted)}
+.tabhint{font-size:12.5px;color:var(--muted);margin-top:-8px}
+</style>
+
+<div class="app">
+  <aside class="side" id="side"></aside>
+  <div class="main">
+    <header class="topbar"><div><h1 id="ttl"></h1><p id="sub"></p></div><button class="ubtn" tabindex="-1">Users Details ▾</button></header>
+    <div class="content" id="view"></div>
+  </div>
+</div>
+
+<script>
+/* ======================= MARKER REGISTRY (existing biological lines + oncology) ======================= */
+const CATS=[['SUGAR','Sugar'],['FIRE','Fire'],['LIVER','Liver'],['CARDIAC','Cardiac'],['NUTRIENT','Nutrient'],['CBC','CBC'],['GUT','Gut'],['KIDNEY','Kidney'],['ONCO','Oncology']];
+const M={
+ GLU:{n:'GLU',full:'Glucose',u:'mg/dL',lo:70,hi:126,c:'SUGAR'},
+ A1C:{n:'A1C',full:'HbA1c',u:'%',lo:4,hi:6.5,c:'SUGAR'},
+ INS:{n:'INS',full:'Insulin',u:'µIU/mL',lo:2,hi:25,c:'SUGAR'},
+ HOMA:{n:'HOMA-IR',full:'HOMA-IR',u:'index',lo:0,hi:2.5,c:'SUGAR',d:1},
+ TRIG:{n:'TRIG',full:'Triglycerides',u:'mg/dL',lo:0,hi:150,c:'SUGAR'},
+ HDL:{n:'HDL',full:'HDL cholesterol',u:'mg/dL',lo:40,hi:100,c:'SUGAR'},
+ CRP:{n:'CRP',full:'C-Reactive Protein',u:'mg/L',lo:0,hi:1,c:'FIRE'},
+ IL6:{n:'IL-6',full:'IL-6',u:'pg/mL',lo:0,hi:5,c:'FIRE'},
+ TNF:{n:'TNF-α',full:'TNF-alpha',u:'pg/mL',lo:0,hi:8,c:'FIRE'},
+ FERR:{n:'FERRITIN',full:'Ferritin',u:'ng/mL',lo:0,hi:200,c:'FIRE'},
+ HCY:{n:'HCY',full:'Homocysteine',u:'µmol/L',lo:0,hi:10,c:'FIRE'},
+ ALT:{n:'ALT',full:'ALT',u:'U/L',lo:7,hi:56,c:'LIVER'},
+ AST:{n:'AST',full:'AST',u:'U/L',lo:10,hi:40,c:'LIVER'},
+ GGT:{n:'GGT',full:'GGT',u:'U/L',lo:9,hi:48,c:'LIVER'},
+ ALP:{n:'ALP',full:'Alkaline phosphatase',u:'U/L',lo:44,hi:147,c:'LIVER'},
+ BILI:{n:'BILI',full:'Total bilirubin',u:'mg/dL',lo:0.1,hi:1.2,c:'LIVER'},
+ ALB:{n:'ALB',full:'Albumin',u:'g/dL',lo:3.5,hi:5,c:'LIVER'},
+ LDL:{n:'LDL',full:'LDL cholesterol',u:'mg/dL',lo:0,hi:100,c:'CARDIAC'},
+ APOB:{n:'APOB',full:'Apolipoprotein B',u:'mg/dL',lo:40,hi:100,c:'CARDIAC'},
+ LPA:{n:'LP(A)',full:'Lipoprotein(a)',u:'mg/dL',lo:0,hi:30,c:'CARDIAC'},
+ TC:{n:'TC',full:'Total cholesterol',u:'mg/dL',lo:0,hi:200,c:'CARDIAC'},
+ VITD:{n:'VIT D',full:'Vitamin D',u:'ng/mL',lo:30,hi:100,c:'NUTRIENT'},
+ B12:{n:'B12',full:'Vitamin B12',u:'pg/mL',lo:200,hi:900,c:'NUTRIENT'},
+ FOL:{n:'FOLATE',full:'Folate',u:'ng/mL',lo:3,hi:20,c:'NUTRIENT'},
+ FE:{n:'IRON',full:'Serum iron',u:'µg/dL',lo:60,hi:170,c:'NUTRIENT'},
+ MG:{n:'MG',full:'Magnesium',u:'mg/dL',lo:1.7,hi:2.2,c:'NUTRIENT'},
+ WBC:{n:'WBC',full:'White Blood Cells',u:'10^9/L',lo:4,hi:7.5,c:'CBC'},
+ NEUTP:{n:'NEUT %',full:'Neutrophils',u:'%',lo:40,hi:55,c:'CBC',d:1},
+ LYMPHP:{n:'LYMPH %',full:'Lymphocytes',u:'%',lo:20,hi:30,c:'CBC',d:1},
+ ANC:{n:'ANC',full:'Absolute neutrophils',u:'10^9/L',lo:2,hi:7.5,c:'CBC',nw:1},
+ ALC:{n:'ALC',full:'Absolute lymphocytes',u:'10^9/L',lo:1,hi:3,c:'CBC',nw:1},
+ HB:{n:'HB',full:'Haemoglobin',u:'g/dL',lo:12,hi:16,c:'CBC'},
+ PLT:{n:'PLT',full:'Platelets',u:'10^9/L',lo:150,hi:275,c:'CBC'},
+ ZON:{n:'ZON',full:'Zonulin',u:'ng/mL',lo:0,hi:107,c:'GUT'},
+ CALP:{n:'PROT',full:'Calprotectin',u:'µg/g',lo:0,hi:50,c:'GUT'},
+ CREA:{n:'CREA',full:'Creatinine',u:'mg/dL',lo:0.6,hi:1.2,c:'KIDNEY'},
+ EGFR:{n:'EGFR',full:'eGFR (CKD-EPI 2021)',u:'mL/min',lo:60,hi:null,c:'KIDNEY',d:1},
+ UACR:{n:'UACR',full:'Urine albumin/creatinine',u:'mg/g',lo:0,hi:30,c:'KIDNEY'},
+ K:{n:'K',full:'Potassium',u:'mmol/L',lo:3.5,hi:5.1,c:'KIDNEY'},
+ PHOS:{n:'PHOS',full:'Phosphate',u:'mg/dL',lo:2.5,hi:4.5,c:'KIDNEY',nw:1},
+ UA:{n:'UA',full:'Uric acid',u:'mg/dL',lo:3.5,hi:7.2,c:'KIDNEY',nw:1},
+ CA:{n:'CA',full:'Calcium',u:'mg/dL',lo:8.5,hi:10.5,c:'KIDNEY'},
+ CEA:{n:'CEA',full:'Carcinoembryonic antigen',u:'ng/mL',lo:0,hi:5,c:'ONCO',nw:1},
+ CA153:{n:'CA 15-3',full:'CA 15-3',u:'U/mL',lo:0,hi:30,c:'ONCO',nw:1},
+ CA199:{n:'CA 19-9',full:'CA 19-9',u:'U/mL',lo:0,hi:37,c:'ONCO',nw:1},
+ CA125:{n:'CA-125',full:'CA-125',u:'U/mL',lo:0,hi:35,c:'ONCO',nw:1},
+ LDH:{n:'LDH',full:'Lactate dehydrogenase',u:'U/L',lo:140,hi:280,c:'ONCO',nw:1}
+};
+const R={
+ NLR:{n:'NLR (Neutrophil-Lymphocyte)',u:'ratio',hi:3,f:'NLR = ANC ÷ ALC',why:'Cardiovascular risk, infection burden, systemic inflammation'},
+ PLR:{n:'PLR (Platelet-Lymphocyte)',u:'ratio',hi:150,f:'PLR = PLT ÷ ALC',why:'Thrombo-inflammatory risk, severity markers'},
+ SII:{n:'SII (Systemic Immune-Inflammation)',u:'index',hi:500,f:'SII = (PLT × ANC) ÷ ALC',why:'Combined innate immune and inflammatory load'},
+ CAR:{n:'CAR (CRP/Albumin)',u:'ratio',hi:0.3,f:'CAR = CRP ÷ albumin (g/L)',why:'Inflammation relative to nutritional protein'},
+ ASTALT:{n:'AST/ALT',u:'ratio',hi:1.5,f:'AST ÷ ALT',why:'De Ritis ratio'},
+ MGPS:{n:'mGPS (Modified Glasgow Prognostic Score)',u:'score',hi:0,f:'mGPS = CRP ≤10 → 0 · CRP >10 & Alb ≥3.5 → 1 · else 2',why:'Cancer prognosis: inflammation with low albumin'},
+ PNI:{n:'PNI (Prognostic Nutritional Index)',u:'index',lo:45,f:'PNI = 10 × Alb + 0.005 × lymphocytes/mm³',why:'Nutrition and immune reserve before and during chemo'}
+};
+const meta=k=>M[k]||R[k];
+
+/* ======================= RULES (existing Burak + oncology additions) ======================= */
+const SENT=[
+ {id:'RENAL',n:'RENAL SENTINEL',st:'RENAL STRESS',an:'KIDNEY FUNCTION ANALYSIS',w:'Renal',checks:[['CREA','>',1.2],['EGFR','<',60],['UACR','>',30]]},
+ {id:'META',n:'METABOLIC SENTINEL',st:'METABOLIC STRESS',an:'GLYCEMIC CONTROL ANALYSIS',w:'Metabolic',checks:[['HOMA','>',2.5],['A1C','>',6.5],['GLU','>',126]]},
+ {id:'LIVER',n:'LIVER SENTINEL',st:'NAFLD RISK',an:'HEPATIC STEATOSIS ANALYSIS',w:'Hepatic',checks:[['ALT','>',56],['AST','>',40],['TRIG','>',150]]},
+ {id:'CARD',n:'CARDIOVASCULAR SENTINEL',st:'ATHEROGENIC RISK',an:'LIPID PARTICLE ANALYSIS',w:'Cardiac',checks:[['LDL','>',100],['APOB','>',100],['LPA','>',30]]},
+ {id:'INFL',n:'INFLAMMATION SENTINEL',st:'SYSTEMIC INFLAMMATION',an:'INFLAMMATORY LOAD ANALYSIS',w:'Inflammatory',checks:[['CRP','>',3],['FERR','>',200],['IL6','>',5]]},
+ {id:'MYELO',onc:1,n:'MYELOSUPPRESSION SENTINEL',st:'MARROW SUPPRESSION',an:'POST-CHEMO MARROW ANALYSIS',w:'Marrow',checks:[['ANC','<',1.5],['PLT','<',100],['HB','<',10]],hard:[['ANC','<',1.0,'Severe neutropenia — ANC below 1.0']]},
+ {id:'NEPH',onc:1,n:'NEPHRO-ELECTROLYTE SENTINEL',st:'NEPHROTOXIC PATTERN',an:'PLATINUM TOXICITY ANALYSIS',w:'Nephro',checks:[['CREA','rise%',30],['MG','<',1.5],['K','<',3.5]]},
+ {id:'TLS',onc:1,n:'TUMOUR LYSIS SENTINEL',st:'TUMOUR LYSIS RISK',an:'CAIRO–BISHOP LAB ANALYSIS',w:'Lysis',checks:[['UA','>=',8],['K','>=',6],['PHOS','>=',4.5],['CA','<=',7]]},
+ {id:'HOST',onc:1,n:'HOST RESERVE SENTINEL',st:'CACHEXIA RISK',an:'NUTRITION & RESERVE ANALYSIS',w:'Reserve',checks:[['ALB','<',3.5],['CRP','>',10],['PNI','<',45]]},
+ {id:'TUMR',onc:1,n:'TUMOUR ACTIVITY SENTINEL',st:'PROGRESSION SIGNAL',an:'TUMOUR MARKER ANALYSIS',w:'Tumour',checks:[['PRIMARY','riseNadir%',25],['LDH','>xULN',1],['ALP','>xULN',1]]}
+];
+const COH=[
+ {n:'NON-ALCOHOLIC FATTY LIVER DISEASE',mk:'ALT · AST · Triglycerides',checks:[['ALT','>',56],['AST','>',40],['TRIG','>',150]]},
+ {n:'INFLAMMATORY BOWEL PATTERN',mk:'CRP · Ferritin · Calprotectin',checks:[['CRP','>',3],['FERR','>',200],['CALP','>',50]]},
+ {n:'METABOLIC OBESITY PATTERN',mk:'Triglycerides · HDL · HOMA-IR',checks:[['TRIG','>',150],['HDL','<',40],['HOMA','>',2.5]]},
+ {n:'KIDNEY FUNCTION DECLINE',mk:'eGFR · Creatinine · UACR',checks:[['EGFR','<',60],['CREA','>',1.2],['UACR','>',30]]},
+ {n:'THYROID & STRESS PATTERN',mk:'Ferritin · CRP · Homocysteine',checks:[['FERR','>',200],['CRP','>',3],['HCY','>',10]]},
+ {n:'CARDIOVASCULAR RISK PATTERN',mk:'ApoB · Lp(a) · LDL',checks:[['APOB','>',100],['LPA','>',30],['LDL','>',100]]},
+ {onc:1,n:'CHEMO-INDUCED MYELOSUPPRESSION',mk:'ANC · WBC · Hb · PLT · nadir trend',checks:[['ANC','<',1.5],['WBC','<',4],['HB','<',11],['PLT','<',150],['ANC','deepen',20]]},
+ {onc:1,n:'BIOCHEMICAL RESPONSE',mk:'Tumour marker · LDH · Albumin',checks:[['PRIMARY','fall%',50],['LDH','<=xULN',1],['ALB','>=',3.5]]},
+ {onc:1,n:'BIOCHEMICAL PROGRESSION',mk:'Tumour markers · LDH · ALP',checks:[['PRIMARY','riseNadir%',25],['SECONDARY','riseNadir%',25],['LDH','>xULN',1],['ALP','>xULN',1]]},
+ {onc:1,app:'platinum',n:'PLATINUM NEPHROTOXICITY',mk:'Creatinine · eGFR · Mg · K',checks:[['CREA','rise%',30],['EGFR','<',60],['MG','<',1.7],['K','<',3.5]]},
+ {onc:1,n:'CANCER CACHEXIA & INFLAMMATION',mk:'CRP · Albumin · NLR · PNI · mGPS',checks:[['CRP','>',10],['ALB','<',3.5],['NLR','>',3],['PNI','<',45],['MGPS','>=',2]]},
+ {onc:1,n:'TUMOUR LYSIS RISK',mk:'Uric acid · Phosphate · K · LDH',checks:[['UA','>=',8],['PHOS','>=',4.5],['K','>=',6],['LDH','>xULN',2]]},
+ {onc:1,app:'radiotherapy',n:'RADIATION LYMPHOPENIA',mk:'ALC · NLR',checks:[['ALC','<',1.0],['ALC','fall%',50],['NLR','>',3]]}
+];
+const HS=[
+ {n:'METABOLIC HANDSHAKE',chain:['GLU','INS','HOMA']},
+ {n:'INFLAMMATORY HANDSHAKE',chain:['CRP','FERR','IL6']},
+ {n:'GUT INFLAMMATION HANDSHAKE',chain:['ZON','CALP','CRP']},
+ {n:'LIVER DYSFUNCTION HANDSHAKE',chain:['ALT','GGT','ASTALT']},
+ {n:'RENAL HANDSHAKE',chain:['CREA','UACR','EGFR']},
+ {n:'CARDIOVASCULAR HANDSHAKE',chain:['APOB','CRP']},
+ {onc:1,n:'TUMOUR BURDEN ↔ HOST RESERVE',chain:['PRIMARY','LDH','ALB']},
+ {onc:1,n:'MARROW RESERVE HANDSHAKE',chain:['ANC','PLT','HB']},
+ {onc:1,n:'DRUG CLEARANCE HANDSHAKE',chain:['CREA','EGFR','BILI']}
+];
+const RULES=[
+ {id:'anc',label:'ANC',m:'ANC',op:'>=',v:1.5,u:'10^9/L',hard:true},
+ {id:'plt',label:'Platelets',m:'PLT',op:'>=',v:100,u:'10^9/L',hard:true},
+ {id:'hb',label:'Haemoglobin',m:'HB',op:'>=',v:9,u:'g/dL',hard:false},
+ {id:'alt',label:'ALT',m:'ALT',op:'<=xULN',v:2.5,u:'× ULN',hard:true},
+ {id:'bili',label:'Bilirubin',m:'BILI',op:'<=xULN',v:1.5,u:'× ULN',hard:true},
+ {id:'egfr',label:'eGFR (platinum drugs)',m:'EGFR',op:'>=',v:60,u:'mL/min',hard:true,app:'platinum'}
+];
+
+/* ======================= PATIENTS ======================= */
+const TP4=[['C1 D1',0,'D'],['C1 nadir',10,'N'],['C2 D1',21,'D'],['C2 nadir',31,'N'],['C3 D1',42,'D'],['C3 nadir',52,'N'],['C4 D1',63,'D']];
+const TPR=[['R1',0,'R'],['R2',30,'R'],['R3',60,'R'],['R4',90,'R'],['R5',120,'R']];
+const P=[
+ {id:'TMC-BR-0142',sex:'F',age:52,prog:'Oncology',dx:'Breast carcinoma, HR+/HER2−',reg:'AC (doxorubicin + cyclophosphamide), 3-weekly',tags:['anthracycline'],primary:['CA153','CEA'],start:'2026-08-24',tp:TP4,s:{
+  ANC:[4.8,1.1,2.6,0.8,1.9,0.6,1.2],ALC:[1.9,1.0,1.4,0.9,1.2,0.8,1.1],WBC:[7.2,2.4,4.6,1.9,3.6,1.6,2.9],HB:[12.8,11.9,11.6,10.9,10.6,10.1,9.8],PLT:[268,182,241,151,210,132,168],
+  CA153:[86,null,61,null,44,null,33],CEA:[9.4,null,7.1,null,5.2,null,3.8],LDH:[312,null,268,null,236,null,214],
+  ALT:[28,34,31,42,38,46,44],AST:[24,30,27,36,33,39,37],BILI:[0.6,0.7,0.6,0.8,0.7,0.8,0.8],ALP:[112,110,104,101,98,97,96],
+  CREA:[0.8,0.8,0.8,0.9,0.8,0.9,0.9],K:[4.2,4.0,4.1,3.9,4.0,3.9,4.0],MG:[2.0,1.9,2.0,1.9,1.9,1.9,1.9],PHOS:[3.6,3.4,3.5,3.3,3.4,3.3,3.4],UA:[4.8,4.6,4.5,4.4,4.5,4.3,4.4],CA:[9.4,9.3,9.4,9.2,9.3,9.2,9.2],
+  CRP:[6,14,8,18,9,22,9],ALB:[4.1,3.9,4.0,3.8,3.8,3.7,3.6]},
+  ext:{GLU:96,A1C:5.6,INS:9,TRIG:132,HDL:52,LDL:118,APOB:92,LPA:18,TC:196,GGT:32,VITD:18,B12:410,FOL:8,FE:64,IL6:6.8,TNF:7.1,FERR:240,HCY:11,UACR:12},dr:{FERR:.3,IL6:.3}},
+ {id:'TMC-GI-0087',sex:'M',age:61,prog:'Oncology',dx:'Colorectal adenocarcinoma, stage IV (liver metastases)',reg:'FOLFOX (oxaliplatin + 5-FU)',tags:['oxaliplatin'],primary:['CEA','CA199'],start:'2026-08-24',tp:TP4,s:{
+  ANC:[5.2,2.4,3.9,2.1,3.4,1.9,3.1],ALC:[1.6,1.3,1.5,1.2,1.4,1.1,1.3],WBC:[8.1,4.2,6.6,3.9,5.9,3.6,5.4],HB:[13.4,13.0,12.9,12.6,12.4,12.1,12.0],PLT:[288,176,214,121,162,98,118],
+  CEA:[42,null,31,null,36,null,51],CA199:[220,null,168,null,190,null,264],LDH:[290,null,262,null,284,null,331],
+  ALT:[38,44,41,49,46,58,62],AST:[41,47,44,52,50,61,68],BILI:[0.9,1.0,0.9,1.1,1.0,1.2,1.3],ALP:[168,170,162,171,178,186,204],
+  CREA:[1.0,1.0,1.1,1.0,1.1,1.0,1.1],K:[4.3,4.2,4.3,4.1,4.2,4.1,4.2],MG:[2.0,1.9,1.9,1.8,1.9,1.8,1.8],PHOS:[3.5,3.4,3.5,3.3,3.4,3.3,3.4],UA:[5.6,5.4,5.5,5.3,5.6,5.5,5.8],CA:[9.3,9.2,9.3,9.1,9.2,9.1,9.1],
+  CRP:[12,16,10,15,13,19,24],ALB:[3.9,3.8,3.8,3.7,3.6,3.5,3.4]},
+  ext:{GLU:118,A1C:6.2,INS:14,TRIG:168,HDL:41,LDL:126,APOB:104,LPA:22,TC:204,GGT:88,VITD:16,B12:380,FOL:6,FE:48,IL6:9.5,TNF:9.2,FERR:410,HCY:13,UACR:22},dr:{GGT:.5,IL6:.4,FERR:.3}},
+ {id:'TMC-HN-0215',sex:'M',age:48,prog:'Oncology',dx:'Oropharyngeal squamous cell carcinoma',reg:'Cisplatin 3-weekly + concurrent radiotherapy',tags:['platinum','radiotherapy'],primary:[],start:'2026-09-14',
+  tp:[['C1 D1',0,'D'],['C1 nadir',10,'N'],['C2 D1',21,'D'],['C2 nadir',31,'N'],['C3 D1',42,'D']],s:{
+  ANC:[4.6,2.2,3.4,1.9,2.6],ALC:[1.5,0.9,1.0,0.6,0.7],WBC:[7.0,3.6,5.2,3.1,4.1],HB:[13.9,13.1,12.6,11.8,11.2],PLT:[252,190,221,168,196],LDH:[220,null,236,null,248],
+  ALT:[30,32,29,34,31],AST:[28,29,27,31,30],BILI:[0.7,0.7,0.6,0.7,0.7],ALP:[90,88,91,89,92],
+  CREA:[0.9,1.1,1.2,1.4,1.5],K:[4.1,3.7,3.6,3.3,3.2],MG:[2.0,1.7,1.6,1.4,1.3],PHOS:[3.4,3.2,3.1,2.9,2.8],UA:[5.2,5.0,5.1,4.9,4.8],CA:[9.2,9.0,8.9,8.7,8.6],
+  CRP:[8,15,21,28,34],ALB:[3.9,3.7,3.5,3.3,3.1]},
+  ext:{GLU:102,A1C:5.7,INS:8,TRIG:120,HDL:44,LDL:110,APOB:88,LPA:15,TC:182,GGT:30,VITD:21,B12:300,FOL:5,FE:52,IL6:7.8,TNF:8.4,FERR:320,HCY:12,UACR:70},dr:{IL6:.6,FERR:.4,UACR:.6,FE:-.2}},
+ {id:'TMC-OV-0311',sex:'F',age:57,prog:'Oncology',dx:'High-grade serous ovarian carcinoma, stage IIIC',reg:'Carboplatin + paclitaxel, 3-weekly',tags:['platinum'],primary:['CA125'],start:'2026-08-24',tp:TP4,s:{
+  ANC:[4.1,1.2,2.9,1.1,2.6,1.0,2.4],ALC:[1.6,1.1,1.5,1.0,1.4,1.0,1.4],WBC:[6.4,2.6,5.1,2.4,4.8,2.3,4.6],HB:[12.1,11.4,11.6,11.0,11.2,10.7,10.9],PLT:[302,140,226,128,198,121,184],
+  CA125:[820,null,310,null,96,null,31],LDH:[260,null,232,null,214,null,198],
+  ALT:[22,26,24,28,25,27,24],AST:[20,24,22,25,23,24,22],BILI:[0.5,0.6,0.5,0.6,0.5,0.6,0.5],ALP:[88,86,84,85,83,84,82],
+  CREA:[0.8,0.8,0.8,0.9,0.8,0.9,0.8],K:[4.2,4.1,4.2,4.0,4.1,4.0,4.1],MG:[2.0,1.9,1.9,1.8,1.9,1.8,1.8],PHOS:[3.5,3.4,3.5,3.4,3.5,3.4,3.5],UA:[4.6,4.5,4.6,4.4,4.5,4.4,4.5],CA:[9.3,9.2,9.3,9.2,9.3,9.2,9.3],
+  CRP:[14,9,6,8,5,7,4],ALB:[3.6,3.7,3.8,3.8,3.9,3.9,3.9]},
+  ext:{GLU:92,A1C:5.4,INS:7,TRIG:110,HDL:58,LDL:104,APOB:84,LPA:12,TC:188,GGT:24,VITD:32,B12:520,FOL:10,FE:78,IL6:4.2,TNF:6.1,FERR:180,HCY:9,UACR:10},dr:{IL6:-.5}},
+ {id:'TMC-LY-0058',sex:'M',age:39,prog:'Oncology',dx:'Diffuse large B-cell lymphoma, bulky',reg:'R-CHOP, 3-weekly (first cycle)',tags:['anthracycline'],primary:['LDH'],start:'2026-10-26',
+  tp:[['Work-up',-7,'D'],['C1 D1',0,'D']],s:{
+  ANC:[6.8,7.4],ALC:[0.9,0.8],WBC:[9.6,10.4],HB:[11.8,11.4],PLT:[412,436],LDH:[640,712],ALT:[30,33],AST:[34,38],BILI:[0.8,0.8],ALP:[120,126],
+  CREA:[1.0,1.2],K:[4.9,5.3],MG:[2.0,2.0],PHOS:[4.4,4.9],UA:[8.4,9.1],CA:[8.9,8.4],CRP:[22,26],ALB:[3.6,3.4]},
+  ext:{GLU:104,A1C:5.5,INS:11,TRIG:142,HDL:39,LDL:112,APOB:90,LPA:10,TC:178,GGT:46,VITD:19,B12:450,FOL:7,FE:58,IL6:14.5,TNF:11.2,FERR:620,HCY:10,UACR:18},dr:{}},
+ {id:'BURAK-SEVERE-005-R5',sex:'M',age:58,prog:'General',dx:'Metabolic & renal risk',reg:'—',tags:[],primary:[],start:'2026-06-20',tp:TPR,s:{},
+  ext:{GLU:265,A1C:10.5,INS:42,TRIG:450,HDL:24,LDL:162,APOB:110,LPA:48,TC:248,ALT:24,AST:22,GGT:40,ALP:110,BILI:0.7,ALB:4.3,CREA:4.4,UACR:480,K:5.0,PHOS:4.6,UA:7.8,CA:9.0,MG:2.0,CRP:12,IL6:1.8,TNF:4.2,FERR:420,HCY:8.5,WBC:6,ANC:3.72,ALC:1.32,PLT:245,HB:12.4,VITD:22,B12:380,FOL:7,FE:70,ZON:48,CALP:32},
+  dr:{GLU:.35,A1C:.3,INS:.3,TRIG:.4,CREA:.6,UACR:.7,CRP:.6,FERR:.4}},
+ {id:'BURAK-SEVERE-003-R5',sex:'F',age:63,prog:'General',dx:'Hepatic & inflammatory risk',reg:'—',tags:[],primary:[],start:'2026-06-18',tp:TPR,s:{},
+  ext:{GLU:182,A1C:8.4,INS:31,TRIG:312,HDL:34,LDL:150,APOB:118,LPA:62,TC:236,ALT:96,AST:78,GGT:142,ALP:160,BILI:1.1,ALB:3.9,CREA:1.6,UACR:120,K:4.6,PHOS:4.1,UA:7.4,CA:9.2,MG:1.8,CRP:9.5,IL6:7.2,TNF:9.8,FERR:380,HCY:13.5,WBC:8.2,ANC:5.6,ALC:1.5,PLT:268,HB:12.1,VITD:15,B12:240,FOL:4,FE:54,ZON:128,CALP:96},
+  dr:{ALT:.4,AST:.35,GGT:.4,CRP:.5,CREA:.3,UACR:.5,ZON:.3,CALP:.4}},
+ {id:'BURAK-MOD-012-R3',sex:'F',age:44,prog:'General',dx:'Metabolic syndrome pattern',reg:'—',tags:[],primary:[],start:'2026-07-15',tp:TPR.slice(0,3),s:{},
+  ext:{GLU:128,A1C:6.6,INS:21,TRIG:210,HDL:38,LDL:142,APOB:112,LPA:36,TC:226,ALT:62,AST:44,GGT:58,ALP:98,BILI:0.8,ALB:4.4,CREA:0.8,UACR:18,K:4.2,PHOS:3.4,UA:6.4,CA:9.4,MG:1.9,CRP:4.2,IL6:3.8,TNF:6.4,FERR:260,HCY:11.5,WBC:7.1,ANC:4.3,ALC:2.0,PLT:280,HB:13.1,VITD:18,B12:310,FOL:6,FE:66,ZON:92,CALP:68},
+  dr:{GLU:.15,TRIG:.2,ALT:.2}},
+ {id:'BURAK-OPT-021-R2',sex:'M',age:33,prog:'General',dx:'Wellness baseline',reg:'—',tags:[],primary:[],start:'2026-08-30',tp:TPR.slice(0,2),s:{},
+  ext:{GLU:88,A1C:5.1,INS:6,TRIG:92,HDL:58,LDL:92,APOB:78,LPA:8,TC:170,ALT:22,AST:20,GGT:18,ALP:70,BILI:0.6,ALB:4.6,CREA:0.9,UACR:6,K:4.3,PHOS:3.5,UA:5.2,CA:9.6,MG:2.1,CRP:0.6,IL6:1.4,TNF:3.6,FERR:120,HCY:8,WBC:6.2,ANC:3.2,ALC:2.1,PLT:230,HB:15.1,VITD:42,B12:560,FOL:12,FE:96,ZON:38,CALP:22},dr:{}}
+];
+function rnd(v,b){return b>=100?Math.round(v):b>=10?Math.round(v*10)/10:Math.round(v*100)/100;}
+P.forEach(p=>{const n=p.tp.length;for(const k in p.ext){if(p.s[k])continue;const b=p.ext[k],d=(p.dr&&p.dr[k])||0;
+  p.s[k]=p.tp.map((t,i)=>{if(t[2]==='N')return null;const f=n>1?i/(n-1):1;return rnd(b*(1+d*(f-1)),b);});}});
+function addDays(s,d){const t=new Date(s+'T00:00:00Z');t.setUTCDate(t.getUTCDate()+d);return t.toISOString().slice(0,10);}
+const dateOf=(p,i)=>addDays(p.start,p.tp[i][1]);
+
+/* ======================= ENGINE ======================= */
+const state={only:false,cohAll:false,velAll:false,view:'dashboard',pi:0,at:{},tab:'marker',cat:null,inf:'ALL',vel:null,thr:{},plist:'',pfilter:'All',cq:'',cfg:false,
+  w:{kpi:true,verdict:true,onc:true,risk:true,recent:true}};
+try{const s=JSON.parse(localStorage.getItem('burak-dash')||'null');if(s)Object.assign(state.w,s);}catch(e){}
+function fmt(v){if(v==null||isNaN(v))return '—';const a=Math.abs(v);const d=a>=100?0:a>=10?1:2;return String(Number(v.toFixed(d)));}
+const sgn=v=>(v>=0?'+':'−')+Math.abs(Math.round(v));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function $(id){return document.getElementById(id);}
+function ckd(s,age,sex){const f=sex==='F',k=f?0.7:0.9,a=f?-0.241:-0.302;return 142*Math.pow(Math.min(s/k,1),a)*Math.pow(Math.max(s/k,1),-1.2)*Math.pow(0.9938,age)*(f?1.012:1);}
+function derive(o,p){const h=(...k)=>k.every(x=>o[x]!=null);
+  if(h('GLU','INS'))o.HOMA=o.GLU*o.INS/405;
+  if(h('ANC','WBC'))o.NEUTP=o.ANC/o.WBC*100;
+  if(h('ALC','WBC'))o.LYMPHP=o.ALC/o.WBC*100;
+  if(h('ANC','ALC'))o.NLR=o.ANC/o.ALC;
+  if(h('PLT','ALC'))o.PLR=o.PLT/o.ALC;
+  if(h('PLT','ANC','ALC'))o.SII=o.PLT*o.ANC/o.ALC;
+  if(h('CRP','ALB')){o.CAR=o.CRP/(o.ALB*10);o.MGPS=o.CRP<=10?0:(o.ALB>=3.5?1:2);}
+  if(h('ALB','ALC'))o.PNI=10*o.ALB+0.005*o.ALC*1000;
+  if(h('AST','ALT'))o.ASTALT=o.AST/o.ALT;
+  if(h('CREA'))o.EGFR=ckd(o.CREA,p.age,p.sex);}
+function rows(p){if(p._r)return p._r;return p._r=p.tp.map((t,i)=>{const o={};for(const k in p.s)o[k]=p.s[k][i];derive(o,p);return o;});}
+function sliceP(p,at){const n=at+1,s={};for(const k in p.s)s[k]=p.s[k].slice(0,n);return {...p,tp:p.tp.slice(0,n),s,_r:null,now:p.tp[at][0],nowi:at};}
+const lastAt=p=>p.tp.length-1;
+const atOf=i=>state.at[i]??lastAt(P[i]);
+const PV=(i=state.pi)=>sliceP(P[i],atOf(i));
+const ser=(p,k)=>rows(p).map(r=>r[k]);
+function latest(p,k){const s=ser(p,k);for(let i=s.length-1;i>=0;i--)if(s[i]!=null)return s[i];return null;}
+function base(p,k){const v=ser(p,k).find(x=>x!=null);return v==null?null:v;}
+function nadirPrev(p,k){const s=ser(p,k).filter(v=>v!=null);return s.length<2?null:Math.min(...s.slice(0,-1));}
+function alias(p,k){if(k==='PRIMARY')return p.primary[0]||null;if(k==='SECONDARY')return p.primary[1]||null;return k;}
+const isOnc=p=>p.prog==='Oncology';
+function sev(k,v){const m=meta(k);if(v==null||!m)return 'na';
+  if(k==='MGPS')return v>=1?'hi':'ok';
+  if(m.hi!=null&&v>m.hi)return 'hi';if(m.lo!=null&&m.lo>0&&v<m.lo)return 'lo';return 'ok';}
+const bad=s=>s==='hi'||s==='lo';
+function scdi(k,v){const m=M[k];if(v==null)return null;if(m.hi!=null&&v>m.hi)return v/m.hi;if(m.lo>0&&v<m.lo)return v/m.lo;return v/(m.hi??m.lo);}
+function cls(k,v){const s=sev(k,v);return s==='hi'?'HIGH_BAD':s==='lo'?'LOW_BAD':'OPTIMAL';}
+function evalCheck(p,c){
+  const [raw,op,v]=c,k=alias(p,raw),m=k&&meta(k);
+  const nm=m?(M[k]?M[k].full:m.n.split(' (')[0]):(raw==='PRIMARY'?'Primary tumour marker':'Second tumour marker');
+  const L=k?latest(p,k):null;let ok=null,obs='n/a',label='';const has=L!=null,cnt=k?ser(p,k).filter(x=>x!=null).length:0;
+  switch(op){
+    case '<':label=`${nm} < ${v}`;if(has){ok=L<v;obs=fmt(L);}break;
+    case '>':label=`${nm} > ${v}`;if(has){ok=L>v;obs=fmt(L);}break;
+    case '<=':label=`${nm} ≤ ${v}`;if(has){ok=L<=v;obs=fmt(L);}break;
+    case '>=':label=`${nm} ≥ ${v}`;if(has){ok=L>=v;obs=fmt(L);}break;
+    case '>xULN':label=v===1?`${nm} above upper limit`:`${nm} > ${v}× ULN`;if(has){ok=L>v*m.hi;obs=fmt(L);}break;
+    case '<=xULN':label=v===1?`${nm} within upper limit`:`${nm} ≤ ${v}× ULN`;if(has){ok=L<=v*m.hi;obs=fmt(L);}break;
+    case 'rise%':{label=`${nm} up ≥${v}% from baseline`;const b=k?base(p,k):null;if(has&&b&&cnt>1){const d=(L-b)/b*100;ok=d>=v;obs=`${fmt(b)} → ${fmt(L)} (${sgn(d)}%)`;}break;}
+    case 'fall%':{label=`${nm} down ≥${v}% from baseline`;const b=k?base(p,k):null;if(has&&b&&cnt>1){const d=(L-b)/b*100;ok=-d>=v;obs=`${fmt(b)} → ${fmt(L)} (${sgn(d)}%)`;}break;}
+    case 'riseNadir%':{label=`${nm} up ≥${v}% from nadir`;const n=k?nadirPrev(p,k):null;if(has&&n){const d=(L-n)/n*100;ok=d>=v;obs=`${fmt(n)} → ${fmt(L)} (${sgn(d)}%)`;}break;}
+    case 'deepen':{label=`${nm} nadir deepening across cycles`;const nd=p.tp.map((t,i)=>t[2]==='N'?rows(p)[i][k]:null).filter(x=>x!=null);if(nd.length>=2){ok=nd.at(-1)<nd[0]*(1-v/100);obs=nd.map(fmt).join(' → ');}break;}
+  }
+  return {ok,obs,label,k,L};}
+function runChecks(p,checks,min){const r=checks.map(c=>evalCheck(p,c));const ev=r.filter(x=>x.ok!==null);const met=ev.filter(x=>x.ok).length;return {r,met,ev:ev.length,trig:met>=min};}
+function runSent(p,s){const o=runChecks(p,s.checks,2);o.hard=(s.hard||[]).map(c=>({...evalCheck(p,c),msg:c[3]})).filter(x=>x.ok);return o;}
+const applies=(p,x)=>(!x.onc||isOnc(p))&&(!x.app||p.tags.includes(x.app));
+function readiness(p){if(!isOnc(p))return null;
+  const res=RULES.filter(r=>applies(p,r)).map(r=>{const v=state.thr[r.id]??r.v;return {...r,v,e:evalCheck(p,[r.m,r.op,v])};});
+  const hardFail=res.filter(x=>x.hard&&x.e.ok===false),softFail=res.filter(x=>!x.hard&&x.e.ok===false);
+  const sent=SENT.filter(s=>s.onc&&applies(p,s)).map(s=>({s,o:runSent(p,s)})).filter(x=>x.o.trig);
+  return {res,hardFail,softFail,sent,verdict:hardFail.length?'HOLD':(softFail.length||sent.length)?'REVIEW':'GO'};}
+function response(p){const k=p.primary[0];if(!k)return null;const b=base(p,k),l=latest(p,k),n=nadirPrev(p,k);if(b==null)return null;
+  const chg=(l-b)/b*100,fromN=n?(l-n)/n*100:null,pre=p.tp.at(-1)[1]<=0;
+  return {k,b,l,n,chg,fromN,pre,st:pre?'Baseline':fromN!=null&&fromN>25?'Rising from nadir':chg<=-50?'Responding':chg<0?'Partial decline':'Stable'};}
+function headline(p,rd){const rs=response(p),cyc=p.now.startsWith('C')?'cycle '+p.now.slice(1).split(' ')[0]:'the next dose';
+  if(rd.hardFail.length){const x=rd.hardFail[0],o=latest(p,x.m);
+    return {ANC:`Neutrophils too low for ${cyc} (ANC ${fmt(o)}; protocol needs ≥ ${x.v}).`,PLT:`Platelets too low for ${cyc} (${fmt(o)}; protocol needs ≥ ${x.v}).`,EGFR:`Kidney function below the platinum limit (eGFR ${fmt(o)}; protocol needs ≥ ${x.v}).`,ALT:`ALT above the dosing limit (${fmt(o)} U/L).`,BILI:`Bilirubin above the dosing limit (${fmt(o)} mg/dL).`}[x.m];}
+  const ids=rd.sent.map(x=>x.s.id);
+  if(ids.includes('TLS'))return 'Thresholds met, but tumour-lysis risk before the first dose.';
+  if(ids.includes('TUMR'))return `Thresholds met, but ${M[rs.k].n} is rising again (+${Math.round(rs.fromN)}% from nadir).`;
+  if(ids.includes('NEPH'))return 'Thresholds met, but nephrotoxic pattern needs review.';
+  if(ids.includes('MYELO'))return 'Thresholds met, but marrow reserve is low.';
+  if(ids.includes('HOST'))return 'Thresholds met; nutrition and inflammation need attention.';
+  if(rd.softFail.length)return `Thresholds met; haemoglobin below advisory level (${fmt(latest(p,'HB'))}).`;
+  return `All pre-cycle checks passed for ${cyc}${rs&&rs.st==='Responding'?` · ${M[rs.k].n} down ${Math.abs(Math.round(rs.chg))}%`:''}.`;}
+function hardAlerts(p){const L=rows(p).at(-1),a=[];
+  if(L.EGFR!=null&&L.EGFR<30)a.push(['Renal dysfunction — critical eGFR','Renal']);
+  if(L.UACR>300&&L.CREA>1.2)a.push(['Renal injury — elevated UACR with creatinine','Renal']);
+  if(L.CRP>10&&(L.FERR>200||L.IL6>5))a.push(['Severe systemic inflammation','Inflammation']);
+  if(L.GLU>250)a.push(['Severe hyperglycaemia — glucose above 250','Metabolic']);
+  if(isOnc(p)){const rd=readiness(p);rd.hardFail.forEach(x=>a.push([`Pre-cycle hold — ${x.label} ${x.e.obs} (needs ${x.op.includes('<')?'≤':'≥'} ${x.v} ${x.u})`,'Oncology']));
+    SENT.filter(s=>s.onc&&applies(p,s)).forEach(s=>runSent(p,s).hard.forEach(h=>a.push([h.msg,'Oncology'])));}
+  return a;}
+function profile(p){const L=rows(p).at(-1);const meas=Object.keys(M).filter(k=>L[k]!=null);const ab=meas.filter(k=>bad(sev(k,L[k])));
+  const byCat={};ab.forEach(k=>{byCat[M[k].c]=(byCat[M[k].c]||0)+1;});return {L,meas,ab,byCat};}
+const CNAME={SUGAR:'Metabolic',FIRE:'Inflammation',LIVER:'Hepatic',CARDIAC:'Cardiac',NUTRIENT:'Nutrient',CBC:'Blood',GUT:'Gut',KIDNEY:'Renal',ONCO:'Tumour'};
+function riskOf(p){const al=hardAlerts(p),pr=profile(p);const sc=Math.min(100,al.length*25+pr.ab.length*4);return {sc,al,lab:sc>=80?'Critical':sc>=55?'High':sc>=30?'Moderate':'Low'};}
+const catName=c=>CATS.find(x=>x[0]===c)[1];
+
+/* ======================= SHARED UI ======================= */
+const ICON={dash:'<rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/>',up:'<path d="M8 11V3M4.5 6.5 8 3l3.5 3.5M3 13h10"/>',pts:'<circle cx="6" cy="5" r="2.5"/><path d="M1.5 14c.6-2.6 2.3-4 4.5-4s3.9 1.4 4.5 4M11 3.5a2 2 0 0 1 0 4M12.5 10c1.2.5 2 1.8 2.3 4"/>',flask:'<path d="M6 2h4M7 2v4l-4 7.5h10L9 6V2"/>',rep:'<rect x="3" y="2" width="10" height="12" rx="1.5"/><path d="M6 10V8M8 10V6M10 10V7"/>',pulse:'<path d="M1.5 8h3l2-4 3 8 2-4h3"/>',bulb:'<path d="M6 12h4M6.5 14h3M8 2a4 4 0 0 0-2.4 7.2c.5.4.9 1 .9 1.8h3c0-.8.4-1.4.9-1.8A4 4 0 0 0 8 2z"/>',wal:'<rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M4 4V3h7v1M11 8.5h1"/>',test:'<path d="M4 2h8M5 2v12h6V2M5 8h6"/>',aud:'<rect x="3" y="2" width="10" height="12" rx="1.5"/><path d="M5.5 5h5M5.5 8h5M5.5 11h3"/>',gear:'<circle cx="8" cy="8" r="2.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"/>'};
+const NAV=[['OVERVIEW',[['dashboard','Dashboard','dash']]],['DATA & PATIENTS',[['ingest','Data ingestion','up'],['patients','Patients','pts']]],['CLINICAL INTELLIGENCE',[['ams','AMS','flask'],['reports','Clinical reports','rep']]],['POPULATION',[['pop','Population health','pulse']]],['STEWARDSHIP',[['amsi','AMS Insights','bulb'],['amsf','AMS Financials','wal']]],['ADMINISTRATION',[['test','Test Data','test'],['audit','Audit trail','aud'],['settings','Settings','gear']]]];
+function holdCount(){return P.filter(p=>{const r=readiness(sliceP(p,lastAt(p)));return r&&r.verdict==='HOLD';}).length;}
+function renderSide(){const holds=holdCount();const cur=state.view==='analysis'?'patients':state.view;
+  $('side').innerHTML=`<div class="brand"><b>Burakomics</b><span>Health Analytics</span></div>`+NAV.map(([h,items])=>`<div class="navgrp"><h4>${h}</h4>${items.map(([id,l,ic])=>`<button class="nav" data-nav="${id}" aria-current="${cur===id?'page':'false'}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${ICON[ic]}</svg>${l}${id==='patients'&&holds?`<span class="cnt" title="Oncology patients on pre-cycle hold">${holds}</span>`:''}</button>`).join('')}</div>`).join('')+
+  `<div class="me"><i>SA</i><div>Super Administrator<small>Superadmin</small></div></div>`;}
+function chart(p,k,opt={}){
+  const Rw=rows(p),W=620,H=230,pl=48,pr=78,pt=18,pb=34,m=meta(k);
+  const pts=p.tp.map((t,i)=>({x:t[1],y:Rw[i][k],t})).filter(d=>d.y!=null);
+  if(!pts.length)return '<p class="small">No data for this marker.</p>';
+  const minX=p.tp[0][1],span=(p.tp.at(-1)[1]-minX)||1,ths=opt.th||[];
+  const vals=pts.map(d=>d.y).concat(ths.map(t=>t.y));if(m.hi!=null)vals.push(m.hi);if(m.lo)vals.push(m.lo);
+  let lo=Math.min(...vals),hi=Math.max(...vals);const pad=(hi-lo)*0.12||Math.abs(hi)*0.2||1;lo=Math.max(0,lo-pad);hi+=pad;
+  const X=x=>pl+(x-minX)/span*(W-pl-pr),Y=y=>pt+(1-(y-lo)/(hi-lo))*(H-pt-pb);
+  let g='';const bl=Math.max(m.lo||0,lo),bh=Math.min(m.hi??hi,hi);if(bh>bl)g+=`<rect class="band" x="${pl}" width="${W-pl-pr}" y="${Y(bh)}" height="${Y(bl)-Y(bh)}"/>`;
+  for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4,y=Y(v);g+=`<line class="gl" x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}"/><text class="ax" x="${pl-6}" y="${y+3.5}" text-anchor="end">${fmt(v)}</text>`;}
+  p.tp.forEach(t=>{if(t[2]!=='N'){const x=X(t[1]);g+=`<line class="cy" x1="${x}" x2="${x}" y1="${pt}" y2="${H-pb}"/><text class="ax" x="${x}" y="${H-pb+16}" text-anchor="middle">${t[0].split(' ')[0]}</text>`;}});
+  ths.forEach(t=>{const y=Y(t.y);g+=`<line class="th" x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}"/><text class="tht" x="${W-pr+4}" y="${y+3.5}">${esc(t.l)}</text>`;});
+  const line=pts.map((d,i)=>(i?'L':'M')+X(d.x).toFixed(1)+' '+Y(d.y).toFixed(1)).join(' ');
+  const area=pts.length>1?`<path class="ar" d="${line} L${X(pts.at(-1).x).toFixed(1)} ${H-pb} L${X(pts[0].x).toFixed(1)} ${H-pb} Z"/>`:'';
+  const dots=pts.map(d=>`<circle class="${d.t[2]==='N'?'nd':'pt'}" cx="${X(d.x)}" cy="${Y(d.y)}" r="${d.t[2]==='N'?4:3.6}"><title>${d.t[0]}: ${fmt(d.y)}</title></circle>`).join('');
+  const e=pts.at(-1);
+  return `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(m.full||m.n)} over time">${g}${area}<path class="ln" d="${line}"/>${dots}<text class="lv" x="${Math.min(X(e.x)+8,W-pr-28)}" y="${Y(e.y)-9}">${fmt(e.y)}</text></svg>`;}
+function grad(k,v){const m=meta(k);let f;if(m.hi!=null&&m.hi>0)f=v/(m.hi*2);else if(m.lo)f=1-v/(m.lo*2);else f=v/2;f=Math.max(0.02,Math.min(0.98,f));return `<div class="grad"><i style="left:${(f*100).toFixed(1)}%"></i></div>`;}
+
+/* ======================= DASHBOARD ======================= */
+function renderDashboard(){
+  const items=P.map((p,i)=>{const pv=sliceP(p,lastAt(p));return {i,p,pv,rd:readiness(pv),rk:riskOf(pv)};});
+  const onc=items.filter(x=>x.rd),c=v=>onc.filter(x=>x.rd.verdict===v).length,reports=P.reduce((s,p)=>s+p.tp.filter(t=>t[2]!=='N').length,0);
+  const segs={Critical:0,High:0,Moderate:0,Low:0};items.forEach(x=>segs[x.rk.lab]++);
+  const order={HOLD:0,REVIEW:1,GO:2},W=state.w;
+  return `<div class="sechead"><span class="small">Mon 26 Oct 2026 · Tata Memorial tenant · demo data</span><button class="btn" id="cfgBtn" aria-expanded="${state.cfg}">⚙ Configure dashboard</button></div>
+  ${state.cfg?`<div class="cfg">${[['kpi','Key figures'],['verdict','Pre-cycle status'],['onc','Oncology day-care list'],['risk','Clinical risk distribution'],['recent','Recent reports']].map(([k,l])=>`<label><input type="checkbox" data-w="${k}" ${W[k]?'checked':''}> ${l}</label>`).join('')}</div>`:''}
+  ${W.kpi?`<div class="kpi">
+    <div class="card"><div class="eb">Total patients</div><div class="n">${P.length}</div><div class="small">${onc.length} oncology · ${P.length-onc.length} general</div></div>
+    <div class="card"><div class="eb">Reports processed</div><div class="n">${reports}</div><div class="small">PDF and CSV payloads</div></div>
+    <div class="card"><div class="eb">Critical risk</div><div class="n" style="color:var(--bad)">${segs.Critical}</div><div class="small">Force high risk active</div></div>
+    <div class="card"><div class="eb">On chemotherapy</div><div class="n">${onc.length}</div><div class="small">Pre-cycle check enabled</div></div></div>`:''}
+  ${W.verdict?`<div class="g3">
+    <div class="vbox HOLD"><div class="eb" style="color:inherit">Hold</div><div class="n">${c('HOLD')}</div><span>A pre-cycle safety threshold is not met</span></div>
+    <div class="vbox REVIEW"><div class="eb" style="color:inherit">Review</div><div class="n">${c('REVIEW')}</div><span>Thresholds met, pattern flagged</span></div>
+    <div class="vbox GO"><div class="eb" style="color:inherit">Go</div><div class="n">${c('GO')}</div><span>Clear for the next dose</span></div></div>`:''}
+  ${W.onc?`<div class="card" style="padding:0"><div class="mp-top"><b>ONCOLOGY DAY-CARE · TODAY</b><span class="small">Sorted by pre-cycle status. Click a patient to open the Burak analysis.</span></div>
+    <div class="tablewrap"><table><thead><tr><th>Patient</th><th>Diagnosis</th><th>Regimen</th><th>Visit</th><th>Status</th><th>Reason</th></tr></thead><tbody>
+    ${onc.sort((a,b)=>order[a.rd.verdict]-order[b.rd.verdict]).map(x=>`<tr class="rowlink" tabindex="0" data-open="${x.i}"><td><b>${x.p.id}</b></td><td>${esc(x.p.dx.split(',')[0])}</td><td class="small">${esc(x.p.reg.split(' (')[0].split(',')[0])}</td><td>${x.pv.now}</td><td><span class="vp ${x.rd.verdict}">${x.rd.verdict}</span></td><td style="white-space:normal;min-width:260px">${esc(headline(x.pv,x.rd))}</td></tr>`).join('')}</tbody></table></div></div>`:''}
+  <div class="g2">
+  ${W.risk?`<div class="card"><div class="eb">Clinical risk distribution</div><div style="display:flex;flex-direction:column;gap:10px">${Object.entries(segs).map(([k,v])=>`<div class="hbar"><span class="t">${k}</span><span class="tr"><b style="width:${v/P.length*100}%;background:${k==='Critical'?'var(--bad)':k==='High'?'#f97316':k==='Moderate'?'#eab308':'var(--ok)'}"></b></span><b>${v}</b></div>`).join('')}</div></div>`:''}
+  ${W.recent?`<div class="card"><div class="eb">Recent reports</div><table><tbody>${items.map(x=>({x,d:dateOf(x.p,lastAt(x.p))})).sort((a,b)=>b.d.localeCompare(a.d)).slice(0,6).map(({x,d})=>`<tr class="rowlink" tabindex="0" data-open="${x.i}"><td><b>${x.p.id}</b></td><td class="small">${d}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${x.rd.verdict}</span>`:`<span class="chip">${x.rk.lab}</span>`}</td></tr>`).join('')}</tbody></table></div>`:''}
+  </div>`;}
+
+/* ======================= PATIENTS ======================= */
+function renderPatients(){
+  const q=state.plist.toLowerCase();
+  const list=P.map((p,i)=>{const pv=sliceP(p,lastAt(p));return {i,p,pv,rd:readiness(pv),rk:riskOf(pv),pr:profile(pv)};})
+   .filter(x=>(state.pfilter==='All'||x.p.prog===state.pfilter)&&(!q||x.p.id.toLowerCase().includes(q)||x.p.dx.toLowerCase().includes(q)));
+  return `<div class="ahead"><input class="sel grow" id="pq" placeholder="Search patients by ID or diagnosis" value="${esc(state.plist)}" aria-label="Search patients">
+    <select class="sel" id="pf" aria-label="Programme">${['All','Oncology','General'].map(o=>`<option ${state.pfilter===o?'selected':''}>${o}</option>`).join('')}</select></div>
+  <div class="card" style="padding:0"><div class="mp-top"><b>PATIENT LIST</b><span class="small">${list.length} of ${P.length} patients</span></div>
+  <div class="tablewrap"><table><thead><tr><th>S.No</th><th>Patient ID</th><th>Age / Sex</th><th>Programme</th><th>Segment</th><th>Clinical risk</th><th>Reports</th><th>Last report</th><th>Pre-cycle</th></tr></thead><tbody>
+  ${list.map((x,n)=>{const top=Object.entries(x.pr.byCat).sort((a,b)=>b[1]-a[1])[0];return `<tr class="rowlink" tabindex="0" data-open="${x.i}"><td>${String(n+1).padStart(2,'0')}</td><td><b>${x.p.id}</b><div class="small">${esc(x.p.dx)}</div></td><td>${x.p.age} / ${x.p.sex}</td><td>${x.p.prog==='Oncology'?'<span class="chip new">Oncology</span>':'<span class="chip">General</span>'}</td><td>${top?CNAME[top[0]]+' Dominant':'Balanced'}</td><td><span class="chip ${x.rk.lab==='Critical'?'bad':x.rk.lab==='Low'?'ok':'warn'}">${x.rk.lab} · ${x.rk.sc}</span></td><td>${x.p.tp.filter(t=>t[2]!=='N').length}</td><td>${dateOf(x.p,lastAt(x.p))}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${x.rd.verdict}</span>`:'<span class="small">—</span>'}</td></tr>`;}).join('')}
+  </tbody></table></div></div>`;}
+
+/* ======================= ANALYSIS (Clinical Data Intake & Baseline) ======================= */
+const TABS=[['marker','Marker Profile'],['inflam','Inflammatory Index'],['sentinel','Sentinel Score'],['cohort','Disease Cohort'],['handshake','System Handshake'],['velocity','Velocity Analysis'],['report','Report Center']];
+function renderAnalysis(){
+  const p=P[state.pi],pv=PV(),at=atOf(state.pi),pr=profile(pv),rk=riskOf(pv),rd=readiness(pv);
+  const top=Object.entries(pr.byCat).sort((a,b)=>b[1]-a[1]);const code=pr.ab.length<=2?'S1':pr.ab.length<=6?'S2':pr.ab.length<=12?'S3':'S4';
+  const ratio=pr.meas.length?pr.ab.length/pr.meas.length:0,mean=pr.ab.length?pr.ab.reduce((s,k)=>s+Math.abs(Math.log(scdi(k,pr.L[k]))),0)/pr.ab.length+1:1;
+  const worst=pr.ab.map(k=>({k,d:Math.abs(Math.log(scdi(k,pr.L[k])))})).sort((a,b)=>b.d-a.d).slice(0,3);
+  const cb=pr.ab.length>=8?'Elevated':pr.ab.length>=4?'Moderate':'Low';
+  const al=hardAlerts(pv),alShow=al.filter(a=>!a[0].startsWith('Pre-cycle hold'));
+  const opts=p.tp.map((t,i)=>`<option value="${i}" ${i===at?'selected':''}>${t[0]} · ${dateOf(p,i)}${i===lastAt(p)?' (latest)':''}</option>`).join('');
+  return `<div class="ahead"><select class="sel grow" id="psel" aria-label="Patient">${P.map((q,i)=>`<option value="${i}" ${i===state.pi?'selected':''}>${q.id}</option>`).join('')}</select>
+    <select class="sel" id="atsel" aria-label="Report">${opts}</select><select class="sel" aria-label="View"><option>Patient Overview</option></select></div>
+  <div class="tabbar" role="tablist">${TABS.map(t=>`<button class="tab" role="tab" data-tab="${t[0]}" id="tab-${t[0]}" aria-selected="${state.tab===t[0]}">${t[1]}</button>`).join('')}</div>
+  <div class="cards4">
+    <div class="card"><div class="eb">◈ Segment</div><div class="seg"><span class="code">${code}</span><div><div class="big">${top.length?CNAME[top[0][0]]+' Dominant':'Balanced'}</div><div class="chips" style="margin-top:6px">${top.length?`<span class="chip">${CNAME[top[0][0]]}: Elevated</span>`:''}<span class="chip">Gut: ${pr.L.ZON!=null?(pr.byCat.GUT?'Elevated':'Balanced'):'No data'}</span></div></div></div></div>
+    <div class="card ${al.length?'risk':''}"><div class="eb">⊘ Clinical risk</div>${al.length?'<div class="force">FORCE HIGH RISK ACTIVE</div>':''}<div class="bigger">${rk.lab} <span class="small">Score ${rk.sc}</span></div><div class="small" style="font-size:11px">${al.length?al.length+' escalation trigger(s) in the current panel.':'No escalation triggers detected in the current panel.'}</div></div>
+    <div class="card"><div class="eb">◌ SCDI burden</div><div class="bigger">${ratio>0.45?'High':ratio>0.2?'Moderate':'Low'}</div><div class="small" style="font-size:11px">Marker ${fmt(mean)} &nbsp; Ratio ${fmt(ratio)}</div><div class="chips" style="margin-top:6px">${top.slice(0,3).map(t=>`<span class="chip blue">${CNAME[t[0]]}</span>`).join('')}</div></div>
+    <div class="card"><div class="eb">⚠ Clinical burden</div><div class="bigger">${cb}</div><div class="small" style="font-size:11px">Confidence: ${pr.meas.length>=20?'high':'moderate'}</div><ul class="blist">${worst.map(w=>`<li>${sev(w.k,pr.L[w.k])==='hi'?'Elevated':'Low'} ${M[w.k].full}</li>`).join('')}</ul></div>
+  </div>
+  ${rd?`<div class="onco ${rd.verdict}"><div><div class="eb" style="margin:0">Oncology · pre-cycle check</div><div class="w">${rd.verdict}</div></div>
+    <div><b>${esc(headline(pv,rd))}</b><div class="small">${esc(p.dx)} · ${esc(p.reg)} · labs from ${pv.now}</div></div>
+    <div class="passed"><b style="font-size:13px;color:var(--fg)">${rd.res.filter(x=>x.e.ok).length} of ${rd.res.length}</b> checks passed${rd.res.some(x=>!x.e.ok)?`<div class="chips" style="justify-content:flex-end;margin-top:4px">${rd.res.filter(x=>!x.e.ok).map(x=>`<span class="chip ${x.hard?'bad':'warn'}">✗ ${x.label}</span>`).join('')}</div>`:''}</div></div>`:''}
+  ${alShow.length?`<div class="alerts"><h3>⚠ HARD ALERTS (${alShow.length})</h3>${alShow.map(a=>`<div class="a">${esc(a[0])}<span class="s">${a[1]}</span></div>`).join('')}</div>`:''}
+  <div style="display:flex;flex-direction:column;gap:16px">${({marker:tMarker,inflam:tInflam,sentinel:tSentinel,cohort:tCohort,handshake:tHandshake,velocity:tVelocity,report:tReport})[state.tab](pv)}</div>`;}
+
+function tMarker(p){
+  const L=rows(p).at(-1);const avail=CATS.filter(c=>Object.keys(M).some(k=>M[k].c===c[0]&&L[k]!=null));
+  if(!state.cat||!avail.some(c=>c[0]===state.cat))state.cat=avail[0][0];
+  const allKeys=Object.keys(M).filter(k=>M[k].c===state.cat&&L[k]!=null);
+  const flagged=allKeys.filter(k=>bad(sev(k,L[k])));
+  const keys=[...flagged,...(state.only?[]:allKeys.filter(k=>!bad(sev(k,L[k]))))];
+  const body=keys.map((k,i)=>{const m=M[k],v=L[k],s=sev(k,v),sc=scdi(k,v);const max=Math.max((m.hi??m.lo*2)*1.6,v*1.05);
+    const lo=(m.lo||0)/max*100,hi=(m.hi??max)/max*100,pos=Math.min(100,v/max*100);
+    return `<tr class="mrow ${s==='hi'?'hi':s==='lo'?'lo':'okr'}"><td>${String(i+1).padStart(2,'0')}</td><td><span class="mk"><i></i>${m.n}${m.nw?' <span class="chip new">NEW</span>':''}</span><div class="small">${m.full}</div></td>
+     <td class="rng">${m.hi==null?'≥ '+m.lo:m.lo+'–'+m.hi}<div class="bar"><b style="left:${lo}%;width:${Math.max(0,hi-lo)}%"></b><i style="left:${pos}%"></i></div></td><td class="small">${m.u}</td>
+     <td><span class="scdi">${sc.toFixed(2)}</span></td><td><span class="cl ${cls(k,v)}">${cls(k,v)}</span></td>
+     <td><span class="dv ${s==='hi'?'hi':s==='lo'?'lo':'ok'}">${fmt(v)}<small>${s==='hi'?'ELEVATED':s==='lo'?'LOW':'OPTIMAL'}</small></span></td></tr>`;}).join('');
+  return `<div class="card" style="padding:0"><div class="mp-top"><b>MARKER CATEGORY</b><select class="sel" id="catsel" aria-label="Marker category">${avail.map(c=>`<option value="${c[0]}" ${c[0]===state.cat?'selected':''}>${c[1].toUpperCase()}</option>`).join('')}</select><span class="small">${flagged.length} of ${allKeys.length} out of range · report ${p.now}</span><span style="margin-left:auto" class="seg-ctl" role="group" aria-label="Rows"><button data-only="0" aria-pressed="${!state.only}">All markers</button><button data-only="1" aria-pressed="${state.only}">Out of range only</button></span></div>
+   <div class="tablewrap"><table><thead><tr><th>S.No</th><th>Marker</th><th>Reference range</th><th>Unit</th><th>SCDI</th><th>Class</th><th>Data</th></tr></thead><tbody>${body||'<tr><td colspan="7" class="small">All markers in this line are within range.</td></tr>'}</tbody></table></div>
+   <div class="ctabs">${avail.map(c=>{const n=Object.keys(M).filter(k=>M[k].c===c[0]&&L[k]!=null&&bad(sev(k,L[k]))).length;return `<button class="ctab" data-cat="${c[0]}" aria-pressed="${c[0]===state.cat}">${c[1].toUpperCase()}<small>${n?n+' flagged':'&nbsp;'}</small></button>`;}).join('')}</div></div>`;}
+
+function tInflam(p){const L=rows(p).at(-1);
+  const cardK=['CRP','WBC','IL6','FERR','ALB','HCY'].filter(k=>L[k]!=null);
+  const groups={'CYTOKINE PANEL':['IL6','TNF'],'CELLULAR MARKERS':['NEUTP','LYMPHP','WBC','PLT','ANC','ALC'],'SYSTEMIC INFLAMMATION':['CRP','FERR','ALB','HCY'],'INFLAMMATION RATIO':['NLR','PLR','SII','CAR']};
+  const all=state.inf==='ALL'?Object.values(groups).flat():groups[state.inf];
+  const fires=['CRP','IL6','TNF','FERR','HCY'].filter(k=>L[k]!=null);const score=Math.round(fires.reduce((s,k)=>s+Math.min(L[k]/M[k].hi,3),0)/fires.length*100);
+  const sc=score>100?'bad':score>70?'warn':'ok';
+  const idx=k=>{const r=R[k],v=L[k];if(v==null)return '';const s=sev(k,v)==='ok'?'ok':((r.hi!=null&&v>r.hi*1.5)||(r.lo!=null&&v<r.lo*0.85)||(k==='MGPS'&&v>=2))?'bad':'warn';
+    const sub={NLR:`${fmt(L.ANC)} ÷ ${fmt(L.ALC)}`,PLR:`${fmt(L.PLT)} ÷ ${fmt(L.ALC)}`,SII:`(${fmt(L.PLT)} × ${fmt(L.ANC)}) ÷ ${fmt(L.ALC)}`,CAR:`${fmt(L.CRP)} ÷ ${fmt(L.ALB*10)}`,MGPS:`CRP ${fmt(L.CRP)}, albumin ${fmt(L.ALB)}`,PNI:`10 × ${fmt(L.ALB)} + 0.005 × ${Math.round(L.ALC*1000)}`}[k];
+    return `<div class="cidx ${s}"><div class="row"><b style="font-size:13px">${r.n}</b><span class="badge ${s}">${s==='ok'?'OPTIMAL':s==='warn'?'WARNING':'CRITICAL'}</span></div><div class="num">${fmt(v)}</div>${grad(k,v)}<div class="formula">${r.f.split(' = ')[0]} = ${sub} = ${fmt(v)}</div><div class="formula">${r.why}</div></div>`;};
+  return `<div class="icards">${cardK.map(k=>{const c=bad(sev(k,L[k]))?'bad':'ok';return `<div class="icard ${c}"><span class="t">${M[k].full.toUpperCase()}</span><div class="v">${fmt(L[k])}<small>${M[k].u}</small></div><div class="small" style="text-align:right">Normal<br>${M[k].lo?M[k].lo+'–'+M[k].hi:'≤ '+M[k].hi}</div></div>`;}).join('')}</div>
+  <div class="card score"><div class="ring ${sc}"><div><b>${score}</b><span class="small">/ 100</span></div></div><div><div class="eb">Inflammation score</div><span class="chip ${sc}">${sc==='bad'?'critical':sc==='warn'?'elevated':'normal'}</span><div class="small" style="margin-top:6px">Average load of CRP, IL-6, TNF-α, ferritin and homocysteine against their upper limits.</div></div></div>
+  <div class="sechead"><h2>Inflammation indices</h2><span class="small">PROTEOMICS + CELLULAR</span></div>
+  <div class="composite"><b>Composite Inflammation Indices</b>These composite indices combine protein markers and cellular counts to reveal inflammatory patterns invisible to standard bloodwork.</div>
+  <div class="g3">${['NLR','PLR','SII'].map(idx).join('')}</div>
+  ${isOnc(p)?`<div class="sechead"><h2>Oncology prognostic indices <span class="chip new">NEW</span></h2><span class="small">Read at baseline and before each cycle</span></div><div class="g3">${['MGPS','PNI','CAR'].map(idx).join('')}</div>`:''}
+  <div class="card"><div class="sechead"><h2>All inflammation markers</h2><div class="subtabs">${['ALL',...Object.keys(groups)].map(g=>`<button data-inf="${g}" aria-pressed="${state.inf===g}">${g}</button>`).join('')}</div></div>
+   <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Marker</th><th>Value</th><th>Unit</th><th>Reference</th></tr></thead><tbody>${all.filter(k=>L[k]!=null).sort((a,b)=>bad(sev(b,L[b]))-bad(sev(a,L[a]))).map(k=>{const m=meta(k),s=sev(k,L[k]);return `<tr><td>${M[k]?M[k].full:m.n}</td><td class="vg ${bad(s)?'bad':'ok'}">${fmt(L[k])}</td><td>${m.u}</td><td>${m.hi==null?'≥ '+m.lo:(m.lo?m.lo+'–'+m.hi:(M[k]?'≤ ':'< ')+m.hi)}</td></tr>`;}).join('')}</tbody></table></div></div>`;}
+
+function sentCard(p,s){const o=runSent(p,s),c=o.trig?'bad':o.met?'warn':'ok';
+  const rws=o.r.map(x=>{const k=x.k,mm=k?meta(k):null,nm=mm?(M[k]?M[k].n:mm.n.split(' (')[0]):'Tumour marker',u=M[k]?M[k].u:'';
+    let d,box;
+    let st='';
+    if(x.ok===null){d='Not measured';box=`<span class="svb na">—</span>`;}
+    else{d=esc(x.label)+(x.obs.includes('→')?` · ${esc(x.obs)}`:'');st=x.ok?'<span class="st met">MET</span>':'<span class="st ok">OK</span>';box=`<span class="svb ${x.ok?'bad':'ok'}">${fmt(x.L)}<small>${u}</small></span>`;}
+    return `<div class="srow"><div><span class="mname">${nm}</span>${st}<div class="d">${d}</div></div>${box}</div>`;}).join('');
+  return `<div class="sent ${c}"><span class="lab">${s.n}${s.onc?' <span class="chip new">NEW</span>':''}</span><div class="sbox"><b>${o.trig?s.st+' DETECTED':o.met?s.st+' · WATCH':'NO '+s.st}</b>${s.an}<span style="text-transform:none">${o.met} of ${o.ev} out of line</span></div><div class="srows">${rws}</div></div>`;}
+function tSentinel(p){const all=SENT.filter(s=>applies(p,s)).map(s=>({s,o:runSent(p,s)}));
+  const rank=x=>x.o.trig?0:x.o.met?1:2;const open=all.filter(x=>rank(x)<2).sort((a,b)=>rank(a)-rank(b));const clear=all.filter(x=>rank(x)===2);
+  return `<div class="tabhint">${all.filter(x=>x.o.trig).length} pattern(s) detected · ${all.filter(x=>rank(x)===1).length} on watch · ${clear.length} clear. Rule: 2 of 3 markers out of line = pattern.</div>
+  ${open.map(x=>sentCard(p,x.s)).join('')}
+  ${clear.length?`<div class="card"><div class="eb">No pattern detected</div><div class="clearlist">${clear.map(x=>`<span class="chip ok">✓ ${x.s.n.replace(' SENTINEL','')}${x.s.onc?' · oncology':''}</span>`).join('')}</div></div>`:''}`;}
+
+function tCohort(p){const q=state.cq.toLowerCase();
+  const list=COH.filter(c=>applies(p,c)).map(c=>{const o=runChecks(p,c.checks,99);return {c,pct:o.ev?Math.round(o.met/o.ev*100):0};}).filter(x=>x.pct>0&&(!q||x.c.n.toLowerCase().includes(q))).sort((a,b)=>b.pct-a.pct);
+  const main=list.filter(x=>x.pct>=50),low=list.length-main.length,shown=state.cohAll||q?list:main;
+  return `<div class="card" style="display:flex;flex-direction:column;gap:12px"><div class="sechead"><input class="sel" id="cq" placeholder="Search" value="${esc(state.cq)}" aria-label="Search cohorts" style="max-width:260px"><span class="small">${main.length} cohort(s) at 50% match or above</span></div>
+   ${shown.map(({c,pct})=>{const r=pct>=67?'hi':pct>=50?'md':'lo';return `<div class="coh ${r}"><div><span class="nm">${c.n}</span><span class="mk2">${c.mk}</span>${c.onc?' <span class="chip new">ONCOLOGY</span>':''}</div><div class="pct">${pct}% MATCH<br><span class="rb ${r}">${r==='hi'?'High Risk':r==='md'?'Medium Risk':'Low Risk'}</span></div></div>`;}).join('')||'<p class="small">No cohort at 50% match or above.</p>'}
+   ${low&&!q?`<button class="linkbtn" id="cohMore">${state.cohAll?'Hide':'Show'} ${low} lower match${low>1?'es':''}</button>`:''}</div>`;}
+
+function tHandshake(p){const rs=response(p);
+  const out=[];HS.filter(h=>applies(p,h)).forEach(h=>{const nodes=h.chain.map(raw=>{const k=alias(p,raw);if(!k)return {nm:'TUMOUR MARKER',v:null,s:'na'};const v=latest(p,k);return {nm:(M[k]?M[k].n:(k==='ASTALT'?'AST/ALT':k)),v,s:v==null?'na':bad(sev(k,v))?'bad':'ok'};});
+    const ev=nodes.filter(n=>n.v!=null).length;if(ev<2)return;
+    const ab=nodes.filter(n=>n.s==='bad').length;const c=ab===0?'ok':(ab>=2||ab===ev)?'bad':'warn';
+    let note='';if(h.chain[0]==='PRIMARY'&&rs&&!rs.pre)note=rs.st==='Responding'?`${M[rs.k].n} down ${Math.abs(Math.round(rs.chg))}% with albumin ${fmt(latest(p,'ALB'))}: burden falling, reserve holding.`:rs.st==='Rising from nadir'?`${M[rs.k].n} up ${Math.round(rs.fromN)}% from nadir with albumin ${fmt(latest(p,'ALB'))}: burden rising, reserve thinning.`:'';
+    out.push({r:{bad:0,warn:1,ok:2}[c],h:`<div class="hs ${c}"><span class="tag">${h.n}${h.onc?' · NEW':''}</span><div class="chain">${nodes.map((n,i)=>(i?'<span class="ar" aria-hidden="true">›</span>':'')+`<span class="n">${esc(n.nm)}<span class="${n.s}">(${n.v==null?'n/a':fmt(n.v)})</span></span>`).join('')}</div>${note?`<p>${esc(note)}</p>`:''}</div>`});});
+  out.sort((a,b)=>a.r-b.r);
+  return `<div class="tabhint">${out.filter(x=>x.r===0).length} red · ${out.filter(x=>x.r===1).length} amber · ${out.filter(x=>x.r===2).length} green. Red handshakes first.</div><div>${out.map(x=>x.h).join('')}</div>`;}
+
+function tVelocity(p){const Rw=rows(p),L=Rw.at(-1);
+  const keys=Object.keys(M).filter(k=>ser(p,k).filter(v=>v!=null).length>=2);
+  if(!keys.length)return '<div class="card"><p class="small" style="margin:0">Velocity needs at least two reports. Choose a later report above.</p></div>';
+  const rd=readiness(p);let def=keys.find(k=>bad(sev(k,L[k])))||keys[0];
+  if(rd){const f=rd.hardFail.length?rd.hardFail[0].m:(p.primary[0]||'ANC');if(keys.includes(f))def=f;}
+  if(!state.vel||!keys.includes(state.vel))state.vel=def;
+  const k=state.vel,m=M[k],span=(p.tp.at(-1)[1]-p.tp[0][1])||1;
+  const th=[];if(rd){if(k==='ANC')th.push({y:state.thr.anc??1.5,l:'Cycle ≥'+(state.thr.anc??1.5)});if(k==='PLT')th.push({y:state.thr.plt??100,l:'Cycle ≥'+(state.thr.plt??100)});if(k==='EGFR'&&p.tags.includes('platinum'))th.push({y:state.thr.egfr??60,l:'Platinum ≥'+(state.thr.egfr??60)});}
+  const vall=keys.map(x=>{const b=base(p,x),l=latest(p,x),d=b?(l-b)/b*100:0;return {x,b,l,d,per:d/(span/30)};}).sort((a,b)=>Math.abs(b.per)-Math.abs(a.per));
+  const sig=vall.filter(v=>Math.abs(v.d)>=10),vrows=state.velAll?vall:sig;
+  const nd=rd?p.tp.map((t,i)=>t[2]==='N'?Rw[i].ANC:null).filter(x=>x!=null):[];
+  return `<div class="card"><div class="sechead"><h2>Velocity · ${m.full}</h2><select class="sel" id="velsel" aria-label="Marker">${keys.map(x=>`<option value="${x}" ${x===k?'selected':''}>${M[x].full}</option>`).join('')}</select></div>
+   <div class="small" style="margin:4px 0 8px">${rd?'Time axis anchored to chemotherapy cycle day 1. Hollow points are nadir draws.':'Change across reports.'} Green band = reference range.</div>${chart(p,k,{th})}
+   ${rd&&nd.length>=2?`<div class="small" style="margin-top:6px"><b>ANC nadir trend:</b> ${nd.map(fmt).join(' → ')} ${nd.at(-1)<nd[0]*0.8?'— deepening each cycle (cumulative marrow toxicity)':'— stable'}</div>`:''}</div>
+  <div class="card" style="padding:0"><div class="mp-top"><b>VELOCITY TABLE</b><span class="small">${state.velAll?'All markers':`${sig.length} marker(s) changed 10% or more`} · fastest first · click a row to chart it</span><button class="linkbtn" id="velMore" style="margin-left:auto">${state.velAll?'Show significant only':`Show all ${vall.length}`}</button></div><div class="tablewrap"><table><thead><tr><th>Marker</th><th>Line</th><th>First</th><th>Latest</th><th>Change</th><th>Per 30 days</th><th>Status</th></tr></thead><tbody>
+   ${vrows.map(v=>`<tr class="rowlink" data-vel="${v.x}"><td><b>${M[v.x].n}</b></td><td class="small">${catName(M[v.x].c)}</td><td>${fmt(v.b)}</td><td>${fmt(v.l)}</td><td class="${Math.abs(v.d)<5?'flat':v.d>0?'up':'down'}">${Math.abs(v.d)<5?'→':v.d>0?'↑':'↓'} ${sgn(v.d)}%</td><td>${sgn(v.per)}%</td><td><span class="cl ${cls(v.x,v.l)}">${cls(v.x,v.l)}</span></td></tr>`).join('')}</tbody></table></div></div>`;}
+
+function tReport(p){const pr=profile(p),rk=riskOf(p),rd=readiness(p),L=pr.L,al=hardAlerts(p);
+  const sentOn=SENT.filter(s=>applies(p,s)).map(s=>({s,o:runSent(p,s)})).filter(x=>x.o.trig);
+  const coh=COH.filter(c=>applies(p,c)).map(c=>{const o=runChecks(p,c.checks,99);return {c,pct:o.ev?Math.round(o.met/o.ev*100):0};}).filter(x=>x.pct>=50).sort((a,b)=>b.pct-a.pct);
+  const fires=['CRP','IL6','TNF','FERR','HCY'].filter(k=>L[k]!=null),score=Math.round(fires.reduce((s,k)=>s+Math.min(L[k]/M[k].hi,3),0)/fires.length*100);
+  let n=1;const sec=(c,t,b)=>`<div class="rsec ${c}"><h3>${n++}. ${t}</h3><div class="b">${b}</div></div>`;
+  return `<div class="rep"><div class="rephd"><h2>COMPREHENSIVE INTEGRATIVE HEALTH REPORT</h2><div class="p">Burakomics Health Analytics — Evidence-Based Biomarker Assessment${rd?' · Oncology pre-cycle module':''}</div>
+   <div class="chips" style="margin-top:10px"><span class="chip">Report Date: ${dateOf(P[state.pi],p.nowi)}</span><span class="chip">Patient: ${p.id}</span><span class="chip">Report: ${p.now}</span></div></div>
+   ${sec('s1','EXECUTIVE SUMMARY',`<p style="margin:0 0 8px">This report consolidates biomarker, inflammation, sentinel, cohort, handshake pathway and velocity findings. Primary drivers: <span class="hl">${al.length?esc(al.map(a=>a[0]).join(', ')):'none'}</span>. Risk level: <span class="hl">${rk.lab.toLowerCase()}</span> (score ${rk.sc}). Overall inflammation: <span class="hl">${score>100?'critical':score>70?'elevated':'normal'}</span> (${score}/100).</p>
+     <p style="margin:0 0 6px">Patient journey: ${p.tp.filter(t=>t[2]!=='N').length} report(s) tracked.</p>${al.length?`<p style="margin:0 0 6px;color:var(--bad)">⚠ ${al.length} hard alert(s) require immediate clinical review.</p>`:''}<p style="margin:0;color:var(--bad)">⚠ ${pr.ab.length} marker(s) outside reference range require clinical correlation.</p>`)}
+   ${rd?sec('s7','ONCOLOGY · PRE-CYCLE READINESS',`<p style="margin:0 0 8px"><span class="vp ${rd.verdict}">${rd.verdict}</span> &nbsp;${esc(headline(p,rd))}</p><div class="tablewrap"><table><thead><tr><th>Check</th><th>Hospital threshold</th><th>Observed</th><th>Type</th><th>Result</th></tr></thead><tbody>${rd.res.map(x=>`<tr><td>${x.label}</td><td>${x.op.includes('<')?'≤':'≥'} ${x.v} ${x.u}</td><td>${esc(x.e.obs)}</td><td>${x.hard?'Hard stop':'Advisory'}</td><td style="font-weight:700;color:${x.e.ok?'var(--ok)':x.hard?'var(--bad)':'var(--warn)'}">${x.e.ok?'PASS':'FAIL'}</td></tr>`).join('')}</tbody></table></div><p class="small" style="margin:8px 0 0">Decision support for the treating oncologist. Thresholds are set by the hospital under Settings.</p>`):''}
+   ${sec('s2','MARKER PROFILE (L1)',`<div class="small" style="margin-bottom:8px">Category-wise laboratory markers outside reference range.</div><div class="tablewrap"><table><thead><tr><th>Marker</th><th>Line</th><th>Value</th><th>Unit</th><th>Reference</th><th>Status</th></tr></thead><tbody>${pr.ab.map(k=>`<tr><td>${M[k].full}</td><td>${catName(M[k].c)}</td><td><b>${fmt(L[k])}</b></td><td>${M[k].u}</td><td>${M[k].hi==null?'≥ '+M[k].lo:M[k].lo+'–'+M[k].hi}</td><td><span class="cl ${cls(k,L[k])}">${cls(k,L[k])}</span></td></tr>`).join('')}</tbody></table></div>`)}
+   ${sec('s3','INFLAMMATORY INDEX',`NLR ${fmt(L.NLR)} · PLR ${fmt(L.PLR)} · SII ${fmt(L.SII)} · CAR ${fmt(L.CAR)}${rd?` · mGPS ${L.MGPS} · PNI ${fmt(L.PNI)}`:''}`)}
+   ${sec('s4','SENTINEL SCORE',sentOn.length?sentOn.map(x=>`<div>• <b>${x.s.n}</b>: ${x.o.met} of ${x.o.ev} markers out of line</div>`).join(''):'No sentinel patterns detected.')}
+   ${sec('s5','DISEASE COHORTS',coh.length?coh.map(x=>`<div>• <b>${x.c.n}</b> — ${x.pct}% match</div>`).join(''):'No cohort above 50% match.')}
+   ${sec('s6','SYSTEM HANDSHAKE & VELOCITY',`Handshake and velocity findings are listed on their tabs; ${p.tp.length} data points analysed.`)}
+  </div>`;}
+
+/* ======================= SETTINGS / INGESTION / REPORTS ======================= */
+function renderSettings(){const holds=holdCount();
+  return `<div class="card"><div class="sechead"><h2>Oncology · pre-cycle thresholds</h2><span class="chip new">Tenant: Tata Memorial</span></div>
+   <p class="small" style="max-width:70ch">The hospital owns these numbers. Burak applies them to every oncology report. Change one and press Enter; the dashboard, patient list and every analysis update.</p>
+   <div class="tablewrap"><table><thead><tr><th>Check</th><th>Threshold</th><th>Unit</th><th>Type</th><th>Applies to</th></tr></thead><tbody>${RULES.map(r=>`<tr><td><b>${r.label}</b></td><td>${r.op.includes('<')?'≤':'≥'} <input class="thr" type="number" step="any" id="thr-${r.id}" data-thr="${r.id}" value="${state.thr[r.id]??r.v}" aria-label="${esc(r.label)} threshold"></td><td>${r.u}</td><td>${r.hard?'<span class="chip bad">Hard stop</span>':'<span class="chip warn">Advisory</span>'}</td><td>${r.app?'Platinum regimens':'All regimens'}</td></tr>`).join('')}</tbody></table></div>
+   <p class="small" style="margin:10px 0 0">With these thresholds, <b>${holds}</b> oncology patient(s) are on HOLD today.</p></div>
+  <div class="card"><div class="sechead"><h2>What the oncology module adds to the pipeline</h2><span class="small">For the engineering team</span></div>
+   <div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Stage</th><th>Added</th><th>Type</th></tr></thead><tbody>
+   ${[['Marker Profile','Oncology line (CEA, CA 15-3, CA 19-9, CA-125, LDH); ANC, ALC, phosphate, uric acid added to existing lines','Config'],['Inflammatory Index','mGPS and PNI beside NLR, PLR, SII, CAR','Config + score operator'],['Sentinel Score','5 oncology sentinels on the existing 2-of-3 rule','Config + 4 operators'],['Disease Cohort','7 oncology cohorts; regimen filter','Config + filter'],['System Handshake','Tumour burden, marrow reserve, drug clearance','Config + primary-marker alias'],['Velocity Analysis','Cycle-anchored axis, nadir trend','treatment.csv + small code'],['Report Center','Pre-cycle readiness section','Config'],['Dashboard / Patients','HOLD / REVIEW / GO status column and widget','View over existing results']].map(r=>`<tr><td><b>${r[0]}</b></td><td style="white-space:normal">${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table></div></div>`;}
+function renderIngest(){return `<div class="card" style="padding:0"><div class="mp-top"><b>DATA INGESTION</b><span class="small">Existing PDF and CSV payloads. One new file for oncology.</span></div>
+  <div class="tablewrap"><table><thead><tr><th>File</th><th>Columns</th><th>Status</th></tr></thead><tbody>
+  <tr><td><b>Lab reports (PDF / CSV)</b></td><td style="white-space:normal">patient_id, sample_datetime, marker_code, value, unit, ref_low, ref_high</td><td><span class="chip ok">Existing</span></td></tr>
+  <tr><td><b>patient.csv</b></td><td style="white-space:normal">patient_id, age, sex, programme, cancer_type, primary_marker, secondary_marker</td><td><span class="chip warn">+3 columns</span></td></tr>
+  <tr><td><b>treatment.csv</b></td><td style="white-space:normal">patient_id, regimen_code, regimen_tags, cycle_no, cycle_day1_date, rt_start_date</td><td><span class="chip new">New · oncology</span></td></tr></tbody></table></div></div>
+  <div class="card" style="padding:0"><div class="mp-top"><b>RECENT PAYLOADS</b></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Reports</th><th>Last received</th><th>Programme</th></tr></thead><tbody>${P.map((p,i)=>`<tr class="rowlink" tabindex="0" data-open="${i}"><td><b>${p.id}</b></td><td>${p.tp.filter(t=>t[2]!=='N').length}${p.tp.some(t=>t[2]==='N')?` + ${p.tp.filter(t=>t[2]==='N').length} nadir`:''}</td><td>${dateOf(p,lastAt(p))}</td><td>${p.prog}</td></tr>`).join('')}</tbody></table></div></div>`;}
+function renderReports(){return `<div class="card" style="padding:0"><div class="mp-top"><b>CLINICAL REPORTS</b><span class="small">Open a report in the Report Center</span></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Report</th><th>Date</th><th>Status</th></tr></thead><tbody>${P.map((p,i)=>{const pv=sliceP(p,lastAt(p)),r=readiness(pv);return `<tr class="rowlink" tabindex="0" data-open="${i}" data-opentab="report"><td><b>${p.id}</b></td><td>${p.tp.at(-1)[0]}</td><td>${dateOf(p,lastAt(p))}</td><td>${r?`<span class="vp ${r.verdict}">${r.verdict}</span>`:`<span class="chip">${riskOf(pv).lab}</span>`}</td></tr>`;}).join('')}</tbody></table></div></div>`;}
+
+const TITLES={dashboard:['Dashboard','Overview of patients, reports and pre-cycle status'],patients:['Patients','Standard patient list · open a patient to see the Burak analysis'],analysis:['Clinical Data Intake & Baseline','View detailed clinical Analysis and Patient Reports'],ingest:['Data ingestion','Lab payloads and treatment files'],settings:['Settings','Tenant configuration'],reports:['Clinical reports','Generated patient reports']};
+function render(){renderSide();const v=state.view;const T=TITLES[v]||[NAV.flatMap(g=>g[1]).find(x=>x[0]===v)[1],'Existing Burak module'];
+  $('ttl').textContent=T[0];$('sub').textContent=T[1];
+  const F={dashboard:renderDashboard,patients:renderPatients,analysis:renderAnalysis,settings:renderSettings,ingest:renderIngest,reports:renderReports}[v];
+  $('view').innerHTML=F?F():`<div class="card placeholder">${T[0]} is an existing Burak module and is unchanged by the oncology work.</div>`;}
+function openPatient(i,tab){state.pi=i;delete state.at[i];state.view='analysis';state.tab=tab||'marker';state.cat=null;state.vel=null;render();window.scrollTo({top:0});}
+document.addEventListener('click',e=>{
+  const n=e.target.closest('[data-nav]');if(n){state.view=n.dataset.nav;render();window.scrollTo({top:0});return;}
+  const o=e.target.closest('[data-open]');if(o){openPatient(+o.dataset.open,o.dataset.opentab);return;}
+  const t=e.target.closest('[data-tab]');if(t){state.tab=t.dataset.tab;render();$('tab-'+state.tab)?.focus();return;}
+  const c=e.target.closest('[data-cat]');if(c){state.cat=c.dataset.cat;render();return;}
+  const f=e.target.closest('[data-inf]');if(f){state.inf=f.dataset.inf;render();return;}
+  const vl=e.target.closest('[data-vel]');if(vl){state.vel=vl.dataset.vel;render();return;}
+  if(e.target.closest('#cfgBtn')){state.cfg=!state.cfg;render();return;}
+  const on=e.target.closest('[data-only]');if(on){state.only=on.dataset.only==='1';render();return;}
+  if(e.target.closest('#cohMore')){state.cohAll=!state.cohAll;render();return;}
+  if(e.target.closest('#velMore')){state.velAll=!state.velAll;render();return;}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.closest){const o=e.target.closest('tr[data-open]');if(o)openPatient(+o.dataset.open,o.dataset.opentab);}});
+document.addEventListener('change',e=>{const el=e.target;
+  if(el.id==='psel')openPatient(+el.value);
+  else if(el.id==='atsel'){state.at[state.pi]=+el.value;render();}
+  else if(el.id==='catsel'){state.cat=el.value;render();}
+  else if(el.id==='velsel'){state.vel=el.value;render();}
+  else if(el.id==='pf'){state.pfilter=el.value;render();}
+  else if(el.dataset.w){state.w[el.dataset.w]=el.checked;try{localStorage.setItem('burak-dash',JSON.stringify(state.w));}catch(x){}render();}
+  else if(el.dataset.thr){const v=parseFloat(el.value);if(!isNaN(v)){state.thr[el.dataset.thr]=v;render();$('thr-'+el.dataset.thr)?.focus();}}});
+document.addEventListener('input',e=>{if(e.target.id==='pq'){state.plist=e.target.value;render();const q=$('pq');q.focus();q.setSelectionRange(q.value.length,q.value.length);}
+  else if(e.target.id==='cq'){state.cq=e.target.value;render();const q=$('cq');q.focus();q.setSelectionRange(q.value.length,q.value.length);}});
+render();
+</script>
