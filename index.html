@@ -320,17 +320,45 @@ td.num,th.num{text-align:right}
 .fs tr.sel td{background:#eef9f7}
 .basecard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
 @media (max-width:820px){.kpibar{grid-template-columns:repeat(2,minmax(0,1fr))}.basecard{grid-template-columns:minmax(0,1fr)}.pbar>div:last-child{margin-left:0}}
+/* ---- POC notices ---- */
+.poc{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff6db;border-bottom:1px solid #efd77f;color:#5f4a00;font-size:12px;padding-block:7px;padding-left:24px;padding-right:max(24px,env(safe-area-inset-right,0px));position:sticky;top:env(safe-area-inset-top,0px);z-index:8}
+.poc b{font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#f3d66b;color:#4a3900;border-radius:4px;padding:2px 7px}
+.poc span{flex:1 1 360px}
+.poc .linkbtn{color:#6b5300;text-decoration:underline}
+.illus{display:inline-block;margin-top:10px;background:rgba(255,255,255,.92);color:#7a5a00;font-size:11px;font-weight:800;letter-spacing:.08em;border-radius:4px;padding:3px 9px}
+.modal{position:fixed;inset:0;background:rgba(10,30,33,.45);display:grid;place-items:center;z-index:50;padding:16px}
+.modal[hidden]{display:none!important}
+.mbox{background:var(--card);border-radius:10px;max-width:560px;width:100%;padding:20px 22px;box-shadow:0 20px 60px rgba(0,0,0,.25);font-size:13.5px;line-height:1.5}
+.mbox h2{margin:0 0 8px;font-size:18px}
+.mbox ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.btn.pri{background:var(--teal);border-color:var(--teal);color:#06302c}
+.pbar .ill{background:#fff1c2;color:#7a5a00;border-radius:3px;padding:0 5px;margin-left:4px;letter-spacing:.04em}
+.pbar .val{max-width:300px}
+.ptab td .dx{font-size:11.5px;color:var(--muted);white-space:normal;max-width:300px}
+@media (max-width:820px){.poc{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
 </style>
 </head>
 <body>
 <div class="app">
   <aside class="side" id="side"></aside>
   <div class="main">
+    <div class="poc" role="note"><b>Proof of concept</b><span>All patients, values and thresholds are illustrative demonstration data. They are not real patients or clinical results. Not for clinical use.</span><button class="linkbtn" id="aboutBtn">About this demo</button></div>
     <header class="topbar"><div><h1 id="ttl"></h1><p id="sub"></p></div><button class="ubtn" tabindex="-1">Users Details ▾</button></header>
     <div class="content" id="view"></div>
   </div>
 </div>
 
+<div class="modal" id="about" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden><div class="mbox">
+  <h2 id="aboutTitle">About this demo</h2>
+  <p>This is a <b>proof of concept</b> of the Burak oncology pre-cycle review, built on the existing Burak biomarker pipeline.</p>
+  <ul>
+    <li><b>Illustrative data only.</b> Every patient, value and date is fictional demonstration data. Nothing here describes a real person or a real clinical result.</li>
+    <li><b>Illustrative thresholds.</b> Pre-cycle thresholds are common-practice examples. They are replaced by the hospital's own protocol, confirmed by its clinicians, before any use.</li>
+    <li><b>Decision support.</b> Burak flags and explains. Every treatment decision stays with the treating oncologist.</li>
+    <li><b>Clear scope.</b> Not for cancer screening, diagnosis or prediction, and it does not detect febrile neutropenia.</li>
+  </ul>
+  <div style="display:flex;justify-content:flex-end;margin-top:14px"><button class="btn pri" id="aboutOk">Continue to the demo</button></div>
+</div></div>
 <script>
 /* ======================= MARKER REGISTRY (existing biological lines + oncology) ======================= */
 const CATS=[['SUGAR','Sugar'],['FIRE','Fire'],['LIVER','Liver'],['CARDIAC','Cardiac'],['NUTRIENT','Nutrient'],['CBC','CBC'],['GUT','Gut'],['KIDNEY','Kidney'],['ONCO','Oncology']];
@@ -616,7 +644,7 @@ const ICON={dash:'<rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="
 const NAV=[['OVERVIEW',[['dashboard','Dashboard','dash']]],['DATA & PATIENTS',[['ingest','Data ingestion','up'],['patients','Patients','pts']]],['CLINICAL INTELLIGENCE',[['ams','AMS','flask'],['reports','Clinical reports','rep']]],['POPULATION',[['pop','Population health','pulse']]],['STEWARDSHIP',[['amsi','AMS Insights','bulb'],['amsf','AMS Financials','wal']]],['ADMINISTRATION',[['test','Test Data','test'],['audit','Audit trail','aud'],['settings','Settings','gear']]]];
 function holdCount(){return P.filter(p=>{const r=readiness(sliceP(p,lastAt(p)));return r&&r.verdict==='HOLD';}).length;}
 function renderSide(){const holds=holdCount();const cur=state.view==='analysis'?'patients':state.view;
-  $('side').innerHTML=`<div class="brand"><b>Burakomics</b><span>Health Analytics</span></div>`+NAV.map(([h,items])=>`<div class="navgrp"><h4>${h}</h4>${items.map(([id,l,ic])=>`<button class="nav" data-nav="${id}" aria-current="${cur===id?'page':'false'}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${ICON[ic]}</svg>${l}${id==='patients'&&holds?`<span class="cnt" title="Oncology patients with a protocol threshold not met">${holds}</span>`:''}</button>`).join('')}</div>`).join('')+
+  $('side').innerHTML=`<div class="brand"><b>Burakomics</b><span>Health Analytics · POC</span></div>`+NAV.map(([h,items])=>`<div class="navgrp"><h4>${h}</h4>${items.map(([id,l,ic])=>`<button class="nav" data-nav="${id}" aria-current="${cur===id?'page':'false'}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${ICON[ic]}</svg>${l}${id==='patients'&&holds?`<span class="cnt" title="Oncology patients with a protocol threshold not met">${holds}</span>`:''}</button>`).join('')}</div>`).join('')+
   `<div class="me"><i>SA</i><div>Super Administrator<small>Superadmin</small></div></div>`;}
 function chart(p,k,opt={}){
   const Rw=rows(p),W=920,H=250,pl=48,pr=84,pt=18,pb=34,m=meta(k);
@@ -676,8 +704,8 @@ function renderPatients(){
   return `<div class="ahead"><input class="sel grow" id="pq" placeholder="Search patients by ID or diagnosis" value="${esc(state.plist)}" aria-label="Search patients">
     <select class="sel" id="pf" aria-label="Programme">${['All','Oncology','General'].map(o=>`<option ${state.pfilter===o?'selected':''}>${o}</option>`).join('')}</select></div>
   <div class="card" style="padding:0"><div class="mp-top"><b>PATIENT LIST</b><span class="small">${list.length} of ${P.length} patients</span></div>
-  <div class="tablewrap"><table><thead><tr><th>S.No</th><th>Patient ID</th><th>Age / Sex</th><th>Programme</th><th>Segment</th><th>Clinical risk</th><th>Reports</th><th>Last report</th><th>Pre-cycle status</th></tr></thead><tbody>
-  ${list.map((x,n)=>{const top=Object.entries(x.pr.byCat).sort((a,b)=>b[1]-a[1])[0];return `<tr class="rowlink" tabindex="0" data-open="${x.i}"><td>${String(n+1).padStart(2,'0')}</td><td><b>${x.p.id}</b><div class="small">${esc(x.p.dx)}</div></td><td>${x.p.age} / ${x.p.sex}</td><td>${x.p.ref?'<span class="chip new">Oncology · referral</span>':x.p.prog==='Oncology'?'<span class="chip new">Oncology</span>':'<span class="chip">General</span>'}</td><td>${top?CNAME[top[0]]+' Dominant':'Balanced'}</td><td><span class="chip ${x.rk.lab==='Critical'?'bad':x.rk.lab==='Low'?'ok':'warn'}">${x.rk.lab} · ${x.rk.sc}</span></td><td>${x.p.tp.filter(t=>t[2]!=='N').length}</td><td>${dateOf(x.p,lastAt(x.p))}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${VL[x.rd.verdict]}</span>`:x.p.ref?'<span class="vp BASE">Baseline</span>':'<span class="small">—</span>'}</td></tr>`;}).join('')}
+  <div class="tablewrap"><table class="ptab"><thead><tr><th>S.No</th><th>Patient ID</th><th>Age / Sex</th><th>Programme</th><th>Segment</th><th>Clinical risk</th><th>Reports</th><th>Last report</th><th>Pre-cycle status</th></tr></thead><tbody>
+  ${list.map((x,n)=>{const top=Object.entries(x.pr.byCat).sort((a,b)=>b[1]-a[1])[0];return `<tr class="rowlink" tabindex="0" data-open="${x.i}"><td>${String(n+1).padStart(2,'0')}</td><td><b>${x.p.id}</b><div class="dx">${esc(x.p.dx)}</div></td><td>${x.p.age} / ${x.p.sex}</td><td>${x.p.ref?'<span class="chip new">Oncology · referral</span>':x.p.prog==='Oncology'?'<span class="chip new">Oncology</span>':'<span class="chip">General</span>'}</td><td>${top?CNAME[top[0]]+' Dominant':'Balanced'}</td><td><span class="chip ${x.rk.lab==='Critical'?'bad':x.rk.lab==='Low'?'ok':'warn'}">${x.rk.lab} · ${x.rk.sc}</span></td><td>${x.p.tp.filter(t=>t[2]!=='N').length}</td><td>${dateOf(x.p,lastAt(x.p))}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${VL[x.rd.verdict]}</span>`:x.p.ref?'<span class="vp BASE">Baseline</span>':'<span class="small">—</span>'}</td></tr>`;}).join('')}
   </tbody></table></div></div>`;}
 
 /* ======================= ANALYSIS (Clinical Data Intake & Baseline) ======================= */
@@ -692,7 +720,7 @@ function renderAnalysis(){
   const opts=p.tp.map((t,i)=>`<option value="${i}" ${i===at?'selected':''}>${t[0]} · ${dateOf(p,i)}${i===lastAt(p)?' (latest)':''}</option>`).join('');
   const nrep=p.tp.length;
   return `<div class="pbar">
-    <div class="pid"><span class="lbl">Patient</span><select id="psel" aria-label="Patient">${P.map((q,i)=>`<option value="${i}" ${i===state.pi?'selected':''}>${q.id}</option>`).join('')}</select></div>
+    <div class="pid"><span class="lbl">Patient <span class="ill">Illustrative</span></span><select id="psel" aria-label="Patient">${P.map((q,i)=>`<option value="${i}" ${i===state.pi?'selected':''}>${q.id}</option>`).join('')}</select></div>
     <div><span class="lbl">Age · Sex</span><span class="val">${p.age} · ${p.sex}</span></div>
     <div><span class="lbl">${p.ref?'Referral reason':p.prog==='Oncology'?'Diagnosis':'Programme'}</span><span class="val" title="${esc(p.dx)}">${esc(p.prog==='Oncology'?p.dx:'General · '+p.dx)}</span></div>
     ${p.prog==='Oncology'?`<div><span class="lbl">Regimen</span><span class="val" title="${esc(p.reg)}">${esc(p.reg)}</span></div>`:''}
@@ -712,8 +740,10 @@ function renderAnalysis(){
   <div style="display:flex;flex-direction:column;gap:16px">${({marker:tMarker,inflam:tInflam,sentinel:tSentinel,cohort:tCohort,handshake:tHandshake,velocity:tVelocity,report:tReport})[state.tab](pv)}</div>`;}
 
 function tMarker(p){
-  const L=rows(p).at(-1);const avail=CATS.filter(c=>Object.keys(M).some(k=>M[k].c===c[0]&&L[k]!=null));
-  if(!state.cat||!avail.some(c=>c[0]===state.cat))state.cat=avail[0][0];
+  const L=rows(p).at(-1);const CO=isOnc(p)?['CBC','ONCO','KIDNEY','LIVER','FIRE','NUTRIENT','SUGAR','CARDIAC','GUT'].map(c=>CATS.find(x=>x[0]===c)):CATS;const avail=CO.filter(c=>Object.keys(M).some(k=>M[k].c===c[0]&&L[k]!=null));
+  if(!state.cat||!avail.some(c=>c[0]===state.cat)){const fl=c=>Object.keys(M).filter(k=>M[k].c===c&&L[k]!=null&&bad(sev(k,L[k]))).length;
+    const pref=isOnc(p)?['CBC','ONCO','KIDNEY','LIVER']:[];const order=[...pref,...avail.map(c=>c[0]).filter(c=>!pref.includes(c))].filter(c=>avail.some(a=>a[0]===c));
+    state.cat=order.find(c=>fl(c))||order[0];}
   const allKeys=Object.keys(M).filter(k=>M[k].c===state.cat&&L[k]!=null);
   const flagged=allKeys.filter(k=>bad(sev(k,L[k])));
   const keys=[...flagged,...(state.only?[]:allKeys.filter(k=>!bad(sev(k,L[k]))))];
@@ -811,7 +841,7 @@ function tReport(p){const pr=profile(p),rk=riskOf(p),rd=readiness(p),L=pr.L,al=h
   const fires=['CRP','IL6','TNF','FERR','HCY'].filter(k=>L[k]!=null),score=Math.round(fires.reduce((s,k)=>s+Math.min(L[k]/M[k].hi,3),0)/fires.length*100);
   let n=1;const sec=(c,t,b)=>`<div class="rsec ${c}"><h3>${n++}. ${t}</h3><div class="b">${b}</div></div>`;
   return `<div class="rep"><div class="rephd"><h2>COMPREHENSIVE INTEGRATIVE HEALTH REPORT</h2><div class="p">Burakomics Health Analytics — Evidence-Based Biomarker Assessment${rd?' · Oncology pre-cycle review':''}</div>
-   <div class="chips" style="margin-top:10px"><span class="chip">Report Date: ${dateOf(P[state.pi],p.nowi)}</span><span class="chip">Patient: ${p.id}</span><span class="chip">Report: ${p.now}</span></div></div>
+   <div class="illus">ILLUSTRATIVE DEMONSTRATION DATA · NOT A CLINICAL REPORT</div><div class="chips" style="margin-top:10px"><span class="chip">Report Date: ${dateOf(P[state.pi],p.nowi)}</span><span class="chip">Patient: ${p.id}</span><span class="chip">Report: ${p.now}</span></div></div>
    ${sec('s1','EXECUTIVE SUMMARY',`<p style="margin:0 0 8px">This report consolidates biomarker, inflammation, sentinel, cohort, handshake pathway and velocity findings. Primary drivers: <span class="hl">${al.length?esc(al.map(a=>a[0]).join(', ')):'none'}</span>. Risk level: <span class="hl">${rk.lab.toLowerCase()}</span> (score ${rk.sc}). Overall inflammation: <span class="hl">${score>100?'critical':score>70?'elevated':'normal'}</span> (${score}/100).</p>
      <p style="margin:0 0 6px">Patient journey: ${p.tp.filter(t=>t[2]!=='N').length} report(s) tracked.</p>${al.length?`<p style="margin:0 0 6px;color:var(--bad)">⚠ ${al.length} hard alert(s) require immediate clinical review.</p>`:''}<p style="margin:0;color:var(--bad)">⚠ ${pr.ab.length} marker(s) outside reference range require clinical correlation.</p>`)}
    ${p.ref?sec('s7','ONCOLOGY · BASELINE AT REFERRAL',`<p style="margin:0 0 8px"><span class="vp BASE">Baseline</span> &nbsp;First report at referral. ${baselineFindings(p).length} work-up markers outside range: ${baselineFindings(p).map(x=>`${M[x.k].full} ${fmt(x.v)} ${M[x.k].u}`).join(' · ')}.</p><p class="small" style="margin:0">For the oncologist's review alongside imaging and pathology. Burak does not screen for or diagnose cancer. Pre-cycle review starts when treatment begins.</p>`):''}
@@ -841,7 +871,7 @@ function renderIngest(){return `<div class="card" style="padding:0"><div class="
   <div class="card" style="padding:0"><div class="mp-top"><b>RECENT PAYLOADS</b></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Reports</th><th>Last received</th><th>Programme</th></tr></thead><tbody>${P.map((p,i)=>`<tr class="rowlink" tabindex="0" data-open="${i}"><td><b>${p.id}</b></td><td>${p.tp.filter(t=>t[2]!=='N').length}${p.tp.some(t=>t[2]==='N')?` + ${p.tp.filter(t=>t[2]==='N').length} low-point`:''}</td><td>${dateOf(p,lastAt(p))}</td><td>${p.prog}</td></tr>`).join('')}</tbody></table></div></div>`;}
 function renderReports(){return `<div class="card" style="padding:0"><div class="mp-top"><b>CLINICAL REPORTS</b><span class="small">Open a report in the Report Center</span></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Report</th><th>Date</th><th>Status</th></tr></thead><tbody>${P.map((p,i)=>{const pv=sliceP(p,lastAt(p)),r=readiness(pv);return `<tr class="rowlink" tabindex="0" data-open="${i}" data-opentab="report"><td><b>${p.id}</b></td><td>${p.tp.at(-1)[0]}</td><td>${dateOf(p,lastAt(p))}</td><td>${r?`<span class="vp ${r.verdict}">${VL[r.verdict]}</span>`:`<span class="chip">${riskOf(pv).lab}</span>`}</td></tr>`;}).join('')}</tbody></table></div></div>`;}
 
-const TITLES={dashboard:['Dashboard','Overview of patients, reports and pre-cycle status'],patients:['Patients','Standard patient list · open a patient to see the Burak analysis'],analysis:['Clinical Data Intake & Baseline','View detailed clinical Analysis and Patient Reports'],ingest:['Data ingestion','Lab payloads and treatment files'],settings:['Settings','Tenant configuration'],reports:['Clinical reports','Generated patient reports']};
+const TITLES={dashboard:['Dashboard','Overview of patients, reports and pre-cycle status · illustrative data'],patients:['Patients','Standard patient list · open a patient to see the Burak analysis'],analysis:['Clinical Data Intake & Baseline','View detailed clinical Analysis and Patient Reports'],ingest:['Data ingestion','Lab payloads and treatment files'],settings:['Settings','Tenant configuration'],reports:['Clinical reports','Generated patient reports']};
 function render(){renderSide();const v=state.view;const T=TITLES[v]||[NAV.flatMap(g=>g[1]).find(x=>x[0]===v)[1],'Existing Burak module'];
   $('ttl').textContent=T[0];$('sub').textContent=T[1];
   const F={dashboard:renderDashboard,patients:renderPatients,analysis:renderAnalysis,settings:renderSettings,ingest:renderIngest,reports:renderReports}[v];
@@ -871,6 +901,11 @@ document.addEventListener('change',e=>{const el=e.target;
   else if(el.dataset.thr){const v=parseFloat(el.value);if(!isNaN(v)){state.thr[el.dataset.thr]=v;render();$('thr-'+el.dataset.thr)?.focus();}}});
 document.addEventListener('input',e=>{if(e.target.id==='pq'){state.plist=e.target.value;render();const q=$('pq');q.focus();q.setSelectionRange(q.value.length,q.value.length);}
   else if(e.target.id==='cq'){state.cq=e.target.value;render();const q=$('cq');q.focus();q.setSelectionRange(q.value.length,q.value.length);}});
+(function(){let seen=false;try{seen=sessionStorage.getItem('burak-about')==='1';}catch(e){}
+  const m=$('about');const close=()=>{m.hidden=true;try{sessionStorage.setItem('burak-about','1');}catch(e){}};
+  $('aboutOk').onclick=close;$('aboutBtn').onclick=()=>{m.hidden=false;$('aboutOk').focus();};
+  m.addEventListener('click',e=>{if(e.target===m)close();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!m.hidden)close();});
+  if(!seen){m.hidden=false;setTimeout(()=>$('aboutOk').focus(),0);}})();
 render();
 </script>
 </body>
