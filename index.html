@@ -59,7 +59,7 @@ button,select,input{font-family:var(--f-ui)}
 .chip.new{background:#efe9ff;border-color:#d4c6fb;color:#5b3fc4}
 .vp{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:11.5px;letter-spacing:.05em;padding:3px 10px;border-radius:999px}
 .vp::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.vp.HOLD{background:var(--bad-bg);color:var(--bad)} .vp.REVIEW{background:var(--warn-bg);color:var(--warn)} .vp.GO{background:var(--ok-bg);color:var(--ok)}
+.vp.HOLD{background:var(--bad-bg);color:var(--bad)} .vp.REVIEW{background:var(--warn-bg);color:var(--warn)} .vp.GO{background:var(--ok-bg);color:var(--ok)} .vp.INC{background:#eef1f2;color:#5b6b6e}
 select.sel,input.sel{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--fg);min-width:0}
 .btn{border:1px solid var(--line);background:var(--card);color:var(--fg);font-weight:600;font-size:13px;padding:8px 14px;border-radius:8px;cursor:pointer}
 .btn:focus-visible,.tab:focus-visible,.ctab:focus-visible,select:focus-visible,input:focus-visible,.rowlink:focus-visible,.subtabs button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
@@ -83,9 +83,11 @@ tr.rowlink{cursor:pointer} tr.rowlink:hover td{background:#f4fbfc}
 .force{background:var(--bad-bg);border:1px solid var(--bad-line);color:var(--bad);font-size:11px;font-weight:600;border-radius:6px;padding:5px 9px;margin-bottom:8px}
 .blist{margin:4px 0 0;padding-left:14px;font-size:11.5px;color:var(--blue)}
 .onco{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;border-radius:10px;padding:12px 16px;border:1px solid}
-.onco.HOLD{background:var(--bad-bg);border-color:var(--bad-line)} .onco.REVIEW{background:var(--warn-bg);border-color:var(--warn-line)} .onco.GO{background:var(--ok-bg);border-color:var(--ok-line)}
+.onco.HOLD{background:var(--bad-bg);border-color:var(--bad-line)} .onco.REVIEW{background:var(--warn-bg);border-color:var(--warn-line)} .onco.GO{background:var(--ok-bg);border-color:var(--ok-line)} .onco.INC{background:#f1f4f5;border-color:#c9d3d5}
 .onco .w{font-size:26px;font-weight:800;letter-spacing:.03em}
-.onco.HOLD .w{color:var(--bad)} .onco.REVIEW .w{color:var(--warn)} .onco.GO .w{color:var(--ok)}
+.onco.HOLD .w{color:var(--bad)} .onco.REVIEW .w{color:var(--warn)} .onco.GO .w{color:var(--ok)} .onco.INC .w{color:#5b6b6e}
+.onco .w{font-size:20px;line-height:1.15;max-width:150px}
+.scope{font-size:12px;color:var(--teal-ink);background:#eaf8f6;border:1px solid #bfe7e1;border-radius:8px;padding:8px 12px}
 .onco b{font-size:14px}
 .alerts{background:#f6eef0;border:1px solid var(--bad-line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
 .alerts h3{margin:0;font-size:12.5px;letter-spacing:.04em;color:var(--bad)}
@@ -143,6 +145,7 @@ tr.rowlink{cursor:pointer} tr.rowlink:hover td{background:#f4fbfc}
 .formula{font-size:11.5px;color:var(--muted)}
 .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .sechead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .sechead h2{margin:0;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
 .sent{border:1.5px solid var(--bad);border-radius:10px;padding:40px 16px 16px;position:relative;display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;background:var(--card)}
@@ -207,7 +210,7 @@ svg.ch{width:100%;height:auto;display:block}
 .kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .kpi .n{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
 .vbox{border-radius:10px;padding:14px 16px;border:1px solid}
-.vbox.HOLD{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)} .vbox.REVIEW{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn)} .vbox.GO{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok)}
+.vbox.HOLD{background:var(--bad-bg);border-color:var(--bad-line);color:var(--bad)} .vbox.REVIEW{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn)} .vbox.GO{background:var(--ok-bg);border-color:var(--ok-line);color:var(--ok)} .vbox.INC{background:#f1f4f5;border-color:#c9d3d5;color:#5b6b6e}
 .vbox .n{font-size:30px;font-weight:800}
 .vbox span{color:var(--fg);font-size:12px}
 .hbar{display:flex;align-items:center;gap:10px;font-size:12.5px}
@@ -218,7 +221,7 @@ svg.ch{width:100%;height:auto;display:block}
 .cfg label{display:flex;gap:6px;align-items:center;font-size:13px;cursor:pointer}
 input.thr{width:80px;border:1px solid var(--line);border-radius:6px;padding:5px 8px;font-weight:600;font-size:13px}
 .placeholder{padding:40px 20px;text-align:center;color:var(--muted)}
-@media (max-width:1100px){.cards4,.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}.icards,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1100px){.g4,.cards4,.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}.icards,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:820px){
   .app{grid-template-columns:minmax(0,1fr)}
   .side{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));flex-direction:row;flex-wrap:wrap;gap:8px 16px}
@@ -226,7 +229,7 @@ input.thr{width:80px;border:1px solid var(--line);border-radius:6px;padding:5px 
   .topbar,.content{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   .g2,.g3,.icards,.sent,.onco{grid-template-columns:minmax(0,1fr)}
 }
-@media (max-width:480px){.cards4,.kpi{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.g4,.cards4,.kpi{grid-template-columns:minmax(0,1fr)}}
 /* ---- low-noise layer ---- */
 .mrow.okr td{color:var(--muted)}
 .mrow.okr td:first-child{border-left-color:transparent}
@@ -250,6 +253,73 @@ input.thr{width:80px;border:1px solid var(--line);border-radius:6px;padding:5px 
 .hs.ok{padding:20px 14px 12px}
 .hs.ok .chain{font-size:13px;color:var(--muted)}
 .tabhint{font-size:12.5px;color:var(--muted);margin-top:-8px}
+/* ---- product density layer: calmer, more like clinical software ---- */
+body{font-size:13px}
+.content{gap:14px;padding-block:16px 40px}
+.card{border-radius:8px;padding:12px 14px;border-color:#e1ecee}
+.eb{font-size:10.5px;margin-bottom:6px}
+.big{font-size:15px}.bigger{font-size:17px}
+.cards4{gap:10px}
+.seg .code{width:32px;height:32px;font-size:13px}
+th{position:sticky;top:0;background:#f6fafb;z-index:1;font-size:10.5px;padding:8px 10px}
+td{padding:8px 10px}
+td.num,th.num{text-align:right}
+.tabbar{padding:4px;gap:4px;border-radius:8px}
+.tab{padding:6px 12px;font-size:12.5px;border-radius:6px;border-color:transparent;background:transparent}
+.tab:hover{background:#f1f8f9}
+.tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal)}
+.mp-top{padding:10px 14px}
+.alerts{padding:10px 12px;border-radius:8px;gap:6px}
+.alerts .a{padding:6px 10px}
+/* patient banner */
+.pbar{display:flex;align-items:center;gap:0;background:var(--card);border:1px solid #e1ecee;border-radius:8px;flex-wrap:wrap;overflow:hidden}
+.pbar>div{padding:8px 14px;border-right:1px solid #eef3f4;min-width:0}
+.pbar>div:last-child{border-right:0;margin-left:auto}
+.pbar .lbl{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.pbar .val{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px;display:block}
+.pbar select{border:0;background:transparent;font:600 13px var(--f-ui);color:var(--fg);padding:0;max-width:240px}
+.pbar .pid select{font-size:14px;font-weight:700}
+/* compact status strip */
+.ostrip{display:flex;align-items:center;gap:12px;border:1px solid #e1ecee;border-radius:8px;background:var(--card);padding:8px 12px;flex-wrap:wrap}
+.ostrip .vp{font-size:12px;padding:4px 11px}
+.ostrip .msg{font-weight:600;font-size:13px;flex:1 1 320px;min-width:0}
+.ostrip .meta{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ostrip.HOLD{border-color:var(--bad-line);background:#fff8f8} .ostrip.REVIEW{border-color:var(--warn-line);background:#fffcf0} .ostrip.INC{background:#f7f9f9} .ostrip.BASE{border-color:#b9d4f6;background:#f6f9ff}
+.vp.BASE{background:#e6efff;color:#2457b5}
+/* dashboard summary */
+.kpibar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--card);border:1px solid #e1ecee;border-radius:8px}
+.kpibar>div{padding:10px 14px;border-right:1px solid #eef3f4}.kpibar>div:last-child{border-right:0}
+.kpibar .n{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.statbar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:#eef3f4;margin:8px 0 10px}
+.statbar b{display:block;height:100%}
+.statleg{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px}
+.statleg span{display:inline-flex;align-items:center;gap:6px}
+.statleg i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.statleg b{font-variant-numeric:tabular-nums}
+.tfoot{font-size:11.5px;color:var(--muted);padding:8px 14px;border-top:1px solid #eef3f4}
+/* velocity flowsheet */
+.rtl{display:flex;gap:0;overflow-x:auto;border:1px solid #e1ecee;border-radius:8px;background:var(--card)}
+.rtl button{all:unset;cursor:pointer;padding:8px 14px;border-right:1px solid #eef3f4;min-width:96px;position:relative}
+.rtl button:last-child{border-right:0}
+.rtl button[aria-pressed="true"]{background:#e9f8f6;box-shadow:inset 0 -2px 0 var(--teal)}
+.rtl button:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
+.rtl .r{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+.rtl .c{font-weight:700;font-size:13px;display:block}
+.rtl .d{font-size:11.5px;color:var(--muted)}
+.rtl .low .c{color:#3b6fb6}
+.fs td,.fs th{white-space:nowrap}
+.fs td.v{text-align:right;font-variant-numeric:tabular-nums;color:#4c6164}
+.fs td.v.hi{color:var(--bad);font-weight:700} .fs td.v.lo{color:var(--blue);font-weight:700}
+.fs td.v.na{color:#c3cfd1}
+.fs td.v.cur,.fs th.cur{background:#f2fbf9}
+.fs th.rh{text-align:right;line-height:1.25}
+.fs th.rh small{display:block;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
+.fs tr.grp td{background:#fafcfc;font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:5px 10px}
+.fs td.mkc b{font-weight:600}
+.fs td.mkc small{color:var(--muted);margin-left:4px}
+.fs tr.sel td{background:#eef9f7}
+.basecard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:820px){.kpibar{grid-template-columns:repeat(2,minmax(0,1fr))}.basecard{grid-template-columns:minmax(0,1fr)}.pbar>div:last-child{margin-left:0}}
 </style>
 </head>
 <body>
@@ -320,9 +390,13 @@ const R={
  CAR:{n:'CAR (CRP/Albumin)',u:'ratio',hi:0.3,f:'CAR = CRP ÷ albumin (g/L)',why:'Inflammation relative to nutritional protein'},
  ASTALT:{n:'AST/ALT',u:'ratio',hi:1.5,f:'AST ÷ ALT',why:'De Ritis ratio'},
  MGPS:{n:'mGPS (Modified Glasgow Prognostic Score)',u:'score',hi:0,f:'mGPS = CRP ≤10 → 0 · CRP >10 & Alb ≥3.5 → 1 · else 2',why:'Cancer prognosis: inflammation with low albumin'},
- PNI:{n:'PNI (Prognostic Nutritional Index)',u:'index',lo:45,f:'PNI = 10 × Alb + 0.005 × lymphocytes/mm³',why:'Nutrition and immune reserve before and during chemo'}
+ PNI:{n:'PNI (Prognostic Nutritional Index)',u:'index',lo:45,f:'PNI = 10 × Alb + 0.005 × lymphocytes/mm³',why:'Nutrition and immune reserve before and during chemotherapy'}
 };
 const meta=k=>M[k]||R[k];
+/* Status labels (wording agreed with the CSO). Internal keys stay short. */
+const VL={HOLD:'Threshold not met',REVIEW:'Review',GO:'Checks met',INC:'Incomplete'};
+const SC={HOLD:'#e0383e',REVIEW:'#d9a21b',GO:'#1a9a52',INC:'#9aa8ab'};
+const VD={HOLD:'A protocol threshold is not met',REVIEW:'Thresholds met, but a pattern needs a look',GO:'All protocol checks met',INC:'Required data missing or pending'};
 
 /* ======================= RULES (existing Burak + oncology additions) ======================= */
 const SENT=[
@@ -331,25 +405,25 @@ const SENT=[
  {id:'LIVER',n:'LIVER SENTINEL',st:'NAFLD RISK',an:'HEPATIC STEATOSIS ANALYSIS',w:'Hepatic',checks:[['ALT','>',56],['AST','>',40],['TRIG','>',150]]},
  {id:'CARD',n:'CARDIOVASCULAR SENTINEL',st:'ATHEROGENIC RISK',an:'LIPID PARTICLE ANALYSIS',w:'Cardiac',checks:[['LDL','>',100],['APOB','>',100],['LPA','>',30]]},
  {id:'INFL',n:'INFLAMMATION SENTINEL',st:'SYSTEMIC INFLAMMATION',an:'INFLAMMATORY LOAD ANALYSIS',w:'Inflammatory',checks:[['CRP','>',3],['FERR','>',200],['IL6','>',5]]},
- {id:'MYELO',onc:1,n:'MYELOSUPPRESSION SENTINEL',st:'MARROW SUPPRESSION',an:'POST-CHEMO MARROW ANALYSIS',w:'Marrow',checks:[['ANC','<',1.5],['PLT','<',100],['HB','<',10]],hard:[['ANC','<',1.0,'Severe neutropenia — ANC below 1.0']]},
+ {id:'MYELO',onc:1,n:'MYELOSUPPRESSION SENTINEL',st:'MARROW SUPPRESSION',an:'POST-CHEMO MARROW ANALYSIS',w:'Marrow',checks:[['ANC','<',1.5],['PLT','<',100],['HB','<',10]],hard:[['ANC','<',1.0,'ANC below 1.0 ×10⁹/L']]},
  {id:'NEPH',onc:1,n:'NEPHRO-ELECTROLYTE SENTINEL',st:'NEPHROTOXIC PATTERN',an:'PLATINUM TOXICITY ANALYSIS',w:'Nephro',checks:[['CREA','rise%',30],['MG','<',1.5],['K','<',3.5]]},
- {id:'TLS',onc:1,n:'TUMOUR LYSIS SENTINEL',st:'TUMOUR LYSIS RISK',an:'CAIRO–BISHOP LAB ANALYSIS',w:'Lysis',checks:[['UA','>=',8],['K','>=',6],['PHOS','>=',4.5],['CA','<=',7]]},
- {id:'HOST',onc:1,n:'HOST RESERVE SENTINEL',st:'CACHEXIA RISK',an:'NUTRITION & RESERVE ANALYSIS',w:'Reserve',checks:[['ALB','<',3.5],['CRP','>',10],['PNI','<',45]]},
- {id:'TUMR',onc:1,n:'TUMOUR ACTIVITY SENTINEL',st:'PROGRESSION SIGNAL',an:'TUMOUR MARKER ANALYSIS',w:'Tumour',checks:[['PRIMARY','riseNadir%',25],['LDH','>xULN',1],['ALP','>xULN',1]]}
+ {id:'TLS',onc:1,n:'TUMOUR LYSIS SENTINEL',st:'TUMOUR LYSIS CRITERIA',an:'CAIRO–BISHOP LAB ANALYSIS',w:'Lysis',checks:[['UA','>=',8],['K','>=',6],['PHOS','>=',4.5],['CA','<=',7]]},
+ {id:'HOST',onc:1,n:'HOST RESERVE SENTINEL',st:'LOW RESERVE',an:'NUTRITION & RESERVE ANALYSIS',w:'Reserve',checks:[['ALB','<',3.5],['CRP','>',10],['PNI','<',45]]},
+ {id:'TUMR',onc:1,n:'TUMOUR MARKER TREND SENTINEL',st:'MARKER RISE',an:'BIOCHEMICAL MARKER TREND',w:'Marker',checks:[['PRIMARY','riseNadir%',25],['LDH','>xULN',1],['ALP','>xULN',1]]}
 ];
 const COH=[
  {n:'NON-ALCOHOLIC FATTY LIVER DISEASE',mk:'ALT · AST · Triglycerides',checks:[['ALT','>',56],['AST','>',40],['TRIG','>',150]]},
- {n:'INFLAMMATORY BOWEL PATTERN',mk:'CRP · Ferritin · Calprotectin',checks:[['CRP','>',3],['FERR','>',200],['CALP','>',50]]},
+ {gen:1,n:'INFLAMMATORY BOWEL PATTERN',mk:'CRP · Ferritin · Calprotectin',checks:[['CRP','>',3],['FERR','>',200],['CALP','>',50]]},
  {n:'METABOLIC OBESITY PATTERN',mk:'Triglycerides · HDL · HOMA-IR',checks:[['TRIG','>',150],['HDL','<',40],['HOMA','>',2.5]]},
  {n:'KIDNEY FUNCTION DECLINE',mk:'eGFR · Creatinine · UACR',checks:[['EGFR','<',60],['CREA','>',1.2],['UACR','>',30]]},
- {n:'THYROID & STRESS PATTERN',mk:'Ferritin · CRP · Homocysteine',checks:[['FERR','>',200],['CRP','>',3],['HCY','>',10]]},
+ {gen:1,n:'THYROID & STRESS PATTERN',mk:'Ferritin · CRP · Homocysteine',checks:[['FERR','>',200],['CRP','>',3],['HCY','>',10]]},
  {n:'CARDIOVASCULAR RISK PATTERN',mk:'ApoB · Lp(a) · LDL',checks:[['APOB','>',100],['LPA','>',30],['LDL','>',100]]},
- {onc:1,n:'CHEMO-INDUCED MYELOSUPPRESSION',mk:'ANC · WBC · Hb · PLT · nadir trend',checks:[['ANC','<',1.5],['WBC','<',4],['HB','<',11],['PLT','<',150],['ANC','deepen',20]]},
+ {onc:1,n:'CHEMO-INDUCED MYELOSUPPRESSION',mk:'ANC · WBC · Hb · PLT · low-point trend',checks:[['ANC','<',1.5],['WBC','<',4],['HB','<',11],['PLT','<',150],['ANC','deepen',20]]},
  {onc:1,n:'BIOCHEMICAL RESPONSE',mk:'Tumour marker · LDH · Albumin',checks:[['PRIMARY','fall%',50],['LDH','<=xULN',1],['ALB','>=',3.5]]},
  {onc:1,n:'BIOCHEMICAL PROGRESSION',mk:'Tumour markers · LDH · ALP',checks:[['PRIMARY','riseNadir%',25],['SECONDARY','riseNadir%',25],['LDH','>xULN',1],['ALP','>xULN',1]]},
  {onc:1,app:'platinum',n:'PLATINUM NEPHROTOXICITY',mk:'Creatinine · eGFR · Mg · K',checks:[['CREA','rise%',30],['EGFR','<',60],['MG','<',1.7],['K','<',3.5]]},
  {onc:1,n:'CANCER CACHEXIA & INFLAMMATION',mk:'CRP · Albumin · NLR · PNI · mGPS',checks:[['CRP','>',10],['ALB','<',3.5],['NLR','>',3],['PNI','<',45],['MGPS','>=',2]]},
- {onc:1,n:'TUMOUR LYSIS RISK',mk:'Uric acid · Phosphate · K · LDH',checks:[['UA','>=',8],['PHOS','>=',4.5],['K','>=',6],['LDH','>xULN',2]]},
+ {onc:1,n:'TUMOUR LYSIS LABORATORY CRITERIA',mk:'Uric acid · Phosphate · K · LDH',checks:[['UA','>=',8],['PHOS','>=',4.5],['K','>=',6],['LDH','>xULN',2]]},
  {onc:1,app:'radiotherapy',n:'RADIATION LYMPHOPENIA',mk:'ALC · NLR',checks:[['ALC','<',1.0],['ALC','fall%',50],['NLR','>',3]]}
 ];
 const HS=[
@@ -364,8 +438,8 @@ const HS=[
  {onc:1,n:'DRUG CLEARANCE HANDSHAKE',chain:['CREA','EGFR','BILI']}
 ];
 const RULES=[
- {id:'anc',label:'ANC',m:'ANC',op:'>=',v:1.5,u:'10^9/L',hard:true},
- {id:'plt',label:'Platelets',m:'PLT',op:'>=',v:100,u:'10^9/L',hard:true},
+ {id:'anc',label:'ANC',m:'ANC',op:'>=',v:1.5,u:'×10⁹/L',hard:true},
+ {id:'plt',label:'Platelets',m:'PLT',op:'>=',v:100,u:'×10⁹/L',hard:true},
  {id:'hb',label:'Haemoglobin',m:'HB',op:'>=',v:9,u:'g/dL',hard:false},
  {id:'alt',label:'ALT',m:'ALT',op:'<=xULN',v:2.5,u:'× ULN',hard:true},
  {id:'bili',label:'Bilirubin',m:'BILI',op:'<=xULN',v:1.5,u:'× ULN',hard:true},
@@ -373,11 +447,11 @@ const RULES=[
 ];
 
 /* ======================= PATIENTS ======================= */
-const TP4=[['C1 D1',0,'D'],['C1 nadir',10,'N'],['C2 D1',21,'D'],['C2 nadir',31,'N'],['C3 D1',42,'D'],['C3 nadir',52,'N'],['C4 D1',63,'D']];
+const TP4=[['C1 D1',0,'D'],['C1 low',10,'N'],['C2 D1',21,'D'],['C2 low',31,'N'],['C3 D1',42,'D'],['C3 low',52,'N'],['C4 D1',63,'D']];
 const TPR=[['R1',0,'R'],['R2',30,'R'],['R3',60,'R'],['R4',90,'R'],['R5',120,'R']];
 const P=[
  {id:'TMC-BR-0142',sex:'F',age:52,prog:'Oncology',dx:'Breast carcinoma, HR+/HER2−',reg:'AC (doxorubicin + cyclophosphamide), 3-weekly',tags:['anthracycline'],primary:['CA153','CEA'],start:'2026-08-24',tp:TP4,s:{
-  ANC:[4.8,1.1,2.6,0.8,1.9,0.6,1.2],ALC:[1.9,1.0,1.4,0.9,1.2,0.8,1.1],WBC:[7.2,2.4,4.6,1.9,3.6,1.6,2.9],HB:[12.8,11.9,11.6,10.9,10.6,10.1,9.8],PLT:[268,182,241,151,210,132,168],
+  ANC:[4.8,1.1,2.3,0.8,1.7,0.6,1.2],ALC:[1.9,1.0,1.4,0.9,1.2,0.8,1.1],WBC:[7.2,2.4,4.6,1.9,3.6,1.6,2.9],HB:[12.8,11.9,11.6,10.9,10.6,10.1,9.8],PLT:[268,182,241,151,210,132,168],
   CA153:[86,null,61,null,44,null,33],CEA:[9.4,null,7.1,null,5.2,null,3.8],LDH:[312,null,268,null,236,null,214],
   ALT:[28,34,31,42,38,46,44],AST:[24,30,27,36,33,39,37],BILI:[0.6,0.7,0.6,0.8,0.7,0.8,0.8],ALP:[112,110,104,101,98,97,96],
   CREA:[0.8,0.8,0.8,0.9,0.8,0.9,0.9],K:[4.2,4.0,4.1,3.9,4.0,3.9,4.0],MG:[2.0,1.9,2.0,1.9,1.9,1.9,1.9],PHOS:[3.6,3.4,3.5,3.3,3.4,3.3,3.4],UA:[4.8,4.6,4.5,4.4,4.5,4.3,4.4],CA:[9.4,9.3,9.4,9.2,9.3,9.2,9.2],
@@ -391,7 +465,7 @@ const P=[
   CRP:[12,16,10,15,13,19,24],ALB:[3.9,3.8,3.8,3.7,3.6,3.5,3.4]},
   ext:{GLU:118,A1C:6.2,INS:14,TRIG:168,HDL:41,LDL:126,APOB:104,LPA:22,TC:204,GGT:88,VITD:16,B12:380,FOL:6,FE:48,IL6:9.5,TNF:9.2,FERR:410,HCY:13,UACR:22},dr:{GGT:.5,IL6:.4,FERR:.3}},
  {id:'TMC-HN-0215',sex:'M',age:48,prog:'Oncology',dx:'Oropharyngeal squamous cell carcinoma',reg:'Cisplatin 3-weekly + concurrent radiotherapy',tags:['platinum','radiotherapy'],primary:[],start:'2026-09-14',
-  tp:[['C1 D1',0,'D'],['C1 nadir',10,'N'],['C2 D1',21,'D'],['C2 nadir',31,'N'],['C3 D1',42,'D']],s:{
+  tp:[['C1 D1',0,'D'],['C1 low',10,'N'],['C2 D1',21,'D'],['C2 low',31,'N'],['C3 D1',42,'D']],s:{
   ANC:[4.6,2.2,3.4,1.9,2.6],ALC:[1.5,0.9,1.0,0.6,0.7],WBC:[7.0,3.6,5.2,3.1,4.1],HB:[13.9,13.1,12.6,11.8,11.2],PLT:[252,190,221,168,196],LDH:[220,null,236,null,248],
   ALT:[30,32,29,34,31],AST:[28,29,27,31,30],BILI:[0.7,0.7,0.6,0.7,0.7],ALP:[90,88,91,89,92],
   CREA:[0.9,1.1,1.2,1.4,1.5],K:[4.1,3.7,3.6,3.3,3.2],MG:[2.0,1.7,1.6,1.4,1.3],PHOS:[3.4,3.2,3.1,2.9,2.8],UA:[5.2,5.0,5.1,4.9,4.8],CA:[9.2,9.0,8.9,8.7,8.6],
@@ -409,6 +483,18 @@ const P=[
   ANC:[6.8,7.4],ALC:[0.9,0.8],WBC:[9.6,10.4],HB:[11.8,11.4],PLT:[412,436],LDH:[640,712],ALT:[30,33],AST:[34,38],BILI:[0.8,0.8],ALP:[120,126],
   CREA:[1.0,1.2],K:[4.9,5.3],MG:[2.0,2.0],PHOS:[4.4,4.9],UA:[8.4,9.1],CA:[8.9,8.4],CRP:[22,26],ALB:[3.6,3.4]},
   ext:{GLU:104,A1C:5.5,INS:11,TRIG:142,HDL:39,LDL:112,APOB:90,LPA:10,TC:178,GGT:46,VITD:19,B12:450,FOL:7,FE:58,IL6:14.5,TNF:11.2,FERR:620,HCY:10,UACR:18},dr:{}},
+ {id:'TMC-BR-0207',sex:'F',age:46,prog:'Oncology',dx:'Early breast carcinoma, HER2+',reg:'Paclitaxel + trastuzumab, weekly',tags:[],primary:['CA153'],start:'2026-09-28',
+  tp:[['C1 D1',0,'D'],['C2 D1',7,'D'],['C3 D1',14,'D'],['C4 D1',21,'D'],['C5 D1',28,'D']],s:{
+  ANC:[4.2,3.6,3.4,3.1,2.9],ALC:[1.8,1.6,1.6,1.5,1.5],WBC:[6.6,5.8,5.5,5.1,4.9],HB:[12.9,12.6,12.4,12.2,12.0],PLT:[262,240,228,231,null],
+  CA153:[34,null,null,28,null],LDH:[210,null,null,204,null],ALT:[24,30,34,38,41],AST:[22,26,29,31,33],BILI:[0.5,0.6,0.6,0.6,0.6],ALP:[84,86,85,87,88],
+  CREA:[0.7,0.7,0.7,0.7,0.7],K:[4.2,4.1,4.2,4.1,4.1],MG:[2.0,2.0,1.9,1.9,1.9],PHOS:[3.5,3.4,3.5,3.4,3.4],UA:[4.5,4.4,4.4,4.3,4.4],CA:[9.4,9.3,9.4,9.3,9.3],
+  CRP:[4,5,4,6,5],ALB:[4.2,4.2,4.1,4.1,4.0]},
+  ext:{GLU:94,A1C:5.4,INS:8,TRIG:118,HDL:56,LDL:108,APOB:86,LPA:14,TC:184,GGT:22,VITD:24,B12:430,FOL:9,FE:72,IL6:3.2,TNF:5.4,FERR:150,HCY:9,UACR:8},dr:{}},
+ {id:'TMC-REF-0412',sex:'F',age:58,prog:'Oncology',ref:1,dx:'Referred for work-up: suspected ovarian malignancy',reg:'Not started · baseline work-up',tags:[],primary:['CA125'],start:'2026-10-24',
+  tp:[['Referral',0,'R']],s:{
+  WBC:[9.8],ANC:[7.1],ALC:[1.3],HB:[10.2],PLT:[472],CA125:[640],CEA:[3.1],LDH:[318],
+  ALT:[26],AST:[30],BILI:[0.6],ALP:[162],CREA:[0.8],K:[4.3],MG:[1.9],PHOS:[3.6],UA:[5.9],CA:[9.4],CRP:[34],ALB:[3.1]},
+  ext:{GLU:104,A1C:5.7,INS:9,TRIG:128,HDL:47,LDL:112,APOB:90,LPA:16,TC:186,GGT:41,VITD:17,B12:390,FOL:6,FE:38,IL6:12.4,TNF:9.1,FERR:520,HCY:11,UACR:14},dr:{}},
  {id:'BURAK-SEVERE-005-R5',sex:'M',age:58,prog:'General',dx:'Metabolic & renal risk',reg:'—',tags:[],primary:[],start:'2026-06-20',tp:TPR,s:{},
   ext:{GLU:265,A1C:10.5,INS:42,TRIG:450,HDL:24,LDL:162,APOB:110,LPA:48,TC:248,ALT:24,AST:22,GGT:40,ALP:110,BILI:0.7,ALB:4.3,CREA:4.4,UACR:480,K:5.0,PHOS:4.6,UA:7.8,CA:9.0,MG:2.0,CRP:12,IL6:1.8,TNF:4.2,FERR:420,HCY:8.5,WBC:6,ANC:3.72,ALC:1.32,PLT:245,HB:12.4,VITD:22,B12:380,FOL:7,FE:70,ZON:48,CALP:32},
   dr:{GLU:.35,A1C:.3,INS:.3,TRIG:.4,CREA:.6,UACR:.7,CRP:.6,FERR:.4}},
@@ -477,38 +563,46 @@ function evalCheck(p,c){
     case '<=xULN':label=v===1?`${nm} within upper limit`:`${nm} ≤ ${v}× ULN`;if(has){ok=L<=v*m.hi;obs=fmt(L);}break;
     case 'rise%':{label=`${nm} up ≥${v}% from baseline`;const b=k?base(p,k):null;if(has&&b&&cnt>1){const d=(L-b)/b*100;ok=d>=v;obs=`${fmt(b)} → ${fmt(L)} (${sgn(d)}%)`;}break;}
     case 'fall%':{label=`${nm} down ≥${v}% from baseline`;const b=k?base(p,k):null;if(has&&b&&cnt>1){const d=(L-b)/b*100;ok=-d>=v;obs=`${fmt(b)} → ${fmt(L)} (${sgn(d)}%)`;}break;}
-    case 'riseNadir%':{label=`${nm} up ≥${v}% from nadir`;const n=k?nadirPrev(p,k):null;if(has&&n){const d=(L-n)/n*100;ok=d>=v;obs=`${fmt(n)} → ${fmt(L)} (${sgn(d)}%)`;}break;}
-    case 'deepen':{label=`${nm} nadir deepening across cycles`;const nd=p.tp.map((t,i)=>t[2]==='N'?rows(p)[i][k]:null).filter(x=>x!=null);if(nd.length>=2){ok=nd.at(-1)<nd[0]*(1-v/100);obs=nd.map(fmt).join(' → ');}break;}
+    case 'riseNadir%':{label=`${nm} up ≥${v}% from lowest value`;const n=k?nadirPrev(p,k):null;if(has&&n){const d=(L-n)/n*100;ok=d>=v;obs=`${fmt(n)} → ${fmt(L)} (${sgn(d)}%)`;}break;}
+    case 'deepen':{label=`${nm} low points deepening across cycles`;const nd=p.tp.map((t,i)=>t[2]==='N'?rows(p)[i][k]:null).filter(x=>x!=null);if(nd.length>=2){ok=nd.at(-1)<nd[0]*(1-v/100);obs=nd.map(fmt).join(' → ');}break;}
   }
   return {ok,obs,label,k,L};}
 function runChecks(p,checks,min){const r=checks.map(c=>evalCheck(p,c));const ev=r.filter(x=>x.ok!==null);const met=ev.filter(x=>x.ok).length;return {r,met,ev:ev.length,trig:met>=min};}
 function runSent(p,s){const o=runChecks(p,s.checks,2);o.hard=(s.hard||[]).map(c=>({...evalCheck(p,c),msg:c[3]})).filter(x=>x.ok);return o;}
-const applies=(p,x)=>(!x.onc||isOnc(p))&&(!x.app||p.tags.includes(x.app));
-function readiness(p){if(!isOnc(p))return null;
-  const res=RULES.filter(r=>applies(p,r)).map(r=>{const v=state.thr[r.id]??r.v;return {...r,v,e:evalCheck(p,[r.m,r.op,v])};});
+const applies=(p,x)=>(!x.onc||isOnc(p))&&(!x.gen||!isOnc(p))&&(!x.app||p.tags.includes(x.app));
+function readiness(p){if(!isOnc(p)||p.ref)return null;
+  const cur=rows(p).at(-1);
+  const res=RULES.filter(r=>applies(p,r)).map(r=>{const v=state.thr[r.id]??r.v;const e=evalCheck(p,[r.m,r.op,v]);if(cur[r.m]==null){e.ok=null;e.obs='pending';}return {...r,v,e};});
   const hardFail=res.filter(x=>x.hard&&x.e.ok===false),softFail=res.filter(x=>!x.hard&&x.e.ok===false);
   const sent=SENT.filter(s=>s.onc&&applies(p,s)).map(s=>({s,o:runSent(p,s)})).filter(x=>x.o.trig);
-  return {res,hardFail,softFail,sent,verdict:hardFail.length?'HOLD':(softFail.length||sent.length)?'REVIEW':'GO'};}
+  const missing=res.filter(x=>x.e.ok===null);
+  /* No status is inferred while required data is missing or pending. */
+  return {res,hardFail,softFail,sent,missing,verdict:missing.length?'INC':hardFail.length?'HOLD':(softFail.length||sent.length)?'REVIEW':'GO'};}
 function response(p){const k=p.primary[0];if(!k)return null;const b=base(p,k),l=latest(p,k),n=nadirPrev(p,k);if(b==null)return null;
   const chg=(l-b)/b*100,fromN=n?(l-n)/n*100:null,pre=p.tp.at(-1)[1]<=0;
-  return {k,b,l,n,chg,fromN,pre,st:pre?'Baseline':fromN!=null&&fromN>25?'Rising from nadir':chg<=-50?'Responding':chg<0?'Partial decline':'Stable'};}
-function headline(p,rd){const rs=response(p),cyc=p.now.startsWith('C')?'cycle '+p.now.slice(1).split(' ')[0]:'the next dose';
-  if(rd.hardFail.length){const x=rd.hardFail[0],o=latest(p,x.m);
-    return {ANC:`Neutrophils too low for ${cyc} (ANC ${fmt(o)}; protocol needs ≥ ${x.v}).`,PLT:`Platelets too low for ${cyc} (${fmt(o)}; protocol needs ≥ ${x.v}).`,EGFR:`Kidney function below the platinum limit (eGFR ${fmt(o)}; protocol needs ≥ ${x.v}).`,ALT:`ALT above the dosing limit (${fmt(o)} U/L).`,BILI:`Bilirubin above the dosing limit (${fmt(o)} mg/dL).`}[x.m];}
+  return {k,b,l,n,chg,fromN,pre,st:pre?'Baseline':fromN!=null&&fromN>25?'Rising from low point':chg<=-50?'Falling':chg<0?'Partial decline':'Stable'};}
+function headline(p,rd){const rs=response(p),cyc=p.now.startsWith('C')?'cycle '+p.now.slice(1).split(' ')[0]:'the first cycle';
+  if(rd.missing.length)return `${rd.missing.map(x=>x.label.replace(/ \(.*\)/,'').replace(/s$/,'')).join(', ')} result pending. No status is inferred until it arrives.`;
+  if(rd.hardFail.length){const x=rd.hardFail[0],o=latest(p,x.m),sym=x.op.includes('<')?'≤':'≥';
+    const xu=x.op.includes('xULN');return `${x.label.replace(/ \(.*\)/,'')} ${fmt(o)} ${xu?meta(x.m).u:x.u} for ${cyc}; protocol requires ${sym} ${x.v}${xu?' × upper limit':''}. Oncologist decision required.`;}
   const ids=rd.sent.map(x=>x.s.id);
-  if(ids.includes('TLS'))return 'Thresholds met, but tumour-lysis risk before the first dose.';
-  if(ids.includes('TUMR'))return `Thresholds met, but ${M[rs.k].n} is rising again (+${Math.round(rs.fromN)}% from nadir).`;
-  if(ids.includes('NEPH'))return 'Thresholds met, but nephrotoxic pattern needs review.';
-  if(ids.includes('MYELO'))return 'Thresholds met, but marrow reserve is low.';
-  if(ids.includes('HOST'))return 'Thresholds met; nutrition and inflammation need attention.';
-  if(rd.softFail.length)return `Thresholds met; haemoglobin below advisory level (${fmt(latest(p,'HB'))}).`;
-  return `All pre-cycle checks passed for ${cyc}${rs&&rs.st==='Responding'?` · ${M[rs.k].n} down ${Math.abs(Math.round(rs.chg))}%`:''}.`;}
+  const nd=p.tp.map((t,i)=>t[2]==='N'?rows(p)[i].ANC:null).filter(x=>x!=null);
+  if(ids.includes('TLS'))return 'Thresholds met; baseline results meet tumour-lysis laboratory criteria before the first cycle.';
+  if(ids.includes('TUMR'))return `Thresholds met; ${M[rs.k].n} is ${Math.round(rs.fromN)}% above its lowest value.`;
+  if(ids.includes('NEPH'))return 'Thresholds met; creatinine, magnesium and potassium show a nephrotoxic pattern.';
+  if(ids.includes('MYELO'))return nd.length>=2?`Thresholds met; neutrophil low points deepening across cycles: ${nd.map(fmt).join(' → ')}.`:'Thresholds met; two or more blood counts are low.';
+  if(ids.includes('HOST'))return 'Thresholds met; albumin, CRP and PNI point to low nutritional reserve.';
+  if(rd.softFail.length)return `Thresholds met; haemoglobin below advisory level (${fmt(latest(p,'HB'))} g/dL).`;
+  return `All laboratory criteria configured for this regimen are met for ${cyc}.`;}
+function baselineFindings(p){const L=rows(p).at(-1);
+  const keys=['CA125','CEA','CA153','CA199','LDH','HB','PLT','ALB','CRP','ALP','CA','UA'].filter(k=>L[k]!=null&&bad(sev(k,L[k])));
+  return keys.map(k=>({k,v:L[k],s:sev(k,L[k])}));}
 function hardAlerts(p){const L=rows(p).at(-1),a=[];
   if(L.EGFR!=null&&L.EGFR<30)a.push(['Renal dysfunction — critical eGFR','Renal']);
   if(L.UACR>300&&L.CREA>1.2)a.push(['Renal injury — elevated UACR with creatinine','Renal']);
   if(L.CRP>10&&(L.FERR>200||L.IL6>5))a.push(['Severe systemic inflammation','Inflammation']);
   if(L.GLU>250)a.push(['Severe hyperglycaemia — glucose above 250','Metabolic']);
-  if(isOnc(p)){const rd=readiness(p);rd.hardFail.forEach(x=>a.push([`Pre-cycle hold — ${x.label} ${x.e.obs} (needs ${x.op.includes('<')?'≤':'≥'} ${x.v} ${x.u})`,'Oncology']));
+  if(isOnc(p)&&!p.ref){const rd=readiness(p);rd.hardFail.forEach(x=>a.push([`Protocol threshold not met — ${x.label} ${x.e.obs} (protocol requires ${x.op.includes('<')?'≤':'≥'} ${x.v} ${x.u})`,'Oncology']));
     SENT.filter(s=>s.onc&&applies(p,s)).forEach(s=>runSent(p,s).hard.forEach(h=>a.push([h.msg,'Oncology'])));}
   return a;}
 function profile(p){const L=rows(p).at(-1);const meas=Object.keys(M).filter(k=>L[k]!=null);const ab=meas.filter(k=>bad(sev(k,L[k])));
@@ -522,10 +616,10 @@ const ICON={dash:'<rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="
 const NAV=[['OVERVIEW',[['dashboard','Dashboard','dash']]],['DATA & PATIENTS',[['ingest','Data ingestion','up'],['patients','Patients','pts']]],['CLINICAL INTELLIGENCE',[['ams','AMS','flask'],['reports','Clinical reports','rep']]],['POPULATION',[['pop','Population health','pulse']]],['STEWARDSHIP',[['amsi','AMS Insights','bulb'],['amsf','AMS Financials','wal']]],['ADMINISTRATION',[['test','Test Data','test'],['audit','Audit trail','aud'],['settings','Settings','gear']]]];
 function holdCount(){return P.filter(p=>{const r=readiness(sliceP(p,lastAt(p)));return r&&r.verdict==='HOLD';}).length;}
 function renderSide(){const holds=holdCount();const cur=state.view==='analysis'?'patients':state.view;
-  $('side').innerHTML=`<div class="brand"><b>Burakomics</b><span>Health Analytics</span></div>`+NAV.map(([h,items])=>`<div class="navgrp"><h4>${h}</h4>${items.map(([id,l,ic])=>`<button class="nav" data-nav="${id}" aria-current="${cur===id?'page':'false'}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${ICON[ic]}</svg>${l}${id==='patients'&&holds?`<span class="cnt" title="Oncology patients on pre-cycle hold">${holds}</span>`:''}</button>`).join('')}</div>`).join('')+
+  $('side').innerHTML=`<div class="brand"><b>Burakomics</b><span>Health Analytics</span></div>`+NAV.map(([h,items])=>`<div class="navgrp"><h4>${h}</h4>${items.map(([id,l,ic])=>`<button class="nav" data-nav="${id}" aria-current="${cur===id?'page':'false'}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">${ICON[ic]}</svg>${l}${id==='patients'&&holds?`<span class="cnt" title="Oncology patients with a protocol threshold not met">${holds}</span>`:''}</button>`).join('')}</div>`).join('')+
   `<div class="me"><i>SA</i><div>Super Administrator<small>Superadmin</small></div></div>`;}
 function chart(p,k,opt={}){
-  const Rw=rows(p),W=620,H=230,pl=48,pr=78,pt=18,pb=34,m=meta(k);
+  const Rw=rows(p),W=920,H=250,pl=48,pr=84,pt=18,pb=34,m=meta(k);
   const pts=p.tp.map((t,i)=>({x:t[1],y:Rw[i][k],t})).filter(d=>d.y!=null);
   if(!pts.length)return '<p class="small">No data for this marker.</p>';
   const minX=p.tp[0][1],span=(p.tp.at(-1)[1]-minX)||1,ths=opt.th||[];
@@ -541,6 +635,11 @@ function chart(p,k,opt={}){
   const dots=pts.map(d=>`<circle class="${d.t[2]==='N'?'nd':'pt'}" cx="${X(d.x)}" cy="${Y(d.y)}" r="${d.t[2]==='N'?4:3.6}"><title>${d.t[0]}: ${fmt(d.y)}</title></circle>`).join('');
   const e=pts.at(-1);
   return `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(m.full||m.n)} over time">${g}${area}<path class="ln" d="${line}"/>${dots}<text class="lv" x="${Math.min(X(e.x)+8,W-pr-28)}" y="${Y(e.y)-9}">${fmt(e.y)}</text></svg>`;}
+function spark(vals,w=72,h=20){const pts=vals.map((v,i)=>[i,v]).filter(d=>d[1]!=null);if(pts.length<2)return '';
+  const xs=pts.map(d=>d[0]),ys=pts.map(d=>d[1]);const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const X=x=>2+(x-x0)/((x1-x0)||1)*(w-6),Y=y=>h-3-(y-y0)/((y1-y0)||1)*(h-6);
+  const d=pts.map((q,i)=>(i?'L':'M')+X(q[0]).toFixed(1)+' '+Y(q[1]).toFixed(1)).join(' ');const e=pts.at(-1);
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}" fill="none" stroke="#0f9d8f" stroke-width="1.5"/><circle cx="${X(e[0])}" cy="${Y(e[1])}" r="2.4" fill="#0f9d8f"/></svg>`;}
 function grad(k,v){const m=meta(k);let f;if(m.hi!=null&&m.hi>0)f=v/(m.hi*2);else if(m.lo)f=1-v/(m.lo*2);else f=v/2;f=Math.max(0.02,Math.min(0.98,f));return `<div class="grad"><i style="left:${(f*100).toFixed(1)}%"></i></div>`;}
 
 /* ======================= DASHBOARD ======================= */
@@ -548,24 +647,25 @@ function renderDashboard(){
   const items=P.map((p,i)=>{const pv=sliceP(p,lastAt(p));return {i,p,pv,rd:readiness(pv),rk:riskOf(pv)};});
   const onc=items.filter(x=>x.rd),c=v=>onc.filter(x=>x.rd.verdict===v).length,reports=P.reduce((s,p)=>s+p.tp.filter(t=>t[2]!=='N').length,0);
   const segs={Critical:0,High:0,Moderate:0,Low:0};items.forEach(x=>segs[x.rk.lab]++);
-  const order={HOLD:0,REVIEW:1,GO:2},W=state.w;
-  return `<div class="sechead"><span class="small">Mon 26 Oct 2026 · Tata Memorial tenant · demo data</span><button class="btn" id="cfgBtn" aria-expanded="${state.cfg}">⚙ Configure dashboard</button></div>
-  ${state.cfg?`<div class="cfg">${[['kpi','Key figures'],['verdict','Pre-cycle status'],['onc','Oncology day-care list'],['risk','Clinical risk distribution'],['recent','Recent reports']].map(([k,l])=>`<label><input type="checkbox" data-w="${k}" ${W[k]?'checked':''}> ${l}</label>`).join('')}</div>`:''}
-  ${W.kpi?`<div class="kpi">
-    <div class="card"><div class="eb">Total patients</div><div class="n">${P.length}</div><div class="small">${onc.length} oncology · ${P.length-onc.length} general</div></div>
-    <div class="card"><div class="eb">Reports processed</div><div class="n">${reports}</div><div class="small">PDF and CSV payloads</div></div>
-    <div class="card"><div class="eb">Critical risk</div><div class="n" style="color:var(--bad)">${segs.Critical}</div><div class="small">Force high risk active</div></div>
-    <div class="card"><div class="eb">On chemotherapy</div><div class="n">${onc.length}</div><div class="small">Pre-cycle check enabled</div></div></div>`:''}
-  ${W.verdict?`<div class="g3">
-    <div class="vbox HOLD"><div class="eb" style="color:inherit">Hold</div><div class="n">${c('HOLD')}</div><span>A pre-cycle safety threshold is not met</span></div>
-    <div class="vbox REVIEW"><div class="eb" style="color:inherit">Review</div><div class="n">${c('REVIEW')}</div><span>Thresholds met, pattern flagged</span></div>
-    <div class="vbox GO"><div class="eb" style="color:inherit">Go</div><div class="n">${c('GO')}</div><span>Clear for the next dose</span></div></div>`:''}
-  ${W.onc?`<div class="card" style="padding:0"><div class="mp-top"><b>ONCOLOGY DAY-CARE · TODAY</b><span class="small">Sorted by pre-cycle status. Click a patient to open the Burak analysis.</span></div>
+  const order={HOLD:0,REVIEW:1,INC:2,GO:3},W=state.w,refs=items.filter(x=>x.p.ref);
+  return `<div class="sechead"><span class="small">Mon 26 Oct 2026 · Tata Memorial tenant · illustrative demonstration data, not real patients</span><button class="btn" id="cfgBtn" aria-expanded="${state.cfg}">⚙ Configure dashboard</button></div>
+  ${state.cfg?`<div class="cfg">${[['kpi','Key figures'],['verdict','Pre-cycle review status'],['onc','Oncology day-care list'],['risk','Clinical risk distribution'],['recent','Recent reports']].map(([k,l])=>`<label><input type="checkbox" data-w="${k}" ${W[k]?'checked':''}> ${l}</label>`).join('')}</div>`:''}
+  ${W.kpi?`<div class="kpibar">
+    <div><div class="eb">Total patients</div><div class="n">${P.length}</div><div class="small">${onc.length} on chemotherapy · ${refs.length} new referral · ${P.length-onc.length-refs.length} general</div></div>
+    <div><div class="eb">Reports processed</div><div class="n">${reports}</div><div class="small">PDF and CSV payloads</div></div>
+    <div><div class="eb">Critical risk</div><div class="n" style="color:var(--bad)">${segs.Critical}</div><div class="small">Force high risk active</div></div>
+    <div><div class="eb">Due for a cycle today</div><div class="n">${onc.length}</div><div class="small">Pre-cycle review enabled</div></div></div>`:''}
+  ${W.verdict?`<div class="card"><div class="sechead"><div class="eb" style="margin:0">Pre-cycle review · today</div><span class="small">${onc.length} patients</span></div>
+    <div class="statbar">${['HOLD','REVIEW','INC','GO'].map(v=>c(v)?`<b style="width:${c(v)/onc.length*100}%;background:${SC[v]}" title="${VL[v]}: ${c(v)}"></b>`:'').join('')}</div>
+    <div class="statleg">${['HOLD','REVIEW','INC','GO'].map(v=>`<span><i style="background:${SC[v]}"></i>${VL[v]} <b>${c(v)}</b></span>`).join('')}</div></div>`:''}
+  ${W.onc?`<div class="card" style="padding:0"><div class="mp-top"><b>ONCOLOGY DAY-CARE · TODAY</b><span class="small">Sorted by pre-cycle review status. Click a patient to open the Burak analysis.</span></div>
     <div class="tablewrap"><table><thead><tr><th>Patient</th><th>Diagnosis</th><th>Regimen</th><th>Visit</th><th>Status</th><th>Reason</th></tr></thead><tbody>
-    ${onc.sort((a,b)=>order[a.rd.verdict]-order[b.rd.verdict]).map(x=>`<tr class="rowlink" tabindex="0" data-open="${x.i}"><td><b>${x.p.id}</b></td><td>${esc(x.p.dx.split(',')[0])}</td><td class="small">${esc(x.p.reg.split(' (')[0].split(',')[0])}</td><td>${x.pv.now}</td><td><span class="vp ${x.rd.verdict}">${x.rd.verdict}</span></td><td style="white-space:normal;min-width:260px">${esc(headline(x.pv,x.rd))}</td></tr>`).join('')}</tbody></table></div></div>`:''}
+    ${onc.sort((a,b)=>order[a.rd.verdict]-order[b.rd.verdict]).map(x=>`<tr class="rowlink" tabindex="0" data-open="${x.i}"><td><b>${x.p.id}</b></td><td>${esc(x.p.dx.split(',')[0])}</td><td class="small">${esc(x.p.reg.split(' (')[0].split(',')[0])}</td><td>${x.pv.now}</td><td><span class="vp ${x.rd.verdict}">${VL[x.rd.verdict]}</span></td><td style="white-space:normal;min-width:260px">${esc(headline(x.pv,x.rd))}</td></tr>`).join('')}
+    ${refs.map(x=>`<tr class="rowlink" tabindex="0" data-open="${x.i}"><td><b>${x.p.id}</b></td><td>New referral</td><td class="small">Not started</td><td>${x.pv.now}</td><td><span class="vp BASE">Baseline</span></td><td style="white-space:normal;min-width:260px">First report at referral: ${baselineFindings(x.pv).length} work-up markers outside range. For oncologist review with imaging and pathology.</td></tr>`).join('')}</tbody></table></div>
+    <div class="tfoot">Every status shows the rule, the threshold and the observed value. It flags for review; it never instructs treatment.</div></div>`:''}
   <div class="g2">
   ${W.risk?`<div class="card"><div class="eb">Clinical risk distribution</div><div style="display:flex;flex-direction:column;gap:10px">${Object.entries(segs).map(([k,v])=>`<div class="hbar"><span class="t">${k}</span><span class="tr"><b style="width:${v/P.length*100}%;background:${k==='Critical'?'var(--bad)':k==='High'?'#f97316':k==='Moderate'?'#eab308':'var(--ok)'}"></b></span><b>${v}</b></div>`).join('')}</div></div>`:''}
-  ${W.recent?`<div class="card"><div class="eb">Recent reports</div><table><tbody>${items.map(x=>({x,d:dateOf(x.p,lastAt(x.p))})).sort((a,b)=>b.d.localeCompare(a.d)).slice(0,6).map(({x,d})=>`<tr class="rowlink" tabindex="0" data-open="${x.i}"><td><b>${x.p.id}</b></td><td class="small">${d}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${x.rd.verdict}</span>`:`<span class="chip">${x.rk.lab}</span>`}</td></tr>`).join('')}</tbody></table></div>`:''}
+  ${W.recent?`<div class="card"><div class="eb">Recent reports</div><table><tbody>${items.map(x=>({x,d:dateOf(x.p,lastAt(x.p))})).sort((a,b)=>b.d.localeCompare(a.d)).slice(0,6).map(({x,d})=>`<tr class="rowlink" tabindex="0" data-open="${x.i}"><td><b>${x.p.id}</b></td><td class="small">${d}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${VL[x.rd.verdict]}</span>`:`<span class="chip">${x.rk.lab}</span>`}</td></tr>`).join('')}</tbody></table></div>`:''}
   </div>`;}
 
 /* ======================= PATIENTS ======================= */
@@ -576,8 +676,8 @@ function renderPatients(){
   return `<div class="ahead"><input class="sel grow" id="pq" placeholder="Search patients by ID or diagnosis" value="${esc(state.plist)}" aria-label="Search patients">
     <select class="sel" id="pf" aria-label="Programme">${['All','Oncology','General'].map(o=>`<option ${state.pfilter===o?'selected':''}>${o}</option>`).join('')}</select></div>
   <div class="card" style="padding:0"><div class="mp-top"><b>PATIENT LIST</b><span class="small">${list.length} of ${P.length} patients</span></div>
-  <div class="tablewrap"><table><thead><tr><th>S.No</th><th>Patient ID</th><th>Age / Sex</th><th>Programme</th><th>Segment</th><th>Clinical risk</th><th>Reports</th><th>Last report</th><th>Pre-cycle</th></tr></thead><tbody>
-  ${list.map((x,n)=>{const top=Object.entries(x.pr.byCat).sort((a,b)=>b[1]-a[1])[0];return `<tr class="rowlink" tabindex="0" data-open="${x.i}"><td>${String(n+1).padStart(2,'0')}</td><td><b>${x.p.id}</b><div class="small">${esc(x.p.dx)}</div></td><td>${x.p.age} / ${x.p.sex}</td><td>${x.p.prog==='Oncology'?'<span class="chip new">Oncology</span>':'<span class="chip">General</span>'}</td><td>${top?CNAME[top[0]]+' Dominant':'Balanced'}</td><td><span class="chip ${x.rk.lab==='Critical'?'bad':x.rk.lab==='Low'?'ok':'warn'}">${x.rk.lab} · ${x.rk.sc}</span></td><td>${x.p.tp.filter(t=>t[2]!=='N').length}</td><td>${dateOf(x.p,lastAt(x.p))}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${x.rd.verdict}</span>`:'<span class="small">—</span>'}</td></tr>`;}).join('')}
+  <div class="tablewrap"><table><thead><tr><th>S.No</th><th>Patient ID</th><th>Age / Sex</th><th>Programme</th><th>Segment</th><th>Clinical risk</th><th>Reports</th><th>Last report</th><th>Pre-cycle status</th></tr></thead><tbody>
+  ${list.map((x,n)=>{const top=Object.entries(x.pr.byCat).sort((a,b)=>b[1]-a[1])[0];return `<tr class="rowlink" tabindex="0" data-open="${x.i}"><td>${String(n+1).padStart(2,'0')}</td><td><b>${x.p.id}</b><div class="small">${esc(x.p.dx)}</div></td><td>${x.p.age} / ${x.p.sex}</td><td>${x.p.ref?'<span class="chip new">Oncology · referral</span>':x.p.prog==='Oncology'?'<span class="chip new">Oncology</span>':'<span class="chip">General</span>'}</td><td>${top?CNAME[top[0]]+' Dominant':'Balanced'}</td><td><span class="chip ${x.rk.lab==='Critical'?'bad':x.rk.lab==='Low'?'ok':'warn'}">${x.rk.lab} · ${x.rk.sc}</span></td><td>${x.p.tp.filter(t=>t[2]!=='N').length}</td><td>${dateOf(x.p,lastAt(x.p))}</td><td>${x.rd?`<span class="vp ${x.rd.verdict}">${VL[x.rd.verdict]}</span>`:x.p.ref?'<span class="vp BASE">Baseline</span>':'<span class="small">—</span>'}</td></tr>`;}).join('')}
   </tbody></table></div></div>`;}
 
 /* ======================= ANALYSIS (Clinical Data Intake & Baseline) ======================= */
@@ -588,20 +688,26 @@ function renderAnalysis(){
   const ratio=pr.meas.length?pr.ab.length/pr.meas.length:0,mean=pr.ab.length?pr.ab.reduce((s,k)=>s+Math.abs(Math.log(scdi(k,pr.L[k]))),0)/pr.ab.length+1:1;
   const worst=pr.ab.map(k=>({k,d:Math.abs(Math.log(scdi(k,pr.L[k])))})).sort((a,b)=>b.d-a.d).slice(0,3);
   const cb=pr.ab.length>=8?'Elevated':pr.ab.length>=4?'Moderate':'Low';
-  const al=hardAlerts(pv),alShow=al.filter(a=>!a[0].startsWith('Pre-cycle hold'));
+  const al=hardAlerts(pv),alShow=al.filter(a=>!a[0].startsWith('Protocol threshold not met'));
   const opts=p.tp.map((t,i)=>`<option value="${i}" ${i===at?'selected':''}>${t[0]} · ${dateOf(p,i)}${i===lastAt(p)?' (latest)':''}</option>`).join('');
-  return `<div class="ahead"><select class="sel grow" id="psel" aria-label="Patient">${P.map((q,i)=>`<option value="${i}" ${i===state.pi?'selected':''}>${q.id}</option>`).join('')}</select>
-    <select class="sel" id="atsel" aria-label="Report">${opts}</select><select class="sel" aria-label="View"><option>Patient Overview</option></select></div>
+  const nrep=p.tp.length;
+  return `<div class="pbar">
+    <div class="pid"><span class="lbl">Patient</span><select id="psel" aria-label="Patient">${P.map((q,i)=>`<option value="${i}" ${i===state.pi?'selected':''}>${q.id}</option>`).join('')}</select></div>
+    <div><span class="lbl">Age · Sex</span><span class="val">${p.age} · ${p.sex}</span></div>
+    <div><span class="lbl">${p.ref?'Referral reason':p.prog==='Oncology'?'Diagnosis':'Programme'}</span><span class="val" title="${esc(p.dx)}">${esc(p.prog==='Oncology'?p.dx:'General · '+p.dx)}</span></div>
+    ${p.prog==='Oncology'?`<div><span class="lbl">Regimen</span><span class="val" title="${esc(p.reg)}">${esc(p.reg)}</span></div>`:''}
+    <div><span class="lbl">Report ${at+1} of ${nrep}</span><select id="atsel" aria-label="Report">${opts}</select></div>
+  </div>
   <div class="tabbar" role="tablist">${TABS.map(t=>`<button class="tab" role="tab" data-tab="${t[0]}" id="tab-${t[0]}" aria-selected="${state.tab===t[0]}">${t[1]}</button>`).join('')}</div>
   <div class="cards4">
-    <div class="card"><div class="eb">◈ Segment</div><div class="seg"><span class="code">${code}</span><div><div class="big">${top.length?CNAME[top[0][0]]+' Dominant':'Balanced'}</div><div class="chips" style="margin-top:6px">${top.length?`<span class="chip">${CNAME[top[0][0]]}: Elevated</span>`:''}<span class="chip">Gut: ${pr.L.ZON!=null?(pr.byCat.GUT?'Elevated':'Balanced'):'No data'}</span></div></div></div></div>
+    <div class="card"><div class="eb">◈ Segment</div><div class="seg"><span class="code">${code}</span><div><div class="big">${top.length?CNAME[top[0][0]]+' Dominant':'Balanced'}</div><div class="chips" style="margin-top:6px">${top.length?`<span class="chip">${CNAME[top[0][0]]}: Elevated</span>`:''}${pr.L.ZON!=null?`<span class="chip">Gut: ${pr.byCat.GUT?'Elevated':'Balanced'}</span>`:''}</div></div></div></div>
     <div class="card ${al.length?'risk':''}"><div class="eb">⊘ Clinical risk</div>${al.length?'<div class="force">FORCE HIGH RISK ACTIVE</div>':''}<div class="bigger">${rk.lab} <span class="small">Score ${rk.sc}</span></div><div class="small" style="font-size:11px">${al.length?al.length+' escalation trigger(s) in the current panel.':'No escalation triggers detected in the current panel.'}</div></div>
     <div class="card"><div class="eb">◌ SCDI burden</div><div class="bigger">${ratio>0.45?'High':ratio>0.2?'Moderate':'Low'}</div><div class="small" style="font-size:11px">Marker ${fmt(mean)} &nbsp; Ratio ${fmt(ratio)}</div><div class="chips" style="margin-top:6px">${top.slice(0,3).map(t=>`<span class="chip blue">${CNAME[t[0]]}</span>`).join('')}</div></div>
     <div class="card"><div class="eb">⚠ Clinical burden</div><div class="bigger">${cb}</div><div class="small" style="font-size:11px">Confidence: ${pr.meas.length>=20?'high':'moderate'}</div><ul class="blist">${worst.map(w=>`<li>${sev(w.k,pr.L[w.k])==='hi'?'Elevated':'Low'} ${M[w.k].full}</li>`).join('')}</ul></div>
   </div>
-  ${rd?`<div class="onco ${rd.verdict}"><div><div class="eb" style="margin:0">Oncology · pre-cycle check</div><div class="w">${rd.verdict}</div></div>
-    <div><b>${esc(headline(pv,rd))}</b><div class="small">${esc(p.dx)} · ${esc(p.reg)} · labs from ${pv.now}</div></div>
-    <div class="passed"><b style="font-size:13px;color:var(--fg)">${rd.res.filter(x=>x.e.ok).length} of ${rd.res.length}</b> checks passed${rd.res.some(x=>!x.e.ok)?`<div class="chips" style="justify-content:flex-end;margin-top:4px">${rd.res.filter(x=>!x.e.ok).map(x=>`<span class="chip ${x.hard?'bad':'warn'}">✗ ${x.label}</span>`).join('')}</div>`:''}</div></div>`:''}
+  ${rd?`<div class="ostrip ${rd.verdict}"><span class="vp ${rd.verdict}">${VL[rd.verdict]}</span><span class="msg">${esc(headline(pv,rd))}</span>
+    <span class="meta">${rd.res.filter(x=>x.e.ok).length} of ${rd.res.length} pre-cycle checks met${rd.res.filter(x=>!x.e.ok).map(x=>x.e.ok===null?`<span class="chip">${x.label} pending</span>`:`<span class="chip ${x.hard?'bad':'warn'}">✗ ${x.label}</span>`).join('')}</span></div>`:''}
+  ${p.ref?`<div class="ostrip BASE"><span class="vp BASE">Baseline</span><span class="msg">First report at referral (${dateOf(p,0)}). ${baselineFindings(pv).length} work-up markers outside range.</span><span class="meta">For oncologist review alongside imaging and pathology. Burak does not diagnose.</span></div>`:''}
   ${alShow.length?`<div class="alerts"><h3>⚠ HARD ALERTS (${alShow.length})</h3>${alShow.map(a=>`<div class="a">${esc(a[0])}<span class="s">${a[1]}</span></div>`).join('')}</div>`:''}
   <div style="display:flex;flex-direction:column;gap:16px">${({marker:tMarker,inflam:tInflam,sentinel:tSentinel,cohort:tCohort,handshake:tHandshake,velocity:tVelocity,report:tReport})[state.tab](pv)}</div>`;}
 
@@ -664,38 +770,52 @@ function tHandshake(p){const rs=response(p);
   const out=[];HS.filter(h=>applies(p,h)).forEach(h=>{const nodes=h.chain.map(raw=>{const k=alias(p,raw);if(!k)return {nm:'TUMOUR MARKER',v:null,s:'na'};const v=latest(p,k);return {nm:(M[k]?M[k].n:(k==='ASTALT'?'AST/ALT':k)),v,s:v==null?'na':bad(sev(k,v))?'bad':'ok'};});
     const ev=nodes.filter(n=>n.v!=null).length;if(ev<2)return;
     const ab=nodes.filter(n=>n.s==='bad').length;const c=ab===0?'ok':(ab>=2||ab===ev)?'bad':'warn';
-    let note='';if(h.chain[0]==='PRIMARY'&&rs&&!rs.pre)note=rs.st==='Responding'?`${M[rs.k].n} down ${Math.abs(Math.round(rs.chg))}% with albumin ${fmt(latest(p,'ALB'))}: burden falling, reserve holding.`:rs.st==='Rising from nadir'?`${M[rs.k].n} up ${Math.round(rs.fromN)}% from nadir with albumin ${fmt(latest(p,'ALB'))}: burden rising, reserve thinning.`:'';
+    let note='';if(h.chain[0]==='PRIMARY'&&rs&&!rs.pre)note=rs.st==='Falling'?`${M[rs.k].n} down ${Math.abs(Math.round(rs.chg))}% since baseline, albumin ${fmt(latest(p,'ALB'))} g/dL. Biochemical trend only; imaging remains the response standard.`:rs.st==='Rising from low point'?`${M[rs.k].n} ${Math.round(rs.fromN)}% above its lowest value, albumin ${fmt(latest(p,'ALB'))} g/dL. Biochemical trend only; imaging remains the response standard.`:'';
     out.push({r:{bad:0,warn:1,ok:2}[c],h:`<div class="hs ${c}"><span class="tag">${h.n}${h.onc?' · NEW':''}</span><div class="chain">${nodes.map((n,i)=>(i?'<span class="ar" aria-hidden="true">›</span>':'')+`<span class="n">${esc(n.nm)}<span class="${n.s}">(${n.v==null?'n/a':fmt(n.v)})</span></span>`).join('')}</div>${note?`<p>${esc(note)}</p>`:''}</div>`});});
   out.sort((a,b)=>a.r-b.r);
   return `<div class="tabhint">${out.filter(x=>x.r===0).length} red · ${out.filter(x=>x.r===1).length} amber · ${out.filter(x=>x.r===2).length} green. Red handshakes first.</div><div>${out.map(x=>x.h).join('')}</div>`;}
 
-function tVelocity(p){const Rw=rows(p),L=Rw.at(-1);
+function tVelocity(p){const Rw=rows(p),L=Rw.at(-1),n=p.tp.length,full=P[state.pi],rd=readiness(p);
+  const strip=`<div class="rtl" role="group" aria-label="Reports">${full.tp.map((t,i)=>`<button data-at="${i}" aria-pressed="${i===p.nowi}" class="${t[2]==='N'?'low':''}" ${i>p.nowi?'style="opacity:.45"':''}><span class="r">REPORT ${i+1}</span><span class="c">${t[0]}</span><span class="d">${dateOf(full,i)}</span></button>`).join('')}</div>`;
+  if(n<2){const bf=baselineFindings(p);
+    return `${strip}<div class="card"><div class="sechead"><h2>First report · ${dateOf(full,0)}</h2><span class="small">Baseline set. Trends appear from the second report.</span></div>
+    <div class="basecard" style="margin-top:10px"><div><div class="eb">Work-up markers outside range</div>
+    <table><thead><tr><th>Marker</th><th class="num">Value</th><th>Unit</th><th>Reference</th></tr></thead><tbody>${bf.length?bf.map(x=>`<tr><td><b>${M[x.k].full}</b></td><td class="num" style="color:${x.s==='hi'?'var(--bad)':'var(--blue)'};font-weight:700">${fmt(x.v)} ${x.s==='hi'?'↑':'↓'}</td><td class="small">${M[x.k].u}</td><td class="small">${M[x.k].hi==null?'≥ '+M[x.k].lo:M[x.k].lo+'–'+M[x.k].hi}</td></tr>`).join(''):'<tr><td colspan="4" class="small">None</td></tr>'}</tbody></table></div>
+    <div><div class="eb">What happens next</div><p class="small" style="margin:0 0 8px;font-size:12.5px">This report becomes the baseline. When treatment starts, every later report is compared with it here: values by report and date, change since baseline, and the low point after each cycle.</p>
+    <p class="small" style="margin:0;font-size:12.5px">Findings are for the oncologist's review alongside imaging and pathology. Burak does not screen for or diagnose cancer.</p></div></div></div>`;}
   const keys=Object.keys(M).filter(k=>ser(p,k).filter(v=>v!=null).length>=2);
-  if(!keys.length)return '<div class="card"><p class="small" style="margin:0">Velocity needs at least two reports. Choose a later report above.</p></div>';
-  const rd=readiness(p);let def=keys.find(k=>bad(sev(k,L[k])))||keys[0];
+  let def=keys.find(k=>bad(sev(k,L[k])))||keys[0];
   if(rd){const f=rd.hardFail.length?rd.hardFail[0].m:(p.primary[0]||'ANC');if(keys.includes(f))def=f;}
   if(!state.vel||!keys.includes(state.vel))state.vel=def;
-  const k=state.vel,m=M[k],span=(p.tp.at(-1)[1]-p.tp[0][1])||1;
-  const th=[];if(rd){if(k==='ANC')th.push({y:state.thr.anc??1.5,l:'Cycle ≥'+(state.thr.anc??1.5)});if(k==='PLT')th.push({y:state.thr.plt??100,l:'Cycle ≥'+(state.thr.plt??100)});if(k==='EGFR'&&p.tags.includes('platinum'))th.push({y:state.thr.egfr??60,l:'Platinum ≥'+(state.thr.egfr??60)});}
-  const vall=keys.map(x=>{const b=base(p,x),l=latest(p,x),d=b?(l-b)/b*100:0;return {x,b,l,d,per:d/(span/30)};}).sort((a,b)=>Math.abs(b.per)-Math.abs(a.per));
-  const sig=vall.filter(v=>Math.abs(v.d)>=10),vrows=state.velAll?vall:sig;
+  const k=state.vel,m=M[k];
+  const th=[];if(rd){if(k==='ANC')th.push({y:state.thr.anc??1.5,l:'Protocol ≥'+(state.thr.anc??1.5)});if(k==='PLT')th.push({y:state.thr.plt??100,l:'Protocol ≥'+(state.thr.plt??100)});if(k==='EGFR'&&p.tags.includes('platinum'))th.push({y:state.thr.egfr??60,l:'Platinum ≥'+(state.thr.egfr??60)});}
   const nd=rd?p.tp.map((t,i)=>t[2]==='N'?Rw[i].ANC:null).filter(x=>x!=null):[];
-  return `<div class="card"><div class="sechead"><h2>Velocity · ${m.full}</h2><select class="sel" id="velsel" aria-label="Marker">${keys.map(x=>`<option value="${x}" ${x===k?'selected':''}>${M[x].full}</option>`).join('')}</select></div>
-   <div class="small" style="margin:4px 0 8px">${rd?'Time axis anchored to chemotherapy cycle day 1. Hollow points are nadir draws.':'Change across reports.'} Green band = reference range.</div>${chart(p,k,{th})}
-   ${rd&&nd.length>=2?`<div class="small" style="margin-top:6px"><b>ANC nadir trend:</b> ${nd.map(fmt).join(' → ')} ${nd.at(-1)<nd[0]*0.8?'— deepening each cycle (cumulative marrow toxicity)':'— stable'}</div>`:''}</div>
-  <div class="card" style="padding:0"><div class="mp-top"><b>VELOCITY TABLE</b><span class="small">${state.velAll?'All markers':`${sig.length} marker(s) changed 10% or more`} · fastest first · click a row to chart it</span><button class="linkbtn" id="velMore" style="margin-left:auto">${state.velAll?'Show significant only':`Show all ${vall.length}`}</button></div><div class="tablewrap"><table><thead><tr><th>Marker</th><th>Line</th><th>First</th><th>Latest</th><th>Change</th><th>Per 30 days</th><th>Status</th></tr></thead><tbody>
-   ${vrows.map(v=>`<tr class="rowlink" data-vel="${v.x}"><td><b>${M[v.x].n}</b></td><td class="small">${catName(M[v.x].c)}</td><td>${fmt(v.b)}</td><td>${fmt(v.l)}</td><td class="${Math.abs(v.d)<5?'flat':v.d>0?'up':'down'}">${Math.abs(v.d)<5?'→':v.d>0?'↑':'↓'} ${sgn(v.d)}%</td><td>${sgn(v.per)}%</td><td><span class="cl ${cls(v.x,v.l)}">${cls(v.x,v.l)}</span></td></tr>`).join('')}</tbody></table></div></div>`;}
-
+  const info=keys.map(x=>{const b=base(p,x),l=latest(p,x),d=b?(l-b)/b*100:0;return {x,b,l,d,out:bad(sev(x,l))};});
+  const shown=state.velAll?info:info.filter(v=>Math.abs(v.d)>=10||v.out);
+  const cols=p.tp.map((t,i)=>({t,i}));
+  let body='';const CO=isOnc(p)?['ONCO','CBC','KIDNEY','LIVER','FIRE','NUTRIENT','SUGAR','CARDIAC','GUT'].map(c=>CATS.find(x=>x[0]===c)):CATS;CO.forEach(([c,cn])=>{const rs_=shown.filter(v=>M[v.x].c===c).sort((a,b)=>(b.out-a.out)||Math.abs(b.d)-Math.abs(a.d));if(!rs_.length)return;
+    body+=`<tr class="grp"><td colspan="${cols.length+4}">${cn.toUpperCase()}</td></tr>`;
+    body+=rs_.map(v=>`<tr class="rowlink ${v.x===k?'sel':''}" data-vel="${v.x}"><td class="mkc"><b>${M[v.x].n}</b><small>${M[v.x].u}</small></td><td class="small">${M[v.x].hi==null?'≥ '+M[v.x].lo:M[v.x].lo+'–'+M[v.x].hi}</td>
+      ${cols.map(({i})=>{const val=Rw[i][v.x];const sv=val==null?'na':sev(v.x,val);return `<td class="v ${sv==='hi'?'hi':sv==='lo'?'lo':sv==='na'?'na':''} ${i===p.nowi?'cur':''}">${val==null?'·':fmt(val)}</td>`;}).join('')}
+      <td class="num ${Math.abs(v.d)<5?'flat':v.d>0?'up':'down'}">${Math.abs(v.d)<5?'→':v.d>0?'↑':'↓'} ${sgn(v.d)}%</td><td>${spark_(ser(p,v.x))}</td></tr>`).join('');});
+  return `${strip}
+  <div class="card"><div class="sechead"><h2>${m.full} over ${n} reports</h2><select class="sel" id="velsel" aria-label="Marker">${keys.map(x=>`<option value="${x}" ${x===k?'selected':''}>${M[x].full}</option>`).join('')}</select></div>
+   <div class="small" style="margin:4px 0 6px">${rd?'Time axis anchored to chemotherapy cycle day 1. Hollow points are low-point draws (about day 10).':'Values across reports.'} Green band = reference range.</div>${chart(p,k,{th})}
+   ${rd&&nd.length>=2?`<div class="small" style="margin-top:4px"><b>Neutrophil low points:</b> ${nd.map(fmt).join(' → ')} ${nd.at(-1)<nd[0]*0.8?'— deepening across cycles':'— stable across cycles'}</div>`:''}</div>
+  <div class="card" style="padding:0"><div class="mp-top"><b>REPORT HISTORY</b><span class="small">${state.velAll?`All ${info.length} markers`:`${shown.length} of ${info.length} markers: changed 10% or more, or out of range`} · click a row to chart it</span><button class="linkbtn" id="velMore" style="margin-left:auto">${state.velAll?'Show changed only':'Show all markers'}</button></div>
+   <div class="tablewrap" style="max-height:520px"><table class="fs"><thead><tr><th>Marker</th><th>Reference</th>${cols.map(({t,i})=>`<th class="rh ${i===p.nowi?'cur':''}">R${i+1} · ${t[0]}<small>${dateOf(full,i).slice(5).split('-').reverse().join('/')}</small></th>`).join('')}<th class="num">Since R1</th><th>Trend</th></tr></thead><tbody>${body||`<tr><td colspan="${cols.length+4}" class="small">No marker changed 10% or more.</td></tr>`}</tbody></table></div></div>`;}
+function spark_(vals){return spark(vals);}
 function tReport(p){const pr=profile(p),rk=riskOf(p),rd=readiness(p),L=pr.L,al=hardAlerts(p);
   const sentOn=SENT.filter(s=>applies(p,s)).map(s=>({s,o:runSent(p,s)})).filter(x=>x.o.trig);
   const coh=COH.filter(c=>applies(p,c)).map(c=>{const o=runChecks(p,c.checks,99);return {c,pct:o.ev?Math.round(o.met/o.ev*100):0};}).filter(x=>x.pct>=50).sort((a,b)=>b.pct-a.pct);
   const fires=['CRP','IL6','TNF','FERR','HCY'].filter(k=>L[k]!=null),score=Math.round(fires.reduce((s,k)=>s+Math.min(L[k]/M[k].hi,3),0)/fires.length*100);
   let n=1;const sec=(c,t,b)=>`<div class="rsec ${c}"><h3>${n++}. ${t}</h3><div class="b">${b}</div></div>`;
-  return `<div class="rep"><div class="rephd"><h2>COMPREHENSIVE INTEGRATIVE HEALTH REPORT</h2><div class="p">Burakomics Health Analytics — Evidence-Based Biomarker Assessment${rd?' · Oncology pre-cycle module':''}</div>
+  return `<div class="rep"><div class="rephd"><h2>COMPREHENSIVE INTEGRATIVE HEALTH REPORT</h2><div class="p">Burakomics Health Analytics — Evidence-Based Biomarker Assessment${rd?' · Oncology pre-cycle review':''}</div>
    <div class="chips" style="margin-top:10px"><span class="chip">Report Date: ${dateOf(P[state.pi],p.nowi)}</span><span class="chip">Patient: ${p.id}</span><span class="chip">Report: ${p.now}</span></div></div>
    ${sec('s1','EXECUTIVE SUMMARY',`<p style="margin:0 0 8px">This report consolidates biomarker, inflammation, sentinel, cohort, handshake pathway and velocity findings. Primary drivers: <span class="hl">${al.length?esc(al.map(a=>a[0]).join(', ')):'none'}</span>. Risk level: <span class="hl">${rk.lab.toLowerCase()}</span> (score ${rk.sc}). Overall inflammation: <span class="hl">${score>100?'critical':score>70?'elevated':'normal'}</span> (${score}/100).</p>
      <p style="margin:0 0 6px">Patient journey: ${p.tp.filter(t=>t[2]!=='N').length} report(s) tracked.</p>${al.length?`<p style="margin:0 0 6px;color:var(--bad)">⚠ ${al.length} hard alert(s) require immediate clinical review.</p>`:''}<p style="margin:0;color:var(--bad)">⚠ ${pr.ab.length} marker(s) outside reference range require clinical correlation.</p>`)}
-   ${rd?sec('s7','ONCOLOGY · PRE-CYCLE READINESS',`<p style="margin:0 0 8px"><span class="vp ${rd.verdict}">${rd.verdict}</span> &nbsp;${esc(headline(p,rd))}</p><div class="tablewrap"><table><thead><tr><th>Check</th><th>Hospital threshold</th><th>Observed</th><th>Type</th><th>Result</th></tr></thead><tbody>${rd.res.map(x=>`<tr><td>${x.label}</td><td>${x.op.includes('<')?'≤':'≥'} ${x.v} ${x.u}</td><td>${esc(x.e.obs)}</td><td>${x.hard?'Hard stop':'Advisory'}</td><td style="font-weight:700;color:${x.e.ok?'var(--ok)':x.hard?'var(--bad)':'var(--warn)'}">${x.e.ok?'PASS':'FAIL'}</td></tr>`).join('')}</tbody></table></div><p class="small" style="margin:8px 0 0">Decision support for the treating oncologist. Thresholds are set by the hospital under Settings.</p>`):''}
+   ${p.ref?sec('s7','ONCOLOGY · BASELINE AT REFERRAL',`<p style="margin:0 0 8px"><span class="vp BASE">Baseline</span> &nbsp;First report at referral. ${baselineFindings(p).length} work-up markers outside range: ${baselineFindings(p).map(x=>`${M[x.k].full} ${fmt(x.v)} ${M[x.k].u}`).join(' · ')}.</p><p class="small" style="margin:0">For the oncologist's review alongside imaging and pathology. Burak does not screen for or diagnose cancer. Pre-cycle review starts when treatment begins.</p>`):''}
+   ${rd?sec('s7','ONCOLOGY · PRE-CYCLE REVIEW',`<p style="margin:0 0 8px"><span class="vp ${rd.verdict}">${VL[rd.verdict]}</span> &nbsp;${esc(headline(p,rd))}</p><div class="tablewrap"><table><thead><tr><th>Check</th><th>Hospital threshold</th><th>Observed</th><th>Type</th><th>Result</th></tr></thead><tbody>${rd.res.map(x=>`<tr><td>${x.label}</td><td>${x.op.includes('<')?'≤':'≥'} ${x.v} ${x.u}</td><td>${esc(x.e.obs)}</td><td>${x.hard?'Required':'Advisory'}</td><td style="font-weight:700;color:${x.e.ok===null?'var(--muted)':x.e.ok?'var(--ok)':x.hard?'var(--bad)':'var(--warn)'}">${x.e.ok===null?'PENDING':x.e.ok?'MET':'NOT MET'}</td></tr>`).join('')}</tbody></table></div><p class="small" style="margin:8px 0 0">Flags for review; it never instructs treatment. Every treatment decision stays with the treating oncologist. Thresholds come from the hospital's own protocol (Settings).</p>`):''}
    ${sec('s2','MARKER PROFILE (L1)',`<div class="small" style="margin-bottom:8px">Category-wise laboratory markers outside reference range.</div><div class="tablewrap"><table><thead><tr><th>Marker</th><th>Line</th><th>Value</th><th>Unit</th><th>Reference</th><th>Status</th></tr></thead><tbody>${pr.ab.map(k=>`<tr><td>${M[k].full}</td><td>${catName(M[k].c)}</td><td><b>${fmt(L[k])}</b></td><td>${M[k].u}</td><td>${M[k].hi==null?'≥ '+M[k].lo:M[k].lo+'–'+M[k].hi}</td><td><span class="cl ${cls(k,L[k])}">${cls(k,L[k])}</span></td></tr>`).join('')}</tbody></table></div>`)}
    ${sec('s3','INFLAMMATORY INDEX',`NLR ${fmt(L.NLR)} · PLR ${fmt(L.PLR)} · SII ${fmt(L.SII)} · CAR ${fmt(L.CAR)}${rd?` · mGPS ${L.MGPS} · PNI ${fmt(L.PNI)}`:''}`)}
    ${sec('s4','SENTINEL SCORE',sentOn.length?sentOn.map(x=>`<div>• <b>${x.s.n}</b>: ${x.o.met} of ${x.o.ev} markers out of line</div>`).join(''):'No sentinel patterns detected.')}
@@ -706,19 +826,20 @@ function tReport(p){const pr=profile(p),rk=riskOf(p),rd=readiness(p),L=pr.L,al=h
 /* ======================= SETTINGS / INGESTION / REPORTS ======================= */
 function renderSettings(){const holds=holdCount();
   return `<div class="card"><div class="sechead"><h2>Oncology · pre-cycle thresholds</h2><span class="chip new">Tenant: Tata Memorial</span></div>
-   <p class="small" style="max-width:70ch">The hospital owns these numbers. Burak applies them to every oncology report. Change one and press Enter; the dashboard, patient list and every analysis update.</p>
-   <div class="tablewrap"><table><thead><tr><th>Check</th><th>Threshold</th><th>Unit</th><th>Type</th><th>Applies to</th></tr></thead><tbody>${RULES.map(r=>`<tr><td><b>${r.label}</b></td><td>${r.op.includes('<')?'≤':'≥'} <input class="thr" type="number" step="any" id="thr-${r.id}" data-thr="${r.id}" value="${state.thr[r.id]??r.v}" aria-label="${esc(r.label)} threshold"></td><td>${r.u}</td><td>${r.hard?'<span class="chip bad">Hard stop</span>':'<span class="chip warn">Advisory</span>'}</td><td>${r.app?'Platinum regimens':'All regimens'}</td></tr>`).join('')}</tbody></table></div>
-   <p class="small" style="margin:10px 0 0">With these thresholds, <b>${holds}</b> oncology patient(s) are on HOLD today.</p></div>
+   <p class="small" style="max-width:70ch">Illustrative values from common practice. Every threshold is replaced by Tata's own protocol, confirmed by its clinicians, before any use. Change one and press Enter; the dashboard, patient list and every analysis update.</p>
+   <div class="tablewrap"><table><thead><tr><th>Check</th><th>Threshold</th><th>Unit</th><th>Type</th><th>Applies to</th></tr></thead><tbody>${RULES.map(r=>`<tr><td><b>${r.label}</b></td><td>${r.op.includes('<')?'≤':'≥'} <input class="thr" type="number" step="any" id="thr-${r.id}" data-thr="${r.id}" value="${state.thr[r.id]??r.v}" aria-label="${esc(r.label)} threshold"></td><td>${r.u}</td><td>${r.hard?'<span class="chip bad">Required</span>':'<span class="chip warn">Advisory</span>'}</td><td>${r.app?'Platinum regimens':'All regimens'}</td></tr>`).join('')}</tbody></table></div>
+   <p class="small" style="margin:10px 0 0">With these thresholds, <b>${holds}</b> oncology patient(s) have a protocol threshold not met today.</p></div>
+  <div class="scope"><b>Clear scope.</b> Burak flags and explains; every treatment decision stays with the treating oncologist. Not for cancer screening, diagnosis or prediction, and it does not detect febrile neutropenia. Tumour-marker trends are biochemical only; imaging and clinical assessment remain the standard.</div>
   <div class="card"><div class="sechead"><h2>What the oncology module adds to the pipeline</h2><span class="small">For the engineering team</span></div>
    <div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Stage</th><th>Added</th><th>Type</th></tr></thead><tbody>
-   ${[['Marker Profile','Oncology line (CEA, CA 15-3, CA 19-9, CA-125, LDH); ANC, ALC, phosphate, uric acid added to existing lines','Config'],['Inflammatory Index','mGPS and PNI beside NLR, PLR, SII, CAR','Config + score operator'],['Sentinel Score','5 oncology sentinels on the existing 2-of-3 rule','Config + 4 operators'],['Disease Cohort','7 oncology cohorts; regimen filter','Config + filter'],['System Handshake','Tumour burden, marrow reserve, drug clearance','Config + primary-marker alias'],['Velocity Analysis','Cycle-anchored axis, nadir trend','treatment.csv + small code'],['Report Center','Pre-cycle readiness section','Config'],['Dashboard / Patients','HOLD / REVIEW / GO status column and widget','View over existing results']].map(r=>`<tr><td><b>${r[0]}</b></td><td style="white-space:normal">${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table></div></div>`;}
+   ${[['Marker Profile','Oncology line: tumour markers where clinically relevant (e.g. CEA, CA 15-3), LDH; ANC, ALC, phosphate, uric acid added to existing lines','Config'],['Inflammatory Index','mGPS and PNI beside NLR, PLR, SII, CAR','Config + score operator'],['Sentinel Score','5 oncology sentinels on the existing 2-of-3 rule','Config + 4 operators'],['Disease Cohort','7 oncology cohorts (myelosuppression, biochemical response and progression, cachexia…); regimen filter','Config + filter'],['System Handshake','Tumour burden, marrow reserve, drug clearance','Config + primary-marker alias'],['Velocity Analysis','Cycle-anchored axis, low-point trend','treatment.csv + small code'],['Report Center','Pre-cycle review section with its reason','Config'],['Dashboard / Patients','Pre-cycle status column and widget (Threshold not met / Review / Checks met / Incomplete)','View over existing results']].map(r=>`<tr><td><b>${r[0]}</b></td><td style="white-space:normal">${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody></table></div></div>`;}
 function renderIngest(){return `<div class="card" style="padding:0"><div class="mp-top"><b>DATA INGESTION</b><span class="small">Existing PDF and CSV payloads. One new file for oncology.</span></div>
   <div class="tablewrap"><table><thead><tr><th>File</th><th>Columns</th><th>Status</th></tr></thead><tbody>
   <tr><td><b>Lab reports (PDF / CSV)</b></td><td style="white-space:normal">patient_id, sample_datetime, marker_code, value, unit, ref_low, ref_high</td><td><span class="chip ok">Existing</span></td></tr>
   <tr><td><b>patient.csv</b></td><td style="white-space:normal">patient_id, age, sex, programme, cancer_type, primary_marker, secondary_marker</td><td><span class="chip warn">+3 columns</span></td></tr>
   <tr><td><b>treatment.csv</b></td><td style="white-space:normal">patient_id, regimen_code, regimen_tags, cycle_no, cycle_day1_date, rt_start_date</td><td><span class="chip new">New · oncology</span></td></tr></tbody></table></div></div>
-  <div class="card" style="padding:0"><div class="mp-top"><b>RECENT PAYLOADS</b></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Reports</th><th>Last received</th><th>Programme</th></tr></thead><tbody>${P.map((p,i)=>`<tr class="rowlink" tabindex="0" data-open="${i}"><td><b>${p.id}</b></td><td>${p.tp.filter(t=>t[2]!=='N').length}${p.tp.some(t=>t[2]==='N')?` + ${p.tp.filter(t=>t[2]==='N').length} nadir`:''}</td><td>${dateOf(p,lastAt(p))}</td><td>${p.prog}</td></tr>`).join('')}</tbody></table></div></div>`;}
-function renderReports(){return `<div class="card" style="padding:0"><div class="mp-top"><b>CLINICAL REPORTS</b><span class="small">Open a report in the Report Center</span></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Report</th><th>Date</th><th>Status</th></tr></thead><tbody>${P.map((p,i)=>{const pv=sliceP(p,lastAt(p)),r=readiness(pv);return `<tr class="rowlink" tabindex="0" data-open="${i}" data-opentab="report"><td><b>${p.id}</b></td><td>${p.tp.at(-1)[0]}</td><td>${dateOf(p,lastAt(p))}</td><td>${r?`<span class="vp ${r.verdict}">${r.verdict}</span>`:`<span class="chip">${riskOf(pv).lab}</span>`}</td></tr>`;}).join('')}</tbody></table></div></div>`;}
+  <div class="card" style="padding:0"><div class="mp-top"><b>RECENT PAYLOADS</b></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Reports</th><th>Last received</th><th>Programme</th></tr></thead><tbody>${P.map((p,i)=>`<tr class="rowlink" tabindex="0" data-open="${i}"><td><b>${p.id}</b></td><td>${p.tp.filter(t=>t[2]!=='N').length}${p.tp.some(t=>t[2]==='N')?` + ${p.tp.filter(t=>t[2]==='N').length} low-point`:''}</td><td>${dateOf(p,lastAt(p))}</td><td>${p.prog}</td></tr>`).join('')}</tbody></table></div></div>`;}
+function renderReports(){return `<div class="card" style="padding:0"><div class="mp-top"><b>CLINICAL REPORTS</b><span class="small">Open a report in the Report Center</span></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Report</th><th>Date</th><th>Status</th></tr></thead><tbody>${P.map((p,i)=>{const pv=sliceP(p,lastAt(p)),r=readiness(pv);return `<tr class="rowlink" tabindex="0" data-open="${i}" data-opentab="report"><td><b>${p.id}</b></td><td>${p.tp.at(-1)[0]}</td><td>${dateOf(p,lastAt(p))}</td><td>${r?`<span class="vp ${r.verdict}">${VL[r.verdict]}</span>`:`<span class="chip">${riskOf(pv).lab}</span>`}</td></tr>`;}).join('')}</tbody></table></div></div>`;}
 
 const TITLES={dashboard:['Dashboard','Overview of patients, reports and pre-cycle status'],patients:['Patients','Standard patient list · open a patient to see the Burak analysis'],analysis:['Clinical Data Intake & Baseline','View detailed clinical Analysis and Patient Reports'],ingest:['Data ingestion','Lab payloads and treatment files'],settings:['Settings','Tenant configuration'],reports:['Clinical reports','Generated patient reports']};
 function render(){renderSide();const v=state.view;const T=TITLES[v]||[NAV.flatMap(g=>g[1]).find(x=>x[0]===v)[1],'Existing Burak module'];
@@ -732,6 +853,7 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('[data-tab]');if(t){state.tab=t.dataset.tab;render();$('tab-'+state.tab)?.focus();return;}
   const c=e.target.closest('[data-cat]');if(c){state.cat=c.dataset.cat;render();return;}
   const f=e.target.closest('[data-inf]');if(f){state.inf=f.dataset.inf;render();return;}
+  const ra=e.target.closest('[data-at]');if(ra){state.at[state.pi]=+ra.dataset.at;render();return;}
   const vl=e.target.closest('[data-vel]');if(vl){state.vel=vl.dataset.vel;render();return;}
   if(e.target.closest('#cfgBtn')){state.cfg=!state.cfg;render();return;}
   const on=e.target.closest('[data-only]');if(on){state.only=on.dataset.only==='1';render();return;}
